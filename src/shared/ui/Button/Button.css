@@ -1,0 +1,139 @@
+.ff-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .5rem;
+
+  border: none;
+  border-radius: var(--radius-md);
+
+  cursor: pointer;
+  user-select: none;
+  white-space: nowrap;
+
+  transition:
+    background-color .2s ease,
+    color .2s ease,
+    border-color .2s ease,
+    transform .15s ease,
+    opacity .2s ease,
+    box-shadow .2s ease;
+
+  font-weight: 500;
+}
+
+.ff-button:disabled {
+  opacity: .6;
+  cursor: not-allowed;
+}
+
+/* ---------- Variants ---------- */
+
+.ff-button--primary {
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+}
+
+.ff-button--secondary {
+  background: var(--color-secondary);
+  color: var(--color-on-secondary);
+}
+
+.ff-button--outline {
+  background: transparent;
+  border: 1px solid var(--color-border);
+}
+
+.ff-button--ghost {
+  background: transparent;
+}
+
+.ff-button--danger {
+  background: var(--color-danger);
+  color: white;
+}
+
+.ff-button--success {
+  background: var(--color-success);
+  color: white;
+}
+
+.ff-button--warning {
+  background: var(--color-warning);
+  color: black;
+}
+
+/* ---------- Sizes ---------- */
+
+.ff-button--xs {
+  padding: .25rem .5rem;
+  font-size: .75rem;
+}
+
+.ff-button--sm {
+  padding: .5rem .75rem;
+}
+
+.ff-button--md {
+  padding: .75rem 1rem;
+}
+
+.ff-button--lg {
+  padding: 1rem 1.25rem;
+}
+
+.ff-button--xl {
+  padding: 1.25rem 1.5rem;
+}
+
+/* ---------- Full Width ---------- */
+
+.ff-button--full {
+  width: 100%;
+}
+
+/* ---------- Content ---------- */
+
+.ff-button__label {
+  display: inline-flex;
+  align-items: center;
+}
+
+.ff-button__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ---------- Loading ---------- */
+
+.ff-button__spinner {
+  width: 16px;
+  height: 16px;
+
+  border: 2px solid rgba(255,255,255,.4);
+  border-top-color: white;
+
+  border-radius: 50%;
+
+  animation: ff-button-spin .8s linear infinite;
+}
+
+@keyframes ff-button-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.ff-button:hover:not(:disabled) {
+  filter: brightness(0.95);
+}
+
+.ff-button:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+.ff-button:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}

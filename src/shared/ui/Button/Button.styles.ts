@@ -1,27 +1,32 @@
 import { cva } from "class-variance-authority";
 
-export const buttonVariants = cva("", {
+export const buttonVariants = cva("ff-button", {
   variants: {
     variant: {
-      primary: "",
-      secondary: "",
-      outline: "",
-      ghost: "",
-      danger: "",
-      success: "",
-      warning: "",
+      primary: "ff-button--primary",
+      secondary: "ff-button--secondary",
+      outline: "ff-button--outline",
+      ghost: "ff-button--ghost",
+      danger: "ff-button--danger",
+      success: "ff-button--success",
+      warning: "ff-button--warning",
     },
 
     size: {
-      xs: "",
-      sm: "",
-      md: "",
-      lg: "",
-      xl: "",
+      xs: "ff-button--xs",
+      sm: "ff-button--sm",
+      md: "ff-button--md",
+      lg: "ff-button--lg",
+      xl: "ff-button--xl",
     },
 
     fullWidth: {
-      true: "w-full",
+      true: "ff-button--full",
+      false: "",
+    },
+
+    loading: {
+      true: "ff-button--loading",
       false: "",
     },
   },
@@ -30,5 +35,6 @@ export const buttonVariants = cva("", {
     variant: "primary",
     size: "md",
     fullWidth: false,
+    loading: false,
   },
 });
