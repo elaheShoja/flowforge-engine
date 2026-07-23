@@ -1,12 +1,39 @@
-import Button  from "@/shared/ui/Button";
-import Spinner from "@/shared/ui/Spinner";
+import { Button, Spinner, Typography } from "@/shared/ui";
 
 export default function Playground() {
   return (
-    <div style={{ padding: "2rem" }}>
-      <h1>FlowForge UI Playground</h1>
+    <div
+      style={{
+        padding: "2rem",
+        display: "grid",
+        gap: "1.5rem",
+      }}
+    >
+      <Typography variant="h1" as="h1">
+        FlowForge Design System
+      </Typography>
 
-      <h2>Buttons</h2>
+      <Typography variant="h2" as="h2">
+        Typography
+      </Typography>
+
+      <Typography variant="body">
+        This is body text.
+      </Typography>
+
+      <Typography variant="caption">
+        Caption text
+      </Typography>
+
+      <Typography variant="error">
+        This field is required.
+      </Typography>
+
+      <hr />
+
+      <Typography variant="h2" as="h2">
+        Buttons
+      </Typography>
 
       <Button>Primary</Button>
 
@@ -19,7 +46,7 @@ export default function Playground() {
       </Button>
 
       <Button variant="danger">
-        Delete
+        Danger
       </Button>
 
       <Button loading>
@@ -32,13 +59,21 @@ export default function Playground() {
 
       <hr />
 
-      <h2>Spinner</h2>
+      <Typography variant="h2" as="h2">
+        Spinner
+      </Typography>
 
-      <Spinner />
-
-      <Spinner size="lg" />
-
-      <Spinner variant="secondary" />
+      <div
+        style={{
+          display: "flex",
+          gap: "1rem",
+          alignItems: "center",
+        }}
+      >
+        <Spinner size="sm" />
+        <Spinner size="md" />
+        <Spinner size="lg" />
+      </div>
     </div>
   );
 }
