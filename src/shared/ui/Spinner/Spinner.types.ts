@@ -16,4 +16,6 @@ export interface SpinnerProps
   extends HTMLAttributes<HTMLSpanElement> {
   size?: SpinnerSize;
   variant?: SpinnerVariant;
+  label?: string;
+  fullscreen?: boolean;
 }
