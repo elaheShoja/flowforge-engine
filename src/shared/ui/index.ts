@@ -9,3 +9,6 @@ export type { TypographyProps } from "./Typography";
 
 export { default as FieldWrapper } from "./FieldWrapper"
 export type { FieldWrapperProps } from "./FieldWrapper";
+
+export { default as Input } from "./Input";
+export type { InputProps } from "./Input";

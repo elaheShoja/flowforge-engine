@@ -1,4 +1,4 @@
-import { Button, Spinner, Typography } from "@/shared/ui";
+import { Button, Spinner, Typography, Input } from "@/shared/ui";
 
 export default function Playground() {
   return (
@@ -74,6 +74,58 @@ export default function Playground() {
         <Spinner size="md" />
         <Spinner size="lg" />
       </div>
+
+      <Typography variant="h2" as="h2">
+        Input
+      </Typography>
+
+      <div style={{ padding: 32, maxWidth: 500 }}>
+        <Input
+          label="Username"
+          placeholder="Enter username"
+          startAdornment={<span>👤</span>}
+        />
+
+        <br />
+
+        <Input
+          label="Email"
+          placeholder="Enter email"
+          helperText="We'll never share your email."
+        />
+
+        <br />
+
+        <Input
+          label="Password"
+          placeholder="Enter password"
+          error="Password is required"
+        />
+
+        <br />
+
+        <Input
+          label="Disabled"
+          disabled
+          placeholder="Disabled input"
+        />
+
+        <br />
+
+        <Input
+          label="Website"
+          placeholder="example.com"
+          startAdornment={<span>https://</span>}
+        />
+
+        <br />
+
+        <Input
+          label="Weight"
+          placeholder="70"
+          endAdornment={<span>kg</span>}
+        />
+    </div>
     </div>
   );
 }
