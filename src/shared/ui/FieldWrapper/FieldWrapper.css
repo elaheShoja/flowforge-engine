@@ -1,0 +1,50 @@
+.ff-field {
+  display: flex;
+  flex-direction: column;
+  gap: .375rem;
+}
+
+.ff-field--full {
+  width: 100%;
+}
+
+.ff-field__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ff-field__label {
+  color: var(--color-text);
+
+  font-size: var(--font-size-sm);
+
+  font-weight: var(--font-weight-medium);
+}
+
+.ff-field__required {
+  color: var(--color-danger);
+
+  margin-left: .25rem;
+}
+
+.ff-field__control {
+  width: 100%;
+}
+
+.ff-field__helper {
+  color: var(--color-text-secondary);
+
+  font-size: var(--font-size-xs);
+}
+
+.ff-field__error {
+  color: var(--color-danger);
+
+  font-size: var(--font-size-xs);
+}
+
+.ff-field__tooltip {
+  display: flex;
+  align-items: center;
+}

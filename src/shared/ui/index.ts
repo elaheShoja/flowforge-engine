@@ -6,3 +6,6 @@ export type { SpinnerProps } from "./Spinner";
 
 export { default as Typography } from "./Typography"
 export type { TypographyProps } from "./Typography";
+
+export { default as FieldWrapper } from "./FieldWrapper"
+export type { FieldWrapperProps } from "./FieldWrapper";
