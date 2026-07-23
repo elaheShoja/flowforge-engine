@@ -2,7 +2,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: .5rem;
+  gap: .4rem;
 
   border: none;
   border-radius: var(--radius-md);
@@ -11,15 +11,16 @@
   user-select: none;
   white-space: nowrap;
 
-  transition:
-    background-color .2s ease,
-    color .2s ease,
-    border-color .2s ease,
-    transform .15s ease,
-    opacity .2s ease,
-    box-shadow .2s ease;
+  font-family: var(--font-family);
+  font-weight: var(--font-weight-medium);
 
-  font-weight: 500;
+  transition:
+    background-color var(--transition-fast),
+    color var(--transition-fast),
+    border-color var(--transition-fast),
+    transform var(--transition-fast),
+    opacity var(--transition-fast),
+    box-shadow var(--transition-fast);
 }
 
 .ff-button:disabled {
@@ -27,7 +28,9 @@
   cursor: not-allowed;
 }
 
-/* ---------- Variants ---------- */
+/* ===========================
+   Variants
+=========================== */
 
 .ff-button--primary {
   background: var(--color-primary);
@@ -42,10 +45,12 @@
 .ff-button--outline {
   background: transparent;
   border: 1px solid var(--color-border);
+  color: var(--color-text);
 }
 
 .ff-button--ghost {
   background: transparent;
+  color: var(--color-text);
 }
 
 .ff-button--danger {
@@ -63,36 +68,46 @@
   color: black;
 }
 
-/* ---------- Sizes ---------- */
+/* ===========================
+   Sizes
+=========================== */
 
 .ff-button--xs {
   padding: .25rem .5rem;
-  font-size: .75rem;
+  font-size: var(--font-size-xs);
 }
 
 .ff-button--sm {
   padding: .5rem .75rem;
+  font-size: var(--font-size-sm);
 }
 
 .ff-button--md {
   padding: .75rem 1rem;
+  font-size: var(--font-size-md);
 }
 
 .ff-button--lg {
   padding: 1rem 1.25rem;
+  font-size: var(--font-size-lg);
 }
 
 .ff-button--xl {
   padding: 1.25rem 1.5rem;
+  font-size: var(--font-size-xl);
 }
 
-/* ---------- Full Width ---------- */
+/* ===========================
+   Full Width
+=========================== */
 
 .ff-button--full {
   width: 100%;
 }
 
-/* ---------- Content ---------- */
+/* ===========================
+   Content
+=========================== */
 
 .ff-button__label {
   display: inline-flex;
@@ -105,28 +120,12 @@
   justify-content: center;
 }
 
-/* ---------- Loading ---------- */
-
-.ff-button__spinner {
-  width: 16px;
-  height: 16px;
-
-  border: 2px solid rgba(255,255,255,.4);
-  border-top-color: white;
-
-  border-radius: 50%;
-
-  animation: ff-button-spin .8s linear infinite;
-}
-
-@keyframes ff-button-spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
+/* ===========================
+   States
+=========================== */
 
 .ff-button:hover:not(:disabled) {
-  filter: brightness(0.95);
+  filter: brightness(.95);
 }
 
 .ff-button:active:not(:disabled) {
@@ -134,6 +133,6 @@
 }
 
 .ff-button:focus-visible {
-  outline: 2px solid var(--color-primary);
+  outline: 2px solid var(--color-focus);
   outline-offset: 2px;
 }

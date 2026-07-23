@@ -1,6 +1,9 @@
+import clsx from "clsx";
+
+import Spinner from "../Spinner";
+
 import type { ButtonProps } from "./Button.types";
 import { buttonVariants } from "./Button.styles";
-import clsx from "clsx";
 
 import "./Button.css";
 
@@ -9,35 +12,43 @@ export default function Button({
   variant = "primary",
   size = "md",
   loading = false,
+  disabled = false,
   fullWidth = false,
   leftIcon,
   rightIcon,
-  disabled,
-  className = "",
+  className,
+  type = "button",
   ...props
 }: ButtonProps) {
+
+  const isDisabled = disabled || loading;
+
   const classes = clsx(
     buttonVariants({
       variant,
       size,
       fullWidth,
-      loading,
     }),
     className
   );
 
   return (
     <button
+      type={type}
       className={classes}
-      disabled={disabled || loading}
-      aria-disabled={disabled || loading}
+      disabled={isDisabled}
+      aria-disabled={isDisabled}
       aria-busy={loading}
       {...props}
     >
       {loading ? (
-        <span
-          className="ff-button__spinner"
-          aria-hidden="true"
+        <Spinner
+          size="sm"
+          variant={
+            variant === "outline" || variant === "ghost"
+              ? "primary"
+              : "light"
+          }
         />
       ) : (
         leftIcon && (

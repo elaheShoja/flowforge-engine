@@ -24,17 +24,11 @@ export const buttonVariants = cva("ff-button", {
       true: "ff-button--full",
       false: "",
     },
-
-    loading: {
-      true: "ff-button--loading",
-      false: "",
-    },
   },
 
   defaultVariants: {
     variant: "primary",
     size: "md",
     fullWidth: false,
-    loading: false,
   },
 });
