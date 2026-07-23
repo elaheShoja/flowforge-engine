@@ -1,15 +1,23 @@
 import { Routes, Route } from "react-router-dom";
 
-const HomePage = () => {
-  return <h1>FlowForge</h1>;
-};
+import MainLayout from "../layouts/MainLayout";
+import Playground from "@/pages/Playground/Playground";
 
-const AppRoutes = () => {
+function HomePage() {
+  return <h1>FlowForge</h1>;
+}
+
+export default function AppRoutes() {
   return (
     <Routes>
-      <Route path="/" element={<HomePage />} />
+      <Route element={<MainLayout />}>
+        <Route index element={<HomePage />} />
+
+        <Route
+          path="playground"
+          element={<Playground />}
+        />
+      </Route>
     </Routes>
   );
-};
-
-export default AppRoutes;
+}

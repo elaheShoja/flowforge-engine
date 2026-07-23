@@ -7,7 +7,7 @@ export default function MainLayout() {
     <div className="min-h-screen flex flex-col">
       <header className="h-16 border-b flex items-center px-6">
         <h1 className="text-xl font-bold">
-          FlowForge
+          Header
         </h1>
       </header>
 
