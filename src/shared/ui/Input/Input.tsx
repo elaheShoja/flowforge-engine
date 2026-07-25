@@ -1,6 +1,9 @@
 import clsx from "clsx";
 
-import { FieldWrapper } from "@/shared/ui";
+import {
+  FieldWrapper,
+  Spinner,
+} from "@/shared/ui";
 
 import type { InputProps } from "./Input.types";
 import { inputVariants } from "./Input.styles";
@@ -16,19 +19,34 @@ export default function Input({
 
   fullWidth = false,
 
+  loading = false,
+  loadingText,
+
   startAdornment,
   endAdornment,
 
-  className,
+  className = "",
 
-  ...props
+  disabled = false,
+
+  placeholder,
+
+  required,
+
+  ...inputProps
 }: InputProps) {
+
+  /*const hasValue =
+    inputProps.value !== undefined &&
+    inputProps.value !== null &&
+    String(inputProps.value).length > 0;*/
+    
   return (
     <FieldWrapper
       label={label}
       helperText={helperText}
       error={error}
-      required={props.required}
+      required={required}
       fullWidth={fullWidth}
     >
       <div
@@ -36,27 +54,42 @@ export default function Input({
           inputVariants({
             size,
             error: !!error,
-            disabled: props.disabled,
+            disabled: disabled || loading,
             fullWidth,
           }),
           className
         )}
       >
         {startAdornment && (
-          <span className="ff-input__icon">
+          <span className="ff-input__adornment">
             {startAdornment}
           </span>
         )}
 
         <input
           className="ff-input__element"
-          {...props}
+          disabled={disabled || loading}
+          placeholder={
+            loading && loadingText
+              ? loadingText
+              : placeholder
+          }
+          {...inputProps}
         />
 
-        {endAdornment && (
-          <span className="ff-input__icon">
-            {endAdornment}
+        {loading ? (
+          <span className="ff-input__adornment">
+            <Spinner
+              size="sm"
+              variant="primary"
+            />
           </span>
+        ) : (
+          endAdornment && (
+            <span className="ff-input__adornment">
+              {endAdornment}
+            </span>
+          )
         )}
       </div>
     </FieldWrapper>

@@ -30,5 +30,9 @@ export interface InputProps
 
   loading?: boolean;
 
+  loadingText?: string;
+
   clearable?: boolean;
+
+  onClear?: () => void;
 }

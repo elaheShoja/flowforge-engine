@@ -125,7 +125,26 @@ export default function Playground() {
           placeholder="70"
           endAdornment={<span>kg</span>}
         />
-    </div>
+
+        <Input
+            label="Loading"
+            placeholder="Search..."
+            loading
+        />
+
+        <Input
+            label="Searching"
+            placeholder="Search..."
+            loading
+            loadingText="Searching..."
+        />
+
+        <Input
+            label="Username"
+            startAdornment={<span>👤</span>}
+            loading
+        />
+      </div>
     </div>
   );
 }
