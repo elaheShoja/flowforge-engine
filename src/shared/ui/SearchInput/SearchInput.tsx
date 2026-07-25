@@ -13,6 +13,7 @@ export default function SearchInput({
   return (
     <Input
       type="search"
+      clearable={clearable}
       startAdornment={
         startAdornment ?? <Search size={18} />
       }

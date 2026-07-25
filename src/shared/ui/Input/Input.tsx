@@ -33,13 +33,29 @@ export default function Input({
 
   required,
 
+  clearable = false,
+
+  onClear,
+
   ...inputProps
 }: InputProps) {
 
-  /*const hasValue =
+  const hasValue =
     inputProps.value !== undefined &&
     inputProps.value !== null &&
-    String(inputProps.value).length > 0;*/
+    String(inputProps.value).length > 0;
+
+  const handleClear = () => {
+    onClear?.();
+
+    if (inputProps.onChange) {
+      inputProps.onChange({
+        target: {
+          value: "",
+        },
+      } as React.ChangeEvent<HTMLInputElement>);
+    }
+  };
     
   return (
     <FieldWrapper
@@ -76,6 +92,20 @@ export default function Input({
           }
           {...inputProps}
         />
+
+        {!loading &&
+          clearable &&
+          hasValue && (
+            <button
+              type="button"
+              className="ff-input__clear"
+              onClick={handleClear}
+              aria-label="Clear input"
+            >
+              ×
+            </button>
+          )
+        }
 
         {loading ? (
           <span className="ff-input__adornment">

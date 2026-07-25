@@ -1,8 +1,14 @@
+import { useState } from "react";
 import { Button, Spinner, 
   Typography, Input,
   PasswordInput, SearchInput} from "@/shared/ui";
 
 export default function Playground() {
+
+  const [searchValue, setSearchValue] = useState("John Doe");
+  const [name, setName] = useState("Elahe");
+  const [password, setPassword] = useState("123456");
+
   return (
     <div
       style={{
@@ -147,6 +153,14 @@ export default function Playground() {
             loading
         />
 
+        <Input
+          label="Name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          clearable
+          placeholder="Enter your name"
+        />
+
         <br />
 
         <Typography variant="h1" as="h1">
@@ -160,6 +174,14 @@ export default function Playground() {
           placeholder="Enter password"
         />
 
+        <PasswordInput
+          label="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          clearable
+          placeholder="Enter password"
+        />
+
          <br />
 
         <Typography variant="h1" as="h1">
@@ -170,6 +192,15 @@ export default function Playground() {
 
         <SearchInput
           label="Search"
+          placeholder="Search users..."
+        />
+
+        <SearchInput
+          label="Search"
+          value={searchValue}
+          onChange={(e) => setSearchValue(e.target.value)}
+          clearable
+          onClear={() => console.log("cleared")}
           placeholder="Search users..."
         />
       </div>
