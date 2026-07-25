@@ -11,7 +11,7 @@ export type InputSize =
 export interface InputProps
   extends Omit<
     InputHTMLAttributes<HTMLInputElement>,
-    "size"
+    "size" | "prefix"
   > {
 
   label?: string;
@@ -35,4 +35,8 @@ export interface InputProps
   clearable?: boolean;
 
   onClear?: () => void;
+
+  prefix?: ReactNode;
+
+  suffix?: ReactNode;
 }

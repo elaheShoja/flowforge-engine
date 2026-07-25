@@ -242,6 +242,18 @@
   color: var(--color-text);
 }
 
+.ff-input__prefix,
+.ff-input__suffix {
+  display: inline-flex;
+  align-items: center;
+
+  color: var(--color-text-secondary);
+
+  white-space: nowrap;
+
+  font-size: inherit;
+}
+
 /* ===========================
    Icons
 =========================== */
@@ -258,5 +270,11 @@
   padding-inline: var(--space-sm);
 
   font-size: .875rem;
+}
+
+.ff-input__actions {
+  display: inline-flex;
+  align-items: center;
+  gap: .25rem;
 }
 

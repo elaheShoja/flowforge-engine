@@ -34,8 +34,10 @@ export default function Input({
   required,
 
   clearable = false,
-
   onClear,
+
+  prefix,
+  suffix,
 
   ...inputProps
 }: InputProps) {
@@ -82,6 +84,12 @@ export default function Input({
           </span>
         )}
 
+        {prefix && (
+          <span className="ff-input__prefix">
+            {prefix}
+          </span>
+        )}
+
         <input
           className="ff-input__element"
           disabled={disabled || loading}
@@ -93,6 +101,14 @@ export default function Input({
           {...inputProps}
         />
 
+        {suffix && (
+          <span className="ff-input__suffix">
+            {suffix}
+          </span>
+        )}
+
+       <span className="ff-input__actions">
+
         {!loading &&
           clearable &&
           hasValue && (
@@ -100,27 +116,21 @@ export default function Input({
               type="button"
               className="ff-input__clear"
               onClick={handleClear}
-              aria-label="Clear input"
             >
               ×
             </button>
-          )
-        }
+          )}
 
         {loading ? (
-          <span className="ff-input__adornment">
-            <Spinner
-              size="sm"
-              variant="primary"
-            />
-          </span>
+          <Spinner
+            size="sm"
+            variant="primary"
+          />
         ) : (
-          endAdornment && (
-            <span className="ff-input__adornment">
-              {endAdornment}
-            </span>
-          )
+          endAdornment
         )}
+
+      </span>
       </div>
     </FieldWrapper>
   );

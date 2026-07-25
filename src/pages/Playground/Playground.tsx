@@ -1,4 +1,6 @@
 import { useState } from "react";
+import "./Playground.css";
+import { Search, Info } from "lucide-react";
 import { Button, Spinner, 
   Typography, Input,
   PasswordInput, SearchInput} from "@/shared/ui";
@@ -8,14 +10,12 @@ export default function Playground() {
   const [searchValue, setSearchValue] = useState("John Doe");
   const [name, setName] = useState("Elahe");
   const [password, setPassword] = useState("123456");
+  const [fullInput, setFullInput] = useState("1250");
+ 
 
   return (
     <div
-      style={{
-        padding: "2rem",
-        display: "grid",
-        gap: "1.5rem",
-      }}
+      className="playground-stack"
     >
       <Typography variant="h1" as="h1">
         FlowForge Design System
@@ -94,15 +94,11 @@ export default function Playground() {
           startAdornment={<span>👤</span>}
         />
 
-        <br />
-
         <Input
           label="Email"
           placeholder="Enter email"
           helperText="We'll never share your email."
         />
-
-        <br />
 
         <Input
           label="Password"
@@ -110,23 +106,17 @@ export default function Playground() {
           error="Password is required"
         />
 
-        <br />
-
         <Input
           label="Disabled"
           disabled
           placeholder="Disabled input"
         />
 
-        <br />
-
         <Input
           label="Website"
           placeholder="example.com"
           startAdornment={<span>https://</span>}
         />
-
-        <br />
 
         <Input
           label="Weight"
@@ -161,6 +151,63 @@ export default function Playground() {
           placeholder="Enter your name"
         />
 
+        <Input
+          label="Weight"
+          suffix="kg"
+        />
+
+        <Input
+          label="Price"
+          prefix="$"
+        />
+
+        <Input
+          label="Website"
+          prefix="https://"
+        />
+
+        <Input
+          label="Complete Input"
+          placeholder="Enter amount..."
+
+          value={fullInput}
+          onChange={(e) => setFullInput(e.target.value)}
+
+          prefix="$"
+
+          suffix="USD"
+
+          startAdornment={<Search size={18} />}
+
+          endAdornment={<Info size={18} />}
+
+          clearable
+
+          helperText="This input demonstrates all supported features."
+
+          fullWidth
+        />
+
+        <Input
+          label="Loading Input"
+          loading
+          loadingText="Loading..."
+          prefix="$"
+          suffix="USD"
+          startAdornment={<Search size={18} />}
+          helperText="Loading state"
+        />
+
+        <Input
+          label="Error Input"
+          value={fullInput}
+          onChange={(e) => setFullInput(e.target.value)}
+          prefix="$"
+          suffix="USD"
+          clearable
+          error="Amount is invalid"
+        />
+
         <br />
 
         <Typography variant="h1" as="h1">
@@ -182,13 +229,9 @@ export default function Playground() {
           placeholder="Enter password"
         />
 
-         <br />
-
         <Typography variant="h1" as="h1">
           Search Input
         </Typography>
-
-        <br />
 
         <SearchInput
           label="Search"
