@@ -12,3 +12,6 @@ export type { FieldWrapperProps } from "./FieldWrapper";
 
 export { default as Input } from "./Input";
 export type { InputProps } from "./Input";
+
+export { default as PasswordInput } from "./PasswordInput";
+export type { PasswordInputProps } from "./PasswordInput";

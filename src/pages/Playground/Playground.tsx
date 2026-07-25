@@ -1,4 +1,6 @@
-import { Button, Spinner, Typography, Input } from "@/shared/ui";
+import { Button, Spinner, 
+  Typography, Input,
+  PasswordInput } from "@/shared/ui";
 
 export default function Playground() {
   return (
@@ -143,6 +145,19 @@ export default function Playground() {
             label="Username"
             startAdornment={<span>👤</span>}
             loading
+        />
+
+        <br />
+
+        <Typography variant="h1" as="h1">
+          PasswordInput
+        </Typography>
+
+        <br />
+
+        <PasswordInput
+          label="Password"
+          placeholder="Enter password"
         />
       </div>
     </div>
