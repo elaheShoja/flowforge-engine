@@ -15,3 +15,6 @@ export type { InputProps } from "./Input";
 
 export { default as PasswordInput } from "./PasswordInput";
 export type { PasswordInputProps } from "./PasswordInput";
+
+export { default as SearchInput } from "./SearchInput";
+export type { SearchInputProps } from "./SearchInput";

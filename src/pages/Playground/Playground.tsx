@@ -1,6 +1,6 @@
 import { Button, Spinner, 
   Typography, Input,
-  PasswordInput } from "@/shared/ui";
+  PasswordInput, SearchInput} from "@/shared/ui";
 
 export default function Playground() {
   return (
@@ -150,7 +150,7 @@ export default function Playground() {
         <br />
 
         <Typography variant="h1" as="h1">
-          PasswordInput
+          Password Input
         </Typography>
 
         <br />
@@ -158,6 +158,19 @@ export default function Playground() {
         <PasswordInput
           label="Password"
           placeholder="Enter password"
+        />
+
+         <br />
+
+        <Typography variant="h1" as="h1">
+          Search Input
+        </Typography>
+
+        <br />
+
+        <SearchInput
+          label="Search"
+          placeholder="Search users..."
         />
       </div>
     </div>
