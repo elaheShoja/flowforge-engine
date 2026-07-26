@@ -3,7 +3,8 @@ import "./Playground.css";
 import { Search, Info } from "lucide-react";
 import { Button, Spinner, 
   Typography, Input,
-  PasswordInput, SearchInput} from "@/shared/ui";
+  PasswordInput, SearchInput,
+  Textarea} from "@/shared/ui";
 
 export default function Playground() {
 
@@ -245,6 +246,34 @@ export default function Playground() {
           clearable
           onClear={() => console.log("cleared")}
           placeholder="Search users..."
+        />
+
+        <Textarea
+          label="Description"
+          placeholder="Write something..."
+        />
+
+        <Textarea
+          label="Auto Resize"
+          autoResize
+        />
+
+        <Textarea
+          label="Disabled"
+          disabled
+          defaultValue="Disabled textarea"
+        />
+
+        <Textarea
+          label="Error"
+          error="Description is required"
+        />
+
+        <Textarea
+          label="Auto Resize"
+          autoResize
+          minRows={3}
+          maxRows={8}
         />
       </div>
     </div>
