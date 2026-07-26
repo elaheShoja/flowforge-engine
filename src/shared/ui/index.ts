@@ -22,3 +22,6 @@ export type { SearchInputProps } from "./SearchInput";
 
 export { default as Textarea } from "./Textarea";
 export type { TextareaProps } from "./Textarea";
+
+export { default as Select } from "./Select";
+export type { SelectProps } from "./Select";

@@ -4,7 +4,7 @@ import { Search, Info } from "lucide-react";
 import { Button, Spinner, 
   Typography, Input,
   PasswordInput, SearchInput,
-  Textarea} from "@/shared/ui";
+  Textarea, Select} from "@/shared/ui";
 
 export default function Playground() {
 
@@ -274,6 +274,9 @@ export default function Playground() {
           autoResize
           minRows={3}
           maxRows={8}
+        />
+
+        <Select
         />
       </div>
     </div>

@@ -1,124 +1,54 @@
-import { ChevronDown } from "lucide-react";
-import clsx from "clsx";
+import { useState } from "react";
+import {
+  useFloating,
+  offset,
+} from "@floating-ui/react";
 
 import Dropdown from "@/shared/ui/Dropdown";
-import { FieldWrapper } from "@/shared/ui";
-import { useFloatingDropdown } from "@/shared/hooks/useFloatingDropdown";
 
-import type { SelectProps } from "./Select.types";
-import { selectVariants } from "./Select.styles";
+export default function Select() {
+  const [open, setOpen] = useState(false);
 
-import "./Select.css";
-
-export default function Select({
-  label,
-  helperText,
-  error,
-
-  required,
-
-  disabled,
-
-  fullWidth = false,
-
-  placeholder = "Select...",
-
-  options,
-
-
-  onChange,
-
-}: SelectProps) {
-
-  const {
-
+  const floating = useFloating({
     open,
+    onOpenChange: setOpen,
+    placement: "bottom-start",
+    middleware: [
+      offset(6),
+      
+    ],
+  });
 
-    refs,
-
-    floatingStyles,
-
-    getReferenceProps,
-
-    getFloatingProps,
-
-  } = useFloatingDropdown();
+  const {refs, floatingStyles} = floating;
 
   return (
-
-    <FieldWrapper
-      label={label}
-      helperText={helperText}
-      error={error}
-      required={required}
-      fullWidth={fullWidth}
-    >
-
+    <div style={{ width: 500 }}>
       <div
         ref={refs.setReference}
-        {...getReferenceProps()}
-        className={clsx(
-          selectVariants({
-            error: !!error,
-            disabled,
-            fullWidth,
-            open,
-          })
-        )}
+        style={{
+          border: "1px solid #ccc",
+          padding: "12px",
+          cursor: "pointer",
+          background: "#fff",
+        }}
+        onClick={() => setOpen(!open)}
       >
-
-        <span className="ff-select__placeholder">
-          {placeholder}
-        </span>
-
-        <span className="ff-select__icon">
-          <ChevronDown size={18} />
-        </span>
-
+        Select country
       </div>
 
       {open && (
-
         <Dropdown
-          style={floatingStyles}
-          {...getFloatingProps()}
+          containerRef={refs.setFloating}
+          style={{
+            ...floatingStyles,
+            width: 500,
+          }}
         >
-
-          <div className="ff-select__options">
-
-            {options.map((option) => {
-
-              if ("options" in option) return null;
-
-              return (
-
-                <button
-                  key={option.value}
-                  type="button"
-                  className="ff-select__option"
-                  onClick={() => {
-
-                    onChange?.(option.value);
-
-                  }}
-                >
-
-                  {option.label}
-
-                </button>
-
-              );
-
-            })}
-
-          </div>
-
+          <div style={{ padding: 12 }}>Germany</div>
+          <div style={{ padding: 12 }}>France</div>
+          <div style={{ padding: 12 }}>Netherlands</div>
         </Dropdown>
-
       )}
-
-    </FieldWrapper>
-
+    </div>
   );
-
 }
