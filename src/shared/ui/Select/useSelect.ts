@@ -4,6 +4,9 @@ import {
   offset,
   flip,
   shift,
+  useClick,
+  useDismiss,
+  useInteractions,
 } from "@floating-ui/react";
 
 export default function useSelect() {
@@ -20,9 +23,19 @@ export default function useSelect() {
     ],
   });
 
+  const click = useClick(floating.context);
+
+    const dismiss = useDismiss(floating.context);
+
+    const interactions = useInteractions([
+    click,
+    dismiss,
+    ]);
+
   return {
     open,
     setOpen,
     ...floating,
+    ...interactions,
   };
 }

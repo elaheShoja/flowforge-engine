@@ -24,6 +24,8 @@ export default function Select({
     setOpen,
     refs,
     floatingStyles,
+    getReferenceProps,
+    getFloatingProps,
   } = useSelect();
 
   const referenceWidth =
@@ -49,15 +51,14 @@ export default function Select({
     >
       <div
         ref={refs.setReference}
+
+        {...getReferenceProps()}
+
         className={clsx(
           "ff-select",
           open && "ff-select--open",
           disabled && "ff-select--disabled"
         )}
-        onClick={() => {
-          if (disabled) return;
-          setOpen(!open)
-        }}
       >
         <span
           className={clsx(
@@ -83,6 +84,7 @@ export default function Select({
             ...floatingStyles,
             width: referenceWidth,
           }}
+          floatingProps={getFloatingProps()}
           onSelect={(value) => {
             onChange?.(value);
             setOpen(false);

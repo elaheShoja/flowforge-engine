@@ -15,6 +15,8 @@ interface SelectDropdownProps {
 
   floatingStyles: React.CSSProperties;
 
+  floatingProps: React.HTMLProps<HTMLElement>;
+
   onSelect: (value: string) => void;
 }
 
@@ -23,11 +25,15 @@ export default function SelectDropdown({
   value,
   floatingRef,
   floatingStyles,
+  floatingProps,
   onSelect,
 }: SelectDropdownProps) {
   return (
     <Dropdown
       containerRef={floatingRef}
+
+      {...floatingProps}
+      
       style={{
         ...floatingStyles,
         zIndex: 1000,
