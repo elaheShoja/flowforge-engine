@@ -42,6 +42,8 @@
   opacity: .6;
 
   cursor: not-allowed;
+
+  background: var(--color-surface-disabled);
 }
 
 .ff-select__value {

@@ -14,6 +14,7 @@ export default function FieldWrapper({
   fullWidth = false,
   children,
   className = "",
+  disabled = false,
   ...props
 }: FieldWrapperProps) {
   return (
@@ -22,6 +23,7 @@ export default function FieldWrapper({
         fieldWrapperVariants({
           fullWidth,
         }),
+        disabled && "ff-field--disabled",
         className
       )}
       {...props}

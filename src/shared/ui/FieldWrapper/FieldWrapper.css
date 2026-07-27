@@ -49,3 +49,15 @@
   display: flex;
   align-items: center;
 }
+
+.ff-field--disabled {
+  opacity: .6;
+}
+
+.ff-field--disabled .ff-field__label {
+  color: var(--color-text-secondary);
+}
+
+.ff-field--disabled .ff-field__helper {
+  color: var(--color-text-secondary);
+}

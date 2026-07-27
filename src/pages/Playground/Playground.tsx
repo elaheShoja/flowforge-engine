@@ -288,6 +288,15 @@ export default function Playground() {
           value={country}
           onChange={setCountry}
         />
+
+        <Select
+          disabled
+          label="Disabled Select"
+          options={[
+            { value: "de", label: "Germany" },
+            { value: "fr", label: "France" },
+          ]}
+        />
       </div>
     </div>
   );

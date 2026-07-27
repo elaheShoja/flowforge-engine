@@ -79,6 +79,7 @@ export default function Textarea({
       error={error}
       required={required}
       fullWidth={fullWidth}
+      disabled={disabled}
     >
       <textarea
         ref={textareaRef}

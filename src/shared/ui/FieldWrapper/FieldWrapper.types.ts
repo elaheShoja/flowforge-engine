@@ -16,4 +16,6 @@ export interface FieldWrapperProps
   children: ReactNode;
 
   fullWidth?: boolean;
+
+  disabled?: boolean;
 }

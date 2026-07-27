@@ -66,6 +66,7 @@ export default function Input({
       error={error}
       required={required}
       fullWidth={fullWidth}
+      disabled={disabled}
     >
       <div
         className={clsx(
