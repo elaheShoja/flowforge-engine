@@ -12,6 +12,12 @@ export default function Playground() {
   const [name, setName] = useState("Elahe");
   const [password, setPassword] = useState("123456");
   const [fullInput, setFullInput] = useState("1250");
+  const [country, setCountry] = useState("");
+  const countries = [
+    { value: "de", label: "Germany" },
+    { value: "fr", label: "France" },
+    { value: "nl", label: "Netherlands" },
+  ];
  
 
   return (
@@ -277,6 +283,10 @@ export default function Playground() {
         />
 
         <Select
+          label="Select Country"
+          options={countries}
+          value={country}
+          onChange={setCountry}
         />
       </div>
     </div>

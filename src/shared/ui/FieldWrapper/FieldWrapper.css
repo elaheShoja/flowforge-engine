@@ -30,6 +30,7 @@
 
 .ff-field__control {
   width: 100%;
+  position: relative;
 }
 
 .ff-field__helper {

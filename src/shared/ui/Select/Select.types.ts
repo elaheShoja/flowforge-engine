@@ -39,7 +39,7 @@ export interface SelectProps {
 
   defaultValue?: string | string[];
 
-  onChange?: (value: string | string[]) => void;
+  onChange?: (value: string) => void;
 
   multi?: boolean;
 
@@ -48,4 +48,5 @@ export interface SelectProps {
   clearable?: boolean;
 
   loading?: boolean;
+
 }
