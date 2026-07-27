@@ -121,6 +121,14 @@
 
 }
 
+.ff-select__option:focus {
+  outline: none;
+}
+
+.ff-select__option--active {
+    background: var(--color-surface-hover);
+}
+
 .ff-select__menu{
     display:flex;
     flex-direction:column;

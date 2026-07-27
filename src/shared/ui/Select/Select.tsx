@@ -22,10 +22,16 @@ export default function Select({
   const {
     open,
     setOpen,
+
     refs,
     floatingStyles,
+
+    activeIndex,
+    listRef,
+
     getReferenceProps,
     getFloatingProps,
+  
   } = useSelect();
 
   const referenceWidth =
@@ -51,8 +57,22 @@ export default function Select({
     >
       <div
         ref={refs.setReference}
+        tabIndex={0}
+        {...getReferenceProps({
+          onKeyDown(event) {
+            if (event.key === "ArrowDown"){
+              event.preventDefault();
 
-        {...getReferenceProps()}
+              if (!open){
+                setOpen(true);
+              }
+            }
+
+            if (event.key === "Escape") {
+              setOpen(false);
+            }
+          }
+        })}
 
         className={clsx(
           "ff-select",
@@ -85,6 +105,8 @@ export default function Select({
             width: referenceWidth,
           }}
           floatingProps={getFloatingProps()}
+          activeIndex={activeIndex}
+          listRef={listRef}
           onSelect={(value) => {
             onChange?.(value);
             setOpen(false);

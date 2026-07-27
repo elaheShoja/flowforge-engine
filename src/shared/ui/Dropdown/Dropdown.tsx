@@ -1,13 +1,14 @@
 import clsx from "clsx";
 import type {
   CSSProperties,
+  HTMLAttributes,
   ReactNode,
   Ref,
 } from "react";
 
 import "./Dropdown.css";
 
-interface DropdownProps {
+interface DropdownProps extends HTMLAttributes<HTMLDivElement> {
   children: ReactNode;
   className?: string;
   style?: CSSProperties;
@@ -19,12 +20,14 @@ export default function Dropdown({
   className,
   style,
   containerRef,
+  ...props
 }: DropdownProps) {
   return (
     <div
       ref={containerRef}
       className={clsx("ff-dropdown", className)}
       style={style}
+      {...props}
     >
       {children}
     </div>

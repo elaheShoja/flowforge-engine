@@ -8,16 +8,20 @@ import type {
 } from "./Select.types";
 
 interface SelectDropdownProps {
-  options: Array<SelectOptionType | SelectGroup>;
-  value?: string | string[];
+    options: Array<SelectOptionType | SelectGroup>;
+    value?: string | string[];
 
-  floatingRef: React.Ref<HTMLDivElement>;
+    floatingRef: React.Ref<HTMLDivElement>;
 
-  floatingStyles: React.CSSProperties;
+    floatingStyles: React.CSSProperties;
 
-  floatingProps: React.HTMLProps<HTMLElement>;
+    floatingProps: React.HTMLProps<HTMLElement>;
 
-  onSelect: (value: string) => void;
+    activeIndex: number | null;
+
+    listRef: React.MutableRefObject<Array<HTMLElement | null>>;
+
+    onSelect: (value: string) => void;
 }
 
 export default function SelectDropdown({
@@ -26,6 +30,8 @@ export default function SelectDropdown({
   floatingRef,
   floatingStyles,
   floatingProps,
+  activeIndex,
+  listRef,
   onSelect,
 }: SelectDropdownProps) {
   return (
@@ -33,20 +39,24 @@ export default function SelectDropdown({
       containerRef={floatingRef}
 
       {...floatingProps}
-      
+      role="listbox"
+
       style={{
         ...floatingStyles,
         zIndex: 1000,
       }}
     >
       <div className="ff-select__options">
-        {options.map((option) => {
+        {options.map((option, index) => {
           if ("options" in option) return null;
 
           return (
             <SelectOption
               key={option.value}
               option={option}
+              index={index}
+              active={activeIndex === index}
+              listRef={listRef}
               selected={typeof value=== "string" && value === option.value}
               onSelect={onSelect}
             />
