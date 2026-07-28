@@ -286,6 +286,7 @@ export default function Playground() {
           label="Select Country"
           options={countries}
           value={country}
+          searchable
           onChange={setCountry}
         />
 

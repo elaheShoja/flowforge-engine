@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import type { SelectOption as SelectOptionType } from "./Select.types";
+import type { SelectOption as SelectOptionType } from "../Select.types";
 
 interface Props {
     option: SelectOptionType;

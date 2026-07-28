@@ -39,6 +39,8 @@ export default function Input({
   prefix,
   suffix,
 
+  withWrapper = true,
+
   ...inputProps
 }: InputProps) {
 
@@ -58,17 +60,9 @@ export default function Input({
       } as React.ChangeEvent<HTMLInputElement>);
     }
   };
-    
-  return (
-    <FieldWrapper
-      label={label}
-      helperText={helperText}
-      error={error}
-      required={required}
-      fullWidth={fullWidth}
-      disabled={disabled}
-    >
-      <div
+
+  const inputElement = (
+    <div
         className={clsx(
           inputVariants({
             size,
@@ -133,6 +127,22 @@ export default function Input({
 
       </span>
       </div>
+  );
+  
+  if (!withWrapper) {
+    return inputElement;
+  }
+  
+  return (
+    <FieldWrapper
+      label={label}
+      helperText={helperText}
+      error={error}
+      required={required}
+      fullWidth={fullWidth}
+      disabled={disabled}
+    >
+      {inputElement}
     </FieldWrapper>
   );
 }

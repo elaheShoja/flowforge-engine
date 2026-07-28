@@ -1,11 +1,13 @@
 import Dropdown from "@/shared/ui/Dropdown";
+import SearchInput from "@/shared/ui/SearchInput";
+import useSelectSearch from "../hooks/useSelectSearch";
 
 import SelectOption from "./SelectOption";
 
 import type {
   SelectGroup,
   SelectOption as SelectOptionType,
-} from "./Select.types";
+} from "../Select.types";
 
 interface SelectDropdownProps {
     options: Array<SelectOptionType | SelectGroup>;
@@ -21,7 +23,10 @@ interface SelectDropdownProps {
 
     listRef: React.MutableRefObject<Array<HTMLElement | null>>;
 
+    searchable?: boolean;
+
     onSelect: (value: string) => void;
+
 }
 
 export default function SelectDropdown({
@@ -32,8 +37,10 @@ export default function SelectDropdown({
   floatingProps,
   activeIndex,
   listRef,
+  searchable,
   onSelect,
 }: SelectDropdownProps) {
+    const {search, setSearch} = useSelectSearch();
   return (
     <Dropdown
       containerRef={floatingRef}
@@ -46,6 +53,17 @@ export default function SelectDropdown({
         zIndex: 1000,
       }}
     >
+        {searchable && (
+            <div className="ff-select__search">
+                <SearchInput
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                  placeholder="Search..."
+                  withWrapper={false}
+                />
+            </div>
+        )}
+        
       <div className="ff-select__options">
         {options.map((option, index) => {
           if ("options" in option) return null;

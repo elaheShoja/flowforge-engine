@@ -77,6 +77,8 @@
 
   flex-direction: column;
 
+  padding: 0px;
+
 }
 
 .ff-select__option {
@@ -132,4 +134,11 @@
 .ff-select__menu{
     display:flex;
     flex-direction:column;
+}
+
+.ff-select__search {
+  margin-bottom: 8px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--color-border);
+  box-sizing: border-box;
 }

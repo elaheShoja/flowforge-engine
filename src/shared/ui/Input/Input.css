@@ -18,6 +18,11 @@
     background var(--transition-fast);
 }
 
+.ff-input,
+.ff-input * {
+  box-sizing: border-box;
+}
+
 /* ===========================
    Sizes
 =========================== */

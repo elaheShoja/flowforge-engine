@@ -1,7 +1,7 @@
 import clsx from "clsx";
-import useSelect from "./useSelect";
+import useSelect from "./hooks/useSelect";
 import type { SelectProps } from "./Select.types";
-import SelectDropdown from "./SelectDropdown";
+import SelectDropdown from "./components/SelectDropdown";
 
 import FieldWrapper from "@/shared/ui/FieldWrapper";
 
@@ -15,6 +15,7 @@ export default function Select({
   fullWidth = false,
   disabled = false,
 
+  searchable= false,
   options,
   value,
   onChange,
@@ -107,6 +108,7 @@ export default function Select({
           floatingProps={getFloatingProps()}
           activeIndex={activeIndex}
           listRef={listRef}
+          searchable={searchable}
           onSelect={(value) => {
             onChange?.(value);
             setOpen(false);

@@ -39,4 +39,6 @@ export interface InputProps
   prefix?: ReactNode;
 
   suffix?: ReactNode;
+
+  withWrapper?: boolean;
 }
