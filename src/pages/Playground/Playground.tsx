@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import "./Playground.css";
 import { Search, Info } from "lucide-react";
 import { Button, Spinner, 
@@ -19,7 +19,56 @@ export default function Playground() {
     { value: "fr", label: "France" },
     { value: "nl", label: "Netherlands" },
   ];
- 
+
+  const [remoteCountries, setRemoteCountries] = useState([
+  {
+    value: "de",
+    label: "Germany",
+  },
+  {
+    value: "fr",
+    label: "France",
+  },
+  {
+    value: "ir",
+    label: "Iran",
+  },
+  {
+    value: "jp",
+    label: "Japan",
+  },
+]);
+
+const [remoteLoading, setRemoteLoading] = useState(false);
+
+ const handleCountrySearch = useCallback(
+  async (query: string) => {
+    console.log("REMOTE SEARCH:", query);
+
+    setRemoteLoading(true);
+
+    await new Promise((resolve) => {
+      setTimeout(resolve, 1000);
+    });
+
+    const allCountries = [
+      { value: "de", label: "Germany" },
+      { value: "fr", label: "France" },
+      { value: "ir", label: "Iran" },
+      { value: "jp", label: "Japan" },
+    ];
+
+    const result = allCountries.filter((country) =>
+      country.label
+        .toLowerCase()
+        .includes(query.toLowerCase())
+    );
+
+    setRemoteCountries(result);
+    setRemoteLoading(false);
+  },
+  []
+);
 
   return (
     <div
@@ -288,31 +337,17 @@ export default function Playground() {
           options={countries}
           value={country}
           searchable
+          
           onChange={setCountry}
         />
 
         <Select
-          
-          label="Disabled Select"
+          label="Remote Search Select"
           searchable
+          onSearch={handleCountrySearch}
+          loading={remoteLoading}
           value={country1}
-          options = {[
-            {
-              label: "Europe",
-              options: [
-                { value: "de", label: "Germany" },
-                { value: "fr", label: "France" },
-              ],
-            },
-            {
-              label: "Asia",
-              options: [
-                { value: "ir", label: "Iran" },
-                { value: "jp", label: "Japan" },
-              ],
-            },
-            
-          ]}
+          options={remoteCountries}
           onChange={setCountry1}
         />
       </div>

@@ -41,6 +41,8 @@ export interface SelectProps {
 
   onChange?: (value: string) => void;
 
+  onSearch?: (query: string) => void | Promise<void>;
+
   multi?: boolean;
 
   searchable?: boolean;

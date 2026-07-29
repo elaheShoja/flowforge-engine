@@ -154,3 +154,10 @@
 
   background: var(--color-surface);
 }
+
+.ff-select__empty {
+  padding: 12px;
+  text-align: center;
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
+}

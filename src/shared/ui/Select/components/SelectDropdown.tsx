@@ -41,6 +41,10 @@ interface SelectDropdownProps {
   flatOptions: SelectOptionType[];
 
   onSelect: (value: string) => void;
+
+  onSearch?: (query: string) => void | Promise<void>;
+
+  loading?: boolean;
 }
 
 export default function SelectDropdown({
@@ -56,19 +60,13 @@ export default function SelectDropdown({
   filteredOptions,
   flatOptions,
   onSelect,
+  onSearch,
+  loading=false,
 }: SelectDropdownProps) {
-
   const activeOption =
     activeIndex !== null
       ? flatOptions[activeIndex]
       : null;
-
-  console.log("SELECT DEBUG", {
-    value,
-    activeIndex,
-    activeOption,
-    flatOptions,
-  });
 
   const searchInputRef = useRef<HTMLInputElement>(null);
 
@@ -77,6 +75,20 @@ export default function SelectDropdown({
 
     searchInputRef.current?.focus();
   }, [search, searchable]);
+
+  useEffect(() => {
+    if (!searchable) return;
+    if (!onSearch) return;
+    if (!search) return;
+
+    const timer = window.setTimeout(() => {
+      onSearch(search);
+    }, 300);
+
+    return () => {
+      window.clearTimeout(timer);
+    };
+  }, [search, searchable, onSearch]);
 
   return (
     <Dropdown
@@ -103,58 +115,60 @@ export default function SelectDropdown({
       )}
 
       <div className="ff-select__options">
-        {filteredOptions.map((option) => {
+        {loading ? (
+          <div className="ff-select__empty">
+            Loading ...
+          </div>
+        ):
+          filteredOptions.length === 0 && search ? (
+          <div className="ff-select__empty">
+            No results found
+          </div>
+        ) : (
+          filteredOptions.map((option) => {
+            if ("options" in option) {
+              return (
+                <div key={option.label}>
+                  <SelectGroup group={option} />
 
-          if ("options" in option) {
+                  {option.options.map((child) => (
+                    <SelectOption
+                      key={child.value}
+                      option={child}
+                      index={flatOptions.findIndex(
+                        (item) => item.value === child.value
+                      )}
+                      active={activeOption?.value === child.value}
+                      listRef={listRef}
+                      selected={
+                        typeof value === "string" &&
+                        value === child.value
+                      }
+                      onSelect={onSelect}
+                    />
+                  ))}
+                </div>
+              );
+            }
+
             return (
-              <div key={option.label}>
-                <SelectGroup group={option} />
-
-                {option.options.map((child) => (
-                  <SelectOption
-                    key={child.value}
-                    option={child}
-                    index={flatOptions.findIndex(
-                      (item) =>
-                        item.value === child.value
-                    )}
-                    active={
-                      activeOption?.value ===
-                      child.value
-                    }
-                    listRef={listRef}
-                    selected={
-                      typeof value === "string" &&
-                      value === child.value
-                    }
-                    onSelect={onSelect}
-                  />
-                ))}
-              </div>
+              <SelectOption
+                key={option.value}
+                option={option}
+                index={flatOptions.findIndex(
+                  (item) => item.value === option.value
+                )}
+                active={activeOption?.value === option.value}
+                listRef={listRef}
+                selected={
+                  typeof value === "string" &&
+                  value === option.value
+                }
+                onSelect={onSelect}
+              />
             );
-          }
-
-          return (
-            <SelectOption
-              key={option.value}
-              option={option}
-              index={flatOptions.findIndex(
-                (item) =>
-                  item.value === option.value
-              )}
-              active={
-                activeOption?.value ===
-                option.value
-              }
-              listRef={listRef}
-              selected={
-                typeof value === "string" &&
-                value === option.value
-              }
-              onSelect={onSelect}
-            />
-          );
-        })}
+          })
+        )}
       </div>
     </Dropdown>
   );

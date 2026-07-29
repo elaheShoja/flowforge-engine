@@ -22,6 +22,8 @@ export default function Select({
   options,
   value,
   onChange,
+  onSearch,
+  loading = false,
 }: SelectProps) {
   
   const {
@@ -31,7 +33,7 @@ export default function Select({
 
   const allFlatOptions= flattenOptions(options);
 
-  const filteredOptions = filterOptions(
+  const filteredOptions = onSearch? options : filterOptions(
     options,
     search
   );
@@ -145,6 +147,8 @@ export default function Select({
           setSearch= {setSearch}
           filteredOptions={filteredOptions}
           flatOptions={flatOptions}
+          loading={loading}
+          onSearch={onSearch}
           onSelect={(value) => {
             onChange?.(value);
             setOpen(false);
