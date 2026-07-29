@@ -1,4 +1,5 @@
 import clsx from "clsx";
+import { forwardRef } from "react";
 
 import {
   FieldWrapper,
@@ -10,59 +11,62 @@ import { inputVariants } from "./Input.styles";
 
 import "./Input.css";
 
-export default function Input({
-  label,
-  helperText,
-  error,
+const Input = forwardRef<HTMLInputElement, InputProps>(
+  function Input(
+    {
+      label,
+      helperText,
+      error,
 
-  size = "md",
+      size = "md",
 
-  fullWidth = false,
+      fullWidth = false,
 
-  loading = false,
-  loadingText,
+      loading = false,
+      loadingText,
 
-  startAdornment,
-  endAdornment,
+      startAdornment,
+      endAdornment,
 
-  className = "",
+      className = "",
 
-  disabled = false,
+      disabled = false,
 
-  placeholder,
+      placeholder,
 
-  required,
+      required,
 
-  clearable = false,
-  onClear,
+      clearable = false,
+      onClear,
 
-  prefix,
-  suffix,
+      prefix,
+      suffix,
 
-  withWrapper = true,
+      withWrapper = true,
 
-  ...inputProps
-}: InputProps) {
+      ...inputProps
+    },
+    ref
+  ) {
+    const hasValue =
+      inputProps.value !== undefined &&
+      inputProps.value !== null &&
+      String(inputProps.value).length > 0;
 
-  const hasValue =
-    inputProps.value !== undefined &&
-    inputProps.value !== null &&
-    String(inputProps.value).length > 0;
+    const handleClear = () => {
+      onClear?.();
 
-  const handleClear = () => {
-    onClear?.();
+      if (inputProps.onChange) {
+        inputProps.onChange({
+          target: {
+            value: "",
+          },
+        } as React.ChangeEvent<HTMLInputElement>);
+      }
+    };
 
-    if (inputProps.onChange) {
-      inputProps.onChange({
-        target: {
-          value: "",
-        },
-      } as React.ChangeEvent<HTMLInputElement>);
-    }
-  };
-
-  const inputElement = (
-    <div
+    const inputElement = (
+      <div
         className={clsx(
           inputVariants({
             size,
@@ -86,6 +90,7 @@ export default function Input({
         )}
 
         <input
+          ref={ref}
           className="ff-input__element"
           disabled={disabled || loading}
           placeholder={
@@ -102,47 +107,48 @@ export default function Input({
           </span>
         )}
 
-       <span className="ff-input__actions">
+        <span className="ff-input__actions">
+          {!loading &&
+            clearable &&
+            hasValue && (
+              <button
+                type="button"
+                className="ff-input__clear"
+                onClick={handleClear}
+              >
+                ×
+              </button>
+            )}
 
-        {!loading &&
-          clearable &&
-          hasValue && (
-            <button
-              type="button"
-              className="ff-input__clear"
-              onClick={handleClear}
-            >
-              ×
-            </button>
+          {loading ? (
+            <Spinner
+              size="sm"
+              variant="primary"
+            />
+          ) : (
+            endAdornment
           )}
-
-        {loading ? (
-          <Spinner
-            size="sm"
-            variant="primary"
-          />
-        ) : (
-          endAdornment
-        )}
-
-      </span>
+        </span>
       </div>
-  );
-  
-  if (!withWrapper) {
-    return inputElement;
+    );
+
+    if (!withWrapper) {
+      return inputElement;
+    }
+
+    return (
+      <FieldWrapper
+        label={label}
+        helperText={helperText}
+        error={error}
+        required={required}
+        fullWidth={fullWidth}
+        disabled={disabled}
+      >
+        {inputElement}
+      </FieldWrapper>
+    );
   }
-  
-  return (
-    <FieldWrapper
-      label={label}
-      helperText={helperText}
-      error={error}
-      required={required}
-      fullWidth={fullWidth}
-      disabled={disabled}
-    >
-      {inputElement}
-    </FieldWrapper>
-  );
-}
+);
+
+export default Input;

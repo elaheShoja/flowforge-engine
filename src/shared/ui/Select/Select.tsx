@@ -1,5 +1,8 @@
 import clsx from "clsx";
 import useSelect from "./hooks/useSelect";
+import useSelectSearch from "./hooks/useSelectSearch";
+import filterOptions from "./utils/filterOptions";
+import flattenOptions from "./utils/flattenOptions";
 import type { SelectProps } from "./Select.types";
 import SelectDropdown from "./components/SelectDropdown";
 
@@ -20,6 +23,31 @@ export default function Select({
   value,
   onChange,
 }: SelectProps) {
+  
+  const {
+    search,
+    setSearch,
+  } = useSelectSearch();
+
+  const allFlatOptions= flattenOptions(options);
+
+  const filteredOptions = filterOptions(
+    options,
+    search
+  );
+
+  const flatOptions = flattenOptions(
+    filteredOptions
+  );
+
+  const selectedIndex = flatOptions.findIndex(
+    (option) => option.value === value
+  );
+
+  const itemsKey = flatOptions
+    .map((option) => option.value)
+    .join("|");
+
   const {
     open,
     setOpen,
@@ -33,12 +61,16 @@ export default function Select({
     getReferenceProps,
     getFloatingProps,
   
-  } = useSelect();
+  } = useSelect({
+    itemCount: flatOptions.length,
+    selectedIndex,
+    itemsKey,
+  });
 
   const referenceWidth =
     refs.reference.current?.getBoundingClientRect().width ?? 0;
 
-  const selectedOption = options.find(
+  const selectedOption = allFlatOptions.find(
     (option) =>
       !("options" in option) &&
       option.value === value
@@ -109,6 +141,10 @@ export default function Select({
           activeIndex={activeIndex}
           listRef={listRef}
           searchable={searchable}
+          search= {search}
+          setSearch= {setSearch}
+          filteredOptions={filteredOptions}
+          flatOptions={flatOptions}
           onSelect={(value) => {
             onChange?.(value);
             setOpen(false);

@@ -13,6 +13,7 @@ export default function Playground() {
   const [password, setPassword] = useState("123456");
   const [fullInput, setFullInput] = useState("1250");
   const [country, setCountry] = useState("");
+  const [country1, setCountry1] = useState("");
   const countries = [
     { value: "de", label: "Germany" },
     { value: "fr", label: "France" },
@@ -291,12 +292,28 @@ export default function Playground() {
         />
 
         <Select
-          disabled
+          
           label="Disabled Select"
-          options={[
-            { value: "de", label: "Germany" },
-            { value: "fr", label: "France" },
+          searchable
+          value={country1}
+          options = {[
+            {
+              label: "Europe",
+              options: [
+                { value: "de", label: "Germany" },
+                { value: "fr", label: "France" },
+              ],
+            },
+            {
+              label: "Asia",
+              options: [
+                { value: "ir", label: "Iran" },
+                { value: "jp", label: "Japan" },
+              ],
+            },
+            
           ]}
+          onChange={setCountry1}
         />
       </div>
     </div>
