@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import clsx from "clsx";
 import useSelect from "./hooks/useSelect";
 import useSelectSearch from "./hooks/useSelectSearch";
@@ -68,6 +69,13 @@ export default function Select({
     selectedIndex,
     itemsKey,
   });
+
+  
+  useEffect(() => {
+    if (!open) {
+      setSearch("");
+    }
+  }, [open, setSearch])
 
   const referenceWidth =
     refs.reference.current?.getBoundingClientRect().width ?? 0;

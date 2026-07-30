@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useRef } from "react";
 import "./Playground.css";
 import { Search, Info } from "lucide-react";
 import { Button, Spinner, 
@@ -40,10 +40,13 @@ export default function Playground() {
 ]);
 
 const [remoteLoading, setRemoteLoading] = useState(false);
+const searchRequestRef = useRef(0);
 
  const handleCountrySearch = useCallback(
   async (query: string) => {
-    console.log("REMOTE SEARCH:", query);
+    const requestId = ++searchRequestRef.current;
+
+    console.log("REMOTE SEARCH:", query, "request:", requestId);
 
     setRemoteLoading(true);
 
@@ -63,6 +66,12 @@ const [remoteLoading, setRemoteLoading] = useState(false);
         .toLowerCase()
         .includes(query.toLowerCase())
     );
+
+    // اگر این request دیگر آخرین request نیست،
+    // نتیجه‌اش نباید state را تغییر دهد.
+    if (requestId !== searchRequestRef.current) {
+      return;
+    }
 
     setRemoteCountries(result);
     setRemoteLoading(false);

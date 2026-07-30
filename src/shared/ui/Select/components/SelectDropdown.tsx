@@ -70,6 +70,8 @@ export default function SelectDropdown({
 
   const searchInputRef = useRef<HTMLInputElement>(null);
 
+  const searchInitializedRef = useRef(false);
+
   useEffect(() => {
     if (!searchable) return;
 
@@ -79,7 +81,11 @@ export default function SelectDropdown({
   useEffect(() => {
     if (!searchable) return;
     if (!onSearch) return;
-    if (!search) return;
+
+    if (!searchInitializedRef.current) {
+      searchInitializedRef.current = true;
+      return;
+    }
 
     const timer = window.setTimeout(() => {
       onSearch(search);
