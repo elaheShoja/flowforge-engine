@@ -79,6 +79,14 @@
 
   padding: 0px;
 
+  height: 120px;
+
+  max-height: 120px;
+
+  overflow-y: auto;
+
+  overflow-x: hidden;
+
 }
 
 .ff-select__option {

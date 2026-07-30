@@ -17,8 +17,13 @@ export interface SelectGroup {
   options: SelectOption[];
 }
 
-export interface SelectProps {
+export interface SelectRemoteResult {
+  options: Array<SelectOption | SelectGroup>;
 
+  hasMore: boolean;
+}
+
+export interface SelectProps {
   label?: string;
 
   helperText?: string;
@@ -41,7 +46,10 @@ export interface SelectProps {
 
   onChange?: (value: string) => void;
 
-  onSearch?: (query: string) => void | Promise<void>;
+  onSearch?: (
+    query: string,
+    page: number
+  ) => void | Promise<void | SelectRemoteResult>;
 
   multi?: boolean;
 
@@ -51,4 +59,10 @@ export interface SelectProps {
 
   loading?: boolean;
 
+  hasMore?: boolean;
+
+  onLoadMore?: (
+    query: string,
+    page: number
+  ) => void | Promise<void | SelectRemoteResult>;
 }

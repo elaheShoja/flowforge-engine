@@ -40,13 +40,37 @@ export default function Playground() {
 ]);
 
 const [remoteLoading, setRemoteLoading] = useState(false);
+const [remoteHasMore, setRemoteHasMore] = useState(true);
 const searchRequestRef = useRef(0);
 
+const remoteCountriesData = [
+  { value: "de", label: "Germany" },
+  { value: "fr", label: "France" },
+  { value: "ir", label: "Iran" },
+  { value: "jp", label: "Japan" },
+  { value: "nl", label: "Netherlands" },
+  { value: "it", label: "Italy" },
+  { value: "es", label: "Spain" },
+  { value: "pt", label: "Portugal" },
+  { value: "at", label: "Austria" },
+  { value: "ch", label: "Switzerland" },
+  { value: "be", label: "Belgium" },
+  { value: "se", label: "Sweden" },
+  { value: "no", label: "Norway" },
+];
+
  const handleCountrySearch = useCallback(
-  async (query: string) => {
+  async (query: string, page: number) => {
     const requestId = ++searchRequestRef.current;
 
-    console.log("REMOTE SEARCH:", query, "request:", requestId);
+    console.log(
+      "REMOTE SEARCH:",
+      query,
+      "page:",
+      page,
+      "request:",
+      requestId
+    );
 
     setRemoteLoading(true);
 
@@ -54,26 +78,32 @@ const searchRequestRef = useRef(0);
       setTimeout(resolve, 1000);
     });
 
-    const allCountries = [
-      { value: "de", label: "Germany" },
-      { value: "fr", label: "France" },
-      { value: "ir", label: "Iran" },
-      { value: "jp", label: "Japan" },
-    ];
-
-    const result = allCountries.filter((country) =>
+    const filtered = remoteCountriesData.filter((country) =>
       country.label
         .toLowerCase()
         .includes(query.toLowerCase())
     );
 
-    // اگر این request دیگر آخرین request نیست،
-    // نتیجه‌اش نباید state را تغییر دهد.
+    const pageSize = 4;
+
+    const start = (page - 1) * pageSize;
+    const end = start + pageSize;
+
+    const pageItems = filtered.slice(start, end);
+
+    const hasMore = end < filtered.length;
+
     if (requestId !== searchRequestRef.current) {
       return;
     }
 
-    setRemoteCountries(result);
+    setRemoteCountries((previous) =>
+      page === 1
+        ? pageItems
+        : [...previous, ...pageItems]
+    );
+
+    setRemoteHasMore(hasMore);
     setRemoteLoading(false);
   },
   []
@@ -354,6 +384,8 @@ const searchRequestRef = useRef(0);
           label="Remote Search Select"
           searchable
           onSearch={handleCountrySearch}
+          hasMore={remoteHasMore}
+          onLoadMore={handleCountrySearch}
           loading={remoteLoading}
           value={country1}
           options={remoteCountries}

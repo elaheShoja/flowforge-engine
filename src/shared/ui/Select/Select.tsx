@@ -24,6 +24,8 @@ export default function Select({
   value,
   onChange,
   onSearch,
+  hasMore= false,
+  onLoadMore,
   loading = false,
 }: SelectProps) {
   
@@ -157,6 +159,8 @@ export default function Select({
           flatOptions={flatOptions}
           loading={loading}
           onSearch={onSearch}
+          hasMore={hasMore}
+          onLoadMore={onLoadMore}
           onSelect={(value) => {
             onChange?.(value);
             setOpen(false);
