@@ -1,4 +1,4 @@
-import { useState, useCallback, useRef } from "react";
+import { useState, useCallback } from "react";
 import "./Playground.css";
 import { Search, Info } from "lucide-react";
 import { Button, Spinner, 
@@ -20,28 +20,6 @@ export default function Playground() {
     { value: "nl", label: "Netherlands" },
   ];
 
-  const [remoteCountries, setRemoteCountries] = useState([
-  {
-    value: "de",
-    label: "Germany",
-  },
-  {
-    value: "fr",
-    label: "France",
-  },
-  {
-    value: "ir",
-    label: "Iran",
-  },
-  {
-    value: "jp",
-    label: "Japan",
-  },
-]);
-
-const [remoteLoading, setRemoteLoading] = useState(false);
-const [remoteHasMore, setRemoteHasMore] = useState(true);
-const searchRequestRef = useRef(0);
 
 const remoteCountriesData = [
   { value: "de", label: "Germany" },
@@ -59,55 +37,55 @@ const remoteCountriesData = [
   { value: "no", label: "Norway" },
 ];
 
- const handleCountrySearch = useCallback(
-  async (query: string, page: number) => {
-    const requestId = ++searchRequestRef.current;
+ const handleCountrySearch =
+  useCallback(
+    async (
+      query: string,
+      offset: number,
+      limit: number
+    ) => {
+      console.log(
+        "REMOTE SEARCH:",
+        query,
+        "offset:",
+        offset,
+        "limit:",
+        limit
+      );
 
-    console.log(
-      "REMOTE SEARCH:",
-      query,
-      "page:",
-      page,
-      "request:",
-      requestId
-    );
+      await new Promise(
+        (resolve) => {
+          setTimeout(
+            resolve,
+            1000
+          );
+        }
+      );
 
-    setRemoteLoading(true);
+      const filtered =
+        remoteCountriesData.filter(
+          (country) =>
+            country.label
+              .toLowerCase()
+              .includes(
+                query.toLowerCase()
+              )
+        );
 
-    await new Promise((resolve) => {
-      setTimeout(resolve, 1000);
-    });
+      const pageItems =
+        filtered.slice(
+          offset,
+          offset + limit
+        );
 
-    const filtered = remoteCountriesData.filter((country) =>
-      country.label
-        .toLowerCase()
-        .includes(query.toLowerCase())
-    );
-
-    const pageSize = 4;
-
-    const start = (page - 1) * pageSize;
-    const end = start + pageSize;
-
-    const pageItems = filtered.slice(start, end);
-
-    const hasMore = end < filtered.length;
-
-    if (requestId !== searchRequestRef.current) {
-      return;
-    }
-
-    setRemoteCountries((previous) =>
-      page === 1
-        ? pageItems
-        : [...previous, ...pageItems]
-    );
-
-    setRemoteHasMore(hasMore);
-    setRemoteLoading(false);
-  },
-  []
-);
+      return {
+        options: pageItems,
+        totalCount:
+          filtered.length,
+      };
+    },
+    []
+  );
 
   return (
     <div
@@ -384,11 +362,8 @@ const remoteCountriesData = [
           label="Remote Search Select"
           searchable
           onSearch={handleCountrySearch}
-          hasMore={remoteHasMore}
-          onLoadMore={handleCountrySearch}
-          loading={remoteLoading}
           value={country1}
-          options={remoteCountries}
+          options={[]}
           onChange={setCountry1}
         />
       </div>

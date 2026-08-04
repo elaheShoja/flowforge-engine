@@ -20,7 +20,7 @@ export interface SelectGroup {
 export interface SelectRemoteResult {
   options: Array<SelectOption | SelectGroup>;
 
-  hasMore: boolean;
+  totalCount: number;
 }
 
 export interface SelectProps {
@@ -38,7 +38,9 @@ export interface SelectProps {
 
   placeholder?: string;
 
-  options: Array<SelectOption | SelectGroup>;
+  options: Array<
+    SelectOption | SelectGroup
+  >;
 
   value?: string | string[];
 
@@ -46,23 +48,33 @@ export interface SelectProps {
 
   onChange?: (value: string) => void;
 
+  /**
+   * Remote search / pagination.
+   *
+   * Select internally manages:
+   * - search
+   * - debounce
+   * - offset
+   * - limit
+   * - loading
+   * - hasMore
+   * - infinite scroll
+   * - pagination reset
+   * - request protection
+   *
+   * Consumer only provides the request.
+   */
   onSearch?: (
     query: string,
-    page: number
-  ) => void | Promise<void | SelectRemoteResult>;
+    offset: number,
+    limit: number
+  ) =>
+    | void
+    | Promise<SelectRemoteResult | void>;
 
   multi?: boolean;
 
   searchable?: boolean;
 
   clearable?: boolean;
-
-  loading?: boolean;
-
-  hasMore?: boolean;
-
-  onLoadMore?: (
-    query: string,
-    page: number
-  ) => void | Promise<void | SelectRemoteResult>;
 }

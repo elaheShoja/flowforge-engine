@@ -1,4 +1,10 @@
-import { useEffect, useRef } from "react";
+import {
+  memo,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+} from "react";
+
 import Dropdown from "@/shared/ui/Dropdown";
 import SearchInput from "@/shared/ui/SearchInput";
 
@@ -8,15 +14,19 @@ import SelectOption from "./SelectOption";
 import type {
   SelectGroup as SelectGroupType,
   SelectOption as SelectOptionType,
-  SelectRemoteResult,
 } from "../Select.types";
 
 interface SelectDropdownProps {
-  options: Array<SelectOptionType | SelectGroupType>;
+  options: Array<
+    SelectOptionType | SelectGroupType
+  >;
+
   value?: string | string[];
 
   floatingRef: React.Ref<HTMLDivElement>;
+
   floatingStyles: React.CSSProperties;
+
   floatingProps: React.HTMLProps<HTMLElement>;
 
   activeIndex: number | null;
@@ -41,21 +51,68 @@ interface SelectDropdownProps {
 
   onSelect: (value: string) => void;
 
-  onSearch?: (
-    query: string,
-    page: number
-  ) => void | Promise<void | SelectRemoteResult>;
-
-  hasMore?: boolean;
-
-  onLoadMore?: (
-    query: string,
-    page: number
-  ) => void | Promise<void | SelectRemoteResult>;
+  onLoadMore?: () => void;
 
   loading?: boolean;
+
+  hasMore?: boolean;
 }
 
+/**
+ * --------------------------------------------------
+ * Search Section
+ * --------------------------------------------------
+ *
+ * This part is intentionally separated from the
+ * options list.
+ *
+ * Pagination / loading can cause the options list
+ * to re-render without recreating the search input.
+ */
+interface SelectSearchProps {
+  search: string;
+
+  setSearch: React.Dispatch<
+    React.SetStateAction<string>
+  >;
+
+  inputRef: React.RefObject<HTMLInputElement | null>;
+
+  onFocus: () => void;
+
+  onBlur: () => void;
+}
+
+const SelectSearch = memo(function SelectSearch({
+  search,
+  setSearch,
+  inputRef,
+  onFocus,
+  onBlur,
+}: SelectSearchProps) {
+  
+  return (
+    <div className="ff-select__search">
+      <SearchInput
+        ref={inputRef}
+        value={search}
+        onChange={(event) => {
+          setSearch(event.target.value);
+        }}
+        onFocus={onFocus}
+        onBlur={onBlur}
+        placeholder="Search..."
+        withWrapper={false}
+      />
+    </div>
+  );
+});
+
+/**
+ * --------------------------------------------------
+ * Select Dropdown
+ * --------------------------------------------------
+ */
 export default function SelectDropdown({
   value,
   floatingRef,
@@ -69,41 +126,52 @@ export default function SelectDropdown({
   filteredOptions,
   flatOptions,
   onSelect,
-  onSearch,
-  hasMore = false,
   onLoadMore,
   loading = false,
+  hasMore = false,
 }: SelectDropdownProps) {
   const activeOption =
     activeIndex !== null
       ? flatOptions[activeIndex]
       : null;
 
+  /**
+   * Search input DOM node.
+   */
   const searchInputRef =
     useRef<HTMLInputElement>(null);
 
-  const searchInitializedRef =
-    useRef(false);
-
+  /**
+   * Options scroll container.
+   */
   const optionsRef =
     useRef<HTMLDivElement>(null);
 
+  /**
+   * Prevent multiple load-more requests.
+   */
   const loadingMoreRef =
     useRef(false);
 
-  const pageRef =
-    useRef(1);
-
   /**
-   * Reset pagination only when search query changes.
+   * Remember whether the user was typing
+   * in the search input.
+   *
+   * This is important because an async request
+   * can cause parent state updates.
    */
-  useEffect(() => {
-    pageRef.current = 1;
-    loadingMoreRef.current = false;
-  }, [search]);
+  const searchHasFocusRef =
+    useRef(false);
 
   /**
-   * Focus search input when dropdown opens.
+   * --------------------------------------------------
+   * Initial Search Focus
+   * --------------------------------------------------
+   *
+   * Runs only when searchable changes.
+   *
+   * It does NOT run on every loading / pagination
+   * update.
    */
   useEffect(() => {
     if (!searchable) return;
@@ -112,99 +180,119 @@ export default function SelectDropdown({
   }, [searchable]);
 
   /**
-   * Remote search
+   * --------------------------------------------------
+   * Preserve Search Focus
+   * --------------------------------------------------
+   *
+   * If the search input had focus before an async
+   * update, restore focus after React commits the
+   * update.
+   *
+   * This protects typing during:
+   *
+   * search request
+   * pagination
+   * loading state
+   * options update
    */
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!searchable) return;
-    if (!onSearch) return;
 
-    /**
-     * Do not execute remote search
-     * on initial mount.
-     */
-    if (!searchInitializedRef.current) {
-      searchInitializedRef.current = true;
+    if (!searchHasFocusRef.current) {
       return;
     }
 
-    const timer = window.setTimeout(() => {
-      pageRef.current = 1;
-      loadingMoreRef.current = false;
+    const input =
+      searchInputRef.current;
 
-      onSearch(search, 1);
-    }, 300);
+    if (!input) return;
 
-    return () => {
-      window.clearTimeout(timer);
-    };
+    if (
+      document.activeElement !== input
+    ) {
+      input.focus();
+    }
   }, [
-    search,
-    searchable,
-    onSearch,
+    loading,
+    filteredOptions,
   ]);
 
   /**
-   * Load more ONLY when the user actually
-   * scrolls near the bottom.
+   * --------------------------------------------------
+   * Keep loadingMoreRef synchronized
+   * --------------------------------------------------
    */
   useEffect(() => {
-    const element = optionsRef.current;
+    if (!loading) {
+      loadingMoreRef.current = false;
+    }
+  }, [loading]);
+
+  /**
+   * --------------------------------------------------
+   * Infinite Scroll
+   * --------------------------------------------------
+   */
+  useEffect(() => {
+    const element =
+      optionsRef.current;
 
     if (!element) return;
     if (!onLoadMore) return;
 
-    const handleScroll = async () => {
-      if (loadingMoreRef.current) return;
+    const handleScroll = () => {
       if (loading) return;
+
       if (!hasMore) return;
 
+      if (loadingMoreRef.current) {
+        return;
+      }
+
       /**
-       * Important:
-       * If content does not overflow yet,
-       * do NOT automatically load another page.
+       * Do not load more if the list
+       * doesn't actually have overflow.
        */
       const hasVerticalOverflow =
-        element.scrollHeight > element.clientHeight;
+        element.scrollHeight >
+        element.clientHeight;
 
-      if (!hasVerticalOverflow) return;
+      if (!hasVerticalOverflow) {
+        return;
+      }
 
       /**
-       * User must actually scroll.
+       * Do not load the next page
+       * at the initial scroll position.
        */
-      if (element.scrollTop <= 0) return;
+      if (element.scrollTop <= 0) {
+        return;
+      }
 
       const distanceFromBottom =
         element.scrollHeight -
         element.scrollTop -
         element.clientHeight;
 
-      if (distanceFromBottom > 30) return;
+      /**
+       * Start loading before reaching
+       * the exact bottom.
+       */
+      if (distanceFromBottom > 30) {
+        return;
+      }
 
       loadingMoreRef.current = true;
 
-      const nextPage =
-        pageRef.current + 1;
-
-      try {
-        await onLoadMore(
-          search,
-          nextPage
-        );
-
-        /**
-         * Keep the page number only after
-         * successful loading.
-         */
-        pageRef.current = nextPage;
-      } finally {
-        loadingMoreRef.current = false;
-      }
+      onLoadMore();
     };
 
     element.addEventListener(
       "scroll",
       handleScroll,
-      { passive: true }
+      {
+        passive: true,
+      }
     );
 
     return () => {
@@ -214,9 +302,8 @@ export default function SelectDropdown({
       );
     };
   }, [
-    search,
-    hasMore,
     loading,
+    hasMore,
     onLoadMore,
   ]);
 
@@ -230,20 +317,30 @@ export default function SelectDropdown({
         zIndex: 1000,
       }}
     >
+      {/* 
+        Search area is isolated from the options
+        rendering.
+      */}
       {searchable && (
-        <div className="ff-select__search">
-          <SearchInput
-            ref={searchInputRef}
-            value={search}
-            onChange={(e) =>
-              setSearch(e.target.value)
-            }
-            placeholder="Search..."
-            withWrapper={false}
-          />
-        </div>
+        <SelectSearch
+          search={search}
+          setSearch={setSearch}
+          inputRef={searchInputRef}
+          onFocus={() => {
+            searchHasFocusRef.current =
+              true;
+          }}
+          onBlur={() => {
+            searchHasFocusRef.current =
+              false;
+          }}
+        />
       )}
 
+      {/* 
+        ONLY this part is responsible for the
+        scrollable/paginated options.
+      */}
       <div
         ref={optionsRef}
         className="ff-select__options"
@@ -253,73 +350,103 @@ export default function SelectDropdown({
           <div className="ff-select__empty">
             Loading ...
           </div>
-        ) : filteredOptions.length === 0 &&
-          search ? (
+        ) : filteredOptions.length ===
+            0 && search ? (
           <div className="ff-select__empty">
             No results found
           </div>
         ) : (
-          filteredOptions.map((option) => {
-            if ("options" in option) {
-              return (
-                <div key={option.label}>
-                  <SelectGroup
-                    group={option}
-                  />
+          filteredOptions.map(
+            (option) => {
+              /**
+               * Group
+               */
+              if ("options" in option) {
+                return (
+                  <div
+                    key={option.label}
+                  >
+                    <SelectGroup
+                      group={option}
+                    />
 
-                  {option.options.map(
-                    (child) => (
-                      <SelectOption
-                        key={child.value}
-                        option={child}
-                        index={flatOptions.findIndex(
-                          (item) =>
-                            item.value ===
-                            child.value
-                        )}
-                        active={
-                          activeOption?.value ===
-                          child.value
-                        }
-                        listRef={listRef}
-                        selected={
-                          typeof value ===
-                            "string" &&
-                          value ===
-                            child.value
-                        }
-                        onSelect={onSelect}
-                      />
-                    )
-                  )}
-                </div>
-              );
-            }
+                    {option.options.map(
+                      (child) => {
+                        const index =
+                          flatOptions.findIndex(
+                            (item) =>
+                              item.value ===
+                              child.value
+                          );
 
-            return (
-              <SelectOption
-                key={option.value}
-                option={option}
-                index={flatOptions.findIndex(
+                        return (
+                          <SelectOption
+                            key={
+                              child.value
+                            }
+                            option={child}
+                            index={index}
+                            active={
+                              activeOption?.value ===
+                              child.value
+                            }
+                            listRef={
+                              listRef
+                            }
+                            selected={
+                              typeof value ===
+                                "string" &&
+                              value ===
+                                child.value
+                            }
+                            onSelect={
+                              onSelect
+                            }
+                          />
+                        );
+                      }
+                    )}
+                  </div>
+                );
+              }
+
+              /**
+               * Normal option
+               */
+              const index =
+                flatOptions.findIndex(
                   (item) =>
                     item.value ===
                     option.value
-                )}
-                active={
-                  activeOption?.value ===
-                  option.value
-                }
-                listRef={listRef}
-                selected={
-                  typeof value === "string" &&
-                  value === option.value
-                }
-                onSelect={onSelect}
-              />
-            );
-          })
+                );
+
+              return (
+                <SelectOption
+                  key={option.value}
+                  option={option}
+                  index={index}
+                  active={
+                    activeOption?.value ===
+                    option.value
+                  }
+                  listRef={listRef}
+                  selected={
+                    typeof value ===
+                      "string" &&
+                    value ===
+                      option.value
+                  }
+                  onSelect={onSelect}
+                />
+              );
+            }
+          )
         )}
 
+        {/* 
+          Loading indicator for pagination.
+          This does NOT contain the search input.
+        */}
         {onLoadMore && hasMore && (
           <div
             className="ff-select__load-more"
