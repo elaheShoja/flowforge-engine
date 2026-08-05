@@ -169,3 +169,41 @@
   color: var(--color-text-secondary);
   font-size: var(--font-size-sm);
 }
+
+.ff-select__option-check {
+  margin-left: auto;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-weight: 600;
+}
+
+.ff-select__clear {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 20px;
+  height: 20px;
+
+  padding: 0;
+
+  border: none;
+  border-radius: 50%;
+
+  background: transparent;
+
+  color: var(--color-text-secondary);
+
+  cursor: pointer;
+
+  font-size: 16px;
+  line-height: 1;
+}
+
+.ff-select__clear:hover {
+  color: var(--color-text);
+  background: var(--color-surface-hover);
+}

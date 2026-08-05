@@ -23,7 +23,7 @@ export interface SelectRemoteResult {
   totalCount: number;
 }
 
-export interface SelectProps {
+interface SelectBaseProps {
   label?: string;
 
   helperText?: string;
@@ -42,11 +42,9 @@ export interface SelectProps {
     SelectOption | SelectGroup
   >;
 
-  value?: string | string[];
+  searchable?: boolean;
 
-  defaultValue?: string | string[];
-
-  onChange?: (value: string) => void;
+  clearable?: boolean;
 
   /**
    * Remote search / pagination.
@@ -71,10 +69,51 @@ export interface SelectProps {
   ) =>
     | void
     | Promise<SelectRemoteResult | void>;
-
-  multi?: boolean;
-
-  searchable?: boolean;
-
-  clearable?: boolean;
 }
+
+/**
+ * Single Select
+ */
+export interface SingleSelectProps
+  extends SelectBaseProps {
+  multi?: false;
+
+  value?: string;
+
+  defaultValue?: string;
+
+  onChange?: (
+    value: string
+  ) => void;
+}
+
+/**
+ * Multi Select
+ */
+export interface MultiSelectProps
+  extends SelectBaseProps {
+  multi: true;
+
+  value?: string[];
+
+  defaultValue?: string[];
+
+  onChange?: (
+    value: string[]
+  ) => void;
+}
+
+/**
+ * Select Props
+ *
+ * Discriminated Union:
+ *
+ * multi === false / undefined
+ * → string
+ *
+ * multi === true
+ * → string[]
+ */
+export type SelectProps =
+  | SingleSelectProps
+  | MultiSelectProps;

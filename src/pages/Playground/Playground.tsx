@@ -14,10 +14,15 @@ export default function Playground() {
   const [fullInput, setFullInput] = useState("1250");
   const [country, setCountry] = useState("");
   const [country1, setCountry1] = useState("");
+  const [countriesMulti, setCountriesMulti] =
+  useState<string[]>([]);
   const countries = [
     { value: "de", label: "Germany" },
     { value: "fr", label: "France" },
     { value: "nl", label: "Netherlands" },
+    { value: "it", label: "Italy" },
+    { value: "es", label: "Spain" },
+    { value: "pt", label: "Portugal" },
   ];
 
 
@@ -361,10 +366,21 @@ const remoteCountriesData = [
         <Select
           label="Remote Search Select"
           searchable
+          clearable
           onSearch={handleCountrySearch}
           value={country1}
           options={[]}
           onChange={setCountry1}
+        />
+
+        <Select
+          label="Multi Select Country"
+          clearable
+          options={countries}
+          value={countriesMulti}
+          multi
+          searchable
+          onChange={setCountriesMulti}
         />
       </div>
     </div>

@@ -130,6 +130,19 @@ export default function SelectDropdown({
   loading = false,
   hasMore = false,
 }: SelectDropdownProps) {
+
+  const isOptionSelected = (
+    optionValue: string
+  ) => {
+    if (Array.isArray(value)) {
+      return value.includes(
+        optionValue
+      );
+    }
+
+    return value === optionValue;
+  };
+
   const activeOption =
     activeIndex !== null
       ? flatOptions[activeIndex]
@@ -394,10 +407,7 @@ export default function SelectDropdown({
                               listRef
                             }
                             selected={
-                              typeof value ===
-                                "string" &&
-                              value ===
-                                child.value
+                              isOptionSelected(child.value)
                             }
                             onSelect={
                               onSelect
@@ -431,10 +441,7 @@ export default function SelectDropdown({
                   }
                   listRef={listRef}
                   selected={
-                    typeof value ===
-                      "string" &&
-                    value ===
-                      option.value
+                    isOptionSelected(option.value)
                   }
                   onSelect={onSelect}
                 />

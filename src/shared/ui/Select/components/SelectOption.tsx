@@ -89,6 +89,15 @@ export default function SelectOption({
       <span className="ff-select__option-label">
         {option.label}
       </span>
+
+      {selected && (
+        <span
+          className="ff-select__option-check"
+          aria-hidden="true"
+        >
+          ✓
+        </span>
+      )}
     </button>
   );
 }

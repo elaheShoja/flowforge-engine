@@ -28,23 +28,29 @@ import "./Select.css";
 const DEFAULT_LIMIT = 5;
 const SEARCH_DEBOUNCE = 300;
 
-export default function Select({
-  label,
-  placeholder = "Select Country",
-  helperText,
-  error,
-  required,
-  fullWidth = false,
-  disabled = false,
+export default function Select(
+  props: SelectProps
+) {
+  const {
+    label,
+    placeholder = "Select Country",
+    helperText,
+    error,
+    required,
+    fullWidth = false,
+    disabled = false,
 
-  searchable = false,
-  options,
+    searchable = false,
+    options,
 
-  value,
-  onChange,
+    value,
 
-  onSearch,
-}: SelectProps) {
+    onSearch,
+
+    multi = false,
+    clearable = false,
+  } = props;
+
   const {
     search,
     setSearch,
@@ -341,8 +347,12 @@ export default function Select({
    * remoteOptions, not the original options prop.
    */
 
-  const selectedIndex =
-    flatOptions.findIndex(
+  const selectedIndex = multi
+  ? flatOptions.findIndex((option) =>
+      Array.isArray(value) &&
+      value.includes(option.value)
+    )
+  : flatOptions.findIndex(
       (option) =>
         option.value === value
     );
@@ -352,8 +362,13 @@ export default function Select({
       sourceOptions
     );
 
-  const selectedOption =
-    allSourceOptions.find(
+  const selectedOptions = multi
+  ? allSourceOptions.filter(
+      (option) =>
+        Array.isArray(value) &&
+        value.includes(option.value)
+    )
+  : allSourceOptions.filter(
       (option) =>
         option.value === value
     );
@@ -426,8 +441,71 @@ export default function Select({
    */
 
   const displayValue =
-    selectedOption?.label ??
-    placeholder;
+    multi
+      ? selectedOptions.length === 0
+        ? placeholder
+        : selectedOptions.length <= 2
+          ? selectedOptions
+              .map(
+                (option) =>
+                  option.label
+              )
+              .join("  ")
+          : `${selectedOptions
+              .slice(0, 2)
+              .map(
+                (option) =>
+                  option.label
+              )
+              .join("  ")}  +${
+              selectedOptions.length - 2
+            }`
+      : selectedOptions[0]?.label ??
+        placeholder;
+
+  const handleSelect = (
+    selectedValue: string
+  ) => {
+    if (props.multi === true) {
+      const currentValues =
+        props.value ?? [];
+
+      const exists =
+        currentValues.includes(
+          selectedValue
+        );
+
+      const nextValues = exists
+        ? currentValues.filter(
+            (item) =>
+              item !== selectedValue
+          )
+        : [
+            ...currentValues,
+            selectedValue,
+          ];
+
+      props.onChange?.(nextValues);
+
+      return;
+    }
+
+    props.onChange?.(selectedValue);
+
+    setOpen(false);
+  };
+
+  const handleClear = () => {
+    if (props.multi === true) {
+      const emptyValues: string[] = [];
+
+      props.onChange?.(emptyValues);
+
+      return;
+    }
+
+    props.onChange?.("");
+  };
 
   return (
     <FieldWrapper
@@ -473,12 +551,29 @@ export default function Select({
         <span
           className={clsx(
             "ff-select__value",
-            !selectedOption &&
+            !selectedOptions &&
               "ff-select__placeholder"
           )}
         >
           {displayValue}
         </span>
+
+        {clearable &&
+          (Array.isArray(value)
+            ? value.length > 0
+            : Boolean(value)) && (
+            <button
+              type="button"
+              className="ff-select__clear"
+              aria-label="Clear selection"
+              onClick={(event) => {
+                event.stopPropagation();
+                handleClear();
+              }}
+            >
+              ×
+            </button>
+          )}
 
         <span className="ff-select__icon">
           ▼
@@ -538,15 +633,7 @@ export default function Select({
               : undefined
           }
 
-          onSelect={(
-            selectedValue
-          ) => {
-            onChange?.(
-              selectedValue
-            );
-
-            setOpen(false);
-          }}
+          onSelect={handleSelect}
         />
       )}
     </FieldWrapper>
