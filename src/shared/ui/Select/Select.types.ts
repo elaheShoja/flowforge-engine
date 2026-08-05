@@ -24,6 +24,8 @@ export interface SelectRemoteResult {
 }
 
 interface SelectBaseProps {
+  name?: string;
+  
   label?: string;
 
   helperText?: string;
