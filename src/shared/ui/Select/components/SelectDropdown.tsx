@@ -10,6 +10,7 @@ import SearchInput from "@/shared/ui/SearchInput";
 
 import SelectGroup from "./SelectGroup";
 import SelectOption from "./SelectOption";
+import SelectAllOption from "./SelectAllOption";
 
 import type {
   SelectGroup as SelectGroupType,
@@ -50,6 +51,14 @@ interface SelectDropdownProps {
   flatOptions: SelectOptionType[];
 
   onSelect: (value: string) => void;
+
+  showSelectAll?: boolean;
+
+  selectAllChecked?: boolean;
+
+  selectAllIndeterminate?: boolean;
+
+  onSelectAll?: () => void;
 
   onLoadMore?: () => void;
 
@@ -126,6 +135,10 @@ export default function SelectDropdown({
   filteredOptions,
   flatOptions,
   onSelect,
+  showSelectAll = false,
+  selectAllChecked = false,
+  selectAllIndeterminate = false,
+  onSelectAll,
   onLoadMore,
   loading = false,
   hasMore = false,
@@ -346,6 +359,16 @@ export default function SelectDropdown({
           onBlur={() => {
             searchHasFocusRef.current =
               false;
+          }}
+        />
+      )}
+
+      {showSelectAll && (
+        <SelectAllOption
+          checked={selectAllChecked}
+          indeterminate={selectAllIndeterminate}
+          onClick={() => {
+            onSelectAll?.();
           }}
         />
       )}

@@ -385,6 +385,9 @@ const remoteCountriesData = [
           value={countriesMulti}
           defaultValue={["de", "fr", "it"]}
           multi
+          selectAll={{
+            enabled: true
+          }}
           searchable
           displayMode="text"
           onChange={setCountriesMulti}

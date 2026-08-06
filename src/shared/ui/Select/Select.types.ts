@@ -23,6 +23,21 @@ export interface SelectRemoteResult {
   totalCount: number;
 }
 
+export interface SelectAllConfig {
+  enabled?: boolean;
+
+  /**
+   * Select all behavior
+   *
+   * filtered:
+   * select only currently visible options
+   *
+   * all:
+   * select entire remote dataset
+   */
+  scope?: "filtered" | "all";
+}
+
 interface SelectBaseProps {
   name?: string;
   
@@ -49,6 +64,8 @@ interface SelectBaseProps {
   clearable?: boolean;
 
   displayMode?: "text" | "chips";
+
+  selectAll?: SelectAllConfig;
 
   /**
    * Remote search / pagination.

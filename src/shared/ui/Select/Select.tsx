@@ -10,6 +10,7 @@ import clsx from "clsx";
 import useSelect from "./hooks/useSelect";
 import useSelectSearch from "./hooks/useSelectSearch";
 import useControllableState from "@/shared/hooks/useControllableState";
+import useSelectAll from "./hooks/useSelectAll";
 
 import filterOptions from "./utils/filterOptions";
 import flattenOptions from "./utils/flattenOptions";
@@ -387,6 +388,29 @@ export default function Select(
         option.value === selectedValue
     );
 
+  const selectableValues =
+  flatOptions.map(
+    (option) =>
+      option.value
+  );
+
+
+const {
+    isAllSelected,
+    isIndeterminate,
+    toggleSelectAll,
+  } = useSelectAll({
+    options: selectableValues,
+
+    selectedValues:
+      Array.isArray(selectedValue)
+        ? selectedValue
+        : [],
+
+    onChange:
+      setSelectedValue,
+  });
+
   /**
    * --------------------------------------------------
    * List navigation
@@ -626,6 +650,23 @@ export default function Select(
           }
 
           onSelect={handleSelect}
+
+          showSelectAll={
+            multi &&
+            Boolean(props.selectAll?.enabled)
+          }
+
+          selectAllChecked={
+            isAllSelected
+          }
+
+          selectAllIndeterminate={
+            isIndeterminate
+          }
+
+          onSelectAll={
+            toggleSelectAll
+          }
         />
       )}
     </FieldWrapper>
