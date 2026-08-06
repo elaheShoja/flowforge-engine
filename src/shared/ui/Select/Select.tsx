@@ -9,6 +9,7 @@ import clsx from "clsx";
 
 import useSelect from "./hooks/useSelect";
 import useSelectSearch from "./hooks/useSelectSearch";
+import useControllableState from "@/shared/hooks/useControllableState";
 
 import filterOptions from "./utils/filterOptions";
 import flattenOptions from "./utils/flattenOptions";
@@ -44,6 +45,8 @@ export default function Select(
     options,
 
     value,
+    defaultValue,
+    onChange,
 
     onSearch,
 
@@ -77,6 +80,15 @@ export default function Select(
 
   const [loading, setLoading] =
     useState(false);
+
+  const [
+    selectedValue,
+    setSelectedValue,
+  ] = useControllableState({
+    value,
+    defaultValue,
+    onChange,
+  });
 
   /**
    * --------------------------------------------------
@@ -349,12 +361,12 @@ export default function Select(
 
   const selectedIndex = multi
   ? flatOptions.findIndex((option) =>
-      Array.isArray(value) &&
-      value.includes(option.value)
+      Array.isArray(selectedValue) &&
+      selectedValue.includes(option.value)
     )
   : flatOptions.findIndex(
       (option) =>
-        option.value === value
+        option.value === selectedValue
     );
 
   const allSourceOptions =
@@ -365,12 +377,12 @@ export default function Select(
   const selectedOptions = multi
   ? allSourceOptions.filter(
       (option) =>
-        Array.isArray(value) &&
-        value.includes(option.value)
+        Array.isArray(selectedValue) &&
+        selectedValue.includes(option.value)
     )
   : allSourceOptions.filter(
       (option) =>
-        option.value === value
+        option.value === selectedValue
     );
 
   /**
@@ -464,47 +476,47 @@ export default function Select(
         placeholder;
 
   const handleSelect = (
-    selectedValue: string
+    optionValue: string
   ) => {
-    if (props.multi === true) {
+    if (multi) {
       const currentValues =
-        props.value ?? [];
+        Array.isArray(selectedValue)
+          ? selectedValue
+          : [];
 
       const exists =
         currentValues.includes(
-          selectedValue
+          optionValue
         );
 
       const nextValues = exists
         ? currentValues.filter(
             (item) =>
-              item !== selectedValue
+              item !== optionValue
           )
         : [
             ...currentValues,
-            selectedValue,
+            optionValue,
           ];
 
-      props.onChange?.(nextValues);
+      setSelectedValue(nextValues);
 
       return;
     }
 
-    props.onChange?.(selectedValue);
+    setSelectedValue(optionValue);
 
     setOpen(false);
   };
 
   const handleClear = () => {
-    if (props.multi === true) {
-      const emptyValues: string[] = [];
-
-      props.onChange?.(emptyValues);
+    if (multi === true) {
+      setSelectedValue([]);
 
       return;
     }
 
-    props.onChange?.("");
+    setSelectedValue("");
   };
 
   return (
@@ -559,9 +571,9 @@ export default function Select(
         </span>
 
         {clearable &&
-          (Array.isArray(value)
-            ? value.length > 0
-            : Boolean(value)) && (
+          (Array.isArray(selectedValue)
+            ? selectedValue.length > 0
+            : Boolean(selectedValue)) && (
             <button
               type="button"
               className="ff-select__clear"
@@ -583,7 +595,7 @@ export default function Select(
       {!disabled && open && (
         <SelectDropdown
           options={sourceOptions}
-          value={value}
+          value={selectedValue}
 
           floatingRef={
             refs.setFloating

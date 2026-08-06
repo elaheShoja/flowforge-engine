@@ -9,7 +9,7 @@ import { Button, Spinner,
 export default function Playground() {
 
   const [searchValue, setSearchValue] = useState("John Doe");
-  const [name, setName] = useState("Elahe");
+  const [name, setName] = useState("");
   const [password, setPassword] = useState("123456");
   const [fullInput, setFullInput] = useState("1250");
   const [country, setCountry] = useState("");
@@ -224,6 +224,7 @@ const remoteCountriesData = [
 
         <Input
           label="Name"
+          defaultValue={"elahe"}
           value={name}
           onChange={(e) => setName(e.target.value)}
           clearable
@@ -358,6 +359,8 @@ const remoteCountriesData = [
           label="Select Country"
           options={countries}
           value={country}
+          clearable
+          defaultValue={"de"}
           searchable
           
           onChange={setCountry}
@@ -369,6 +372,7 @@ const remoteCountriesData = [
           clearable
           onSearch={handleCountrySearch}
           value={country1}
+          defaultValue={"de"}
           options={[]}
           onChange={setCountry1}
         />
@@ -378,6 +382,7 @@ const remoteCountriesData = [
           clearable
           options={countries}
           value={countriesMulti}
+          defaultValue={["de", "fr", "it"]}
           multi
           searchable
           onChange={setCountriesMulti}
