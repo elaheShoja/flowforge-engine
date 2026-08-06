@@ -48,6 +48,8 @@ interface SelectBaseProps {
 
   clearable?: boolean;
 
+  displayMode?: "text" | "chips";
+
   /**
    * Remote search / pagination.
    *
@@ -71,6 +73,7 @@ interface SelectBaseProps {
   ) =>
     | void
     | Promise<SelectRemoteResult | void>;
+    
 }
 
 /**

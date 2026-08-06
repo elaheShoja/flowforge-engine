@@ -374,6 +374,7 @@ const remoteCountriesData = [
           value={country1}
           defaultValue={"de"}
           options={[]}
+          displayMode="text"
           onChange={setCountry1}
         />
 
@@ -385,6 +386,7 @@ const remoteCountriesData = [
           defaultValue={["de", "fr", "it"]}
           multi
           searchable
+          displayMode="text"
           onChange={setCountriesMulti}
         />
       </div>

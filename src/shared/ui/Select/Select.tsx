@@ -21,6 +21,7 @@ import type {
 } from "./Select.types";
 
 import SelectDropdown from "./components/SelectDropdown";
+import SelectValue from "./components/SelectValue";
 
 import FieldWrapper from "@/shared/ui/FieldWrapper";
 
@@ -52,6 +53,7 @@ export default function Select(
 
     multi = false,
     clearable = false,
+    displayMode = "chips",
   } = props;
 
   const {
@@ -452,29 +454,6 @@ export default function Select(
    * --------------------------------------------------
    */
 
-  const displayValue =
-    multi
-      ? selectedOptions.length === 0
-        ? placeholder
-        : selectedOptions.length <= 2
-          ? selectedOptions
-              .map(
-                (option) =>
-                  option.label
-              )
-              .join("  ")
-          : `${selectedOptions
-              .slice(0, 2)
-              .map(
-                (option) =>
-                  option.label
-              )
-              .join("  ")}  +${
-              selectedOptions.length - 2
-            }`
-      : selectedOptions[0]?.label ??
-        placeholder;
-
   const handleSelect = (
     optionValue: string
   ) => {
@@ -560,36 +539,37 @@ export default function Select(
             "ff-select--disabled"
         )}
       >
-        <span
-          className={clsx(
-            "ff-select__value",
-            !selectedOptions &&
-              "ff-select__placeholder"
-          )}
-        >
-          {displayValue}
-        </span>
+        <div className="ff-select__content">
+          <SelectValue 
+            options={selectedOptions}
+            placeholder={placeholder}
+            multi={multi}
+            displayMode={displayMode}        
+          />
+        </div>
 
-        {clearable &&
-          (Array.isArray(selectedValue)
-            ? selectedValue.length > 0
-            : Boolean(selectedValue)) && (
-            <button
-              type="button"
-              className="ff-select__clear"
-              aria-label="Clear selection"
-              onClick={(event) => {
-                event.stopPropagation();
-                handleClear();
-              }}
-            >
-              ×
-            </button>
-          )}
+        <div className="ff-select__actions">
+          {clearable &&
+            (Array.isArray(selectedValue)
+              ? selectedValue.length > 0
+              : Boolean(selectedValue)) && (
+              <button
+                type="button"
+                className="ff-select__clear"
+                aria-label="Clear selection"
+                onClick={(event) => {
+                  event.stopPropagation();
+                  handleClear();
+                }}
+              >
+                ×
+              </button>
+            )}
 
-        <span className="ff-select__icon">
-          ▼
-        </span>
+          <span className="ff-select__icon">
+            ▼
+          </span>
+        </div>
       </div>
 
       {!disabled && open && (

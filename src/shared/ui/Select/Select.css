@@ -207,3 +207,55 @@
   color: var(--color-text);
   background: var(--color-surface-hover);
 }
+
+.ff-select__content {
+  flex: 1;
+  min-width: 0;
+}
+
+.ff-select__chips {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  overflow: hidden;
+}
+
+.ff-select__chip {
+  display: inline-flex;
+  white-space: nowrap;
+}
+
+.ff-select__actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.ff-select__chips {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  overflow: hidden;
+}
+
+
+.ff-select__chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 8px;
+  border-radius: 14px;
+  background: #f1f5f9;
+  white-space: nowrap;
+  font-size: 13px;
+}
+
+
+.ff-select__chip-more {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 8px;
+  border-radius: 14px;
+  white-space: nowrap;
+  font-size: 13px;
+}
