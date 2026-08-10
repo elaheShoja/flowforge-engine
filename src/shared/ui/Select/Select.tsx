@@ -90,10 +90,36 @@ export default function Select(
   const [
     selectedValue,
     setSelectedValue,
-  ] = useControllableState({
-    value,
-    defaultValue,
-    onChange,
+  ] = useControllableState<
+    string | string[]
+  >({
+    value: value as
+      | string
+      | string[]
+      | undefined,
+
+    defaultValue: defaultValue as
+      | string
+      | string[]
+      | undefined,
+
+    onChange: (nextValue) => {
+      if (multi) {
+        (
+          onChange as
+            | ((value: string[]) => void)
+            | undefined
+        )?.(nextValue as string[]);
+
+        return;
+      }
+
+      (
+        onChange as
+          | ((value: string) => void)
+          | undefined
+      )?.(nextValue as string);
+    },
   });
 
   /**
