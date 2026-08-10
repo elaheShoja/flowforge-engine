@@ -75,6 +75,9 @@ export default function Select(
     Array<SelectOption | SelectGroup>
   >([]);
 
+  const [remoteSelectedOptions, setRemoteSelectedOptions] =
+    useState<SelectOption[]>([]);
+
   const [offset, setOffset] =
     useState(0);
 
@@ -351,6 +354,35 @@ export default function Select(
       filteredOptions
     );
 
+  useEffect(() => {
+    if (!onSearch) return;
+
+    setRemoteSelectedOptions((previous) => {
+      const next = [...previous];
+
+      flatOptions.forEach((option) => {
+        if (
+          Array.isArray(selectedValue) &&
+          selectedValue.includes(option.value)
+        ) {
+          const exists = next.some(
+            (item) => item.value === option.value
+          );
+
+          if (!exists) {
+            next.push(option);
+          }
+        }
+      });
+
+      return next;
+    });
+  }, [
+    onSearch,
+    flatOptions,
+    selectedValue,
+  ]);
+
   /**
    * --------------------------------------------------
    * Selected option
@@ -373,20 +405,29 @@ export default function Select(
     );
 
   const allSourceOptions =
-    flattenOptions(
-      sourceOptions
-    );
+    flattenOptions(sourceOptions);
 
   const selectedOptions = multi
-  ? allSourceOptions.filter(
-      (option) =>
-        Array.isArray(selectedValue) &&
-        selectedValue.includes(option.value)
-    )
-  : allSourceOptions.filter(
-      (option) =>
-        option.value === selectedValue
-    );
+    ? (
+        onSearch
+          ? remoteSelectedOptions
+          : allSourceOptions
+      ).filter(
+        (option) =>
+          Array.isArray(selectedValue) &&
+          selectedValue.includes(option.value)
+      )
+    : (
+        onSearch
+          ? [
+              ...remoteSelectedOptions,
+              ...allSourceOptions,
+            ]
+          : allSourceOptions
+      ).filter(
+        (option) =>
+          option.value === selectedValue
+      );
 
   const selectableValues =
   flatOptions.map(
@@ -653,6 +694,7 @@ const {
 
           showSelectAll={
             multi &&
+            !onSearch && 
             Boolean(props.selectAll?.enabled)
           }
 
