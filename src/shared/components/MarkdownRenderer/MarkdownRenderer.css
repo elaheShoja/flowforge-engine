@@ -1,0 +1,355 @@
+.ff-markdown {
+  width: 100%;
+
+  color: var(--color-text);
+
+  line-height: 1.7;
+
+  text-align: left;
+
+  overflow-wrap: break-word;
+}
+
+/* ===========================
+   Headings
+=========================== */
+
+.ff-markdown h1,
+.ff-markdown h2,
+.ff-markdown h3,
+.ff-markdown h4,
+.ff-markdown h5,
+.ff-markdown h6 {
+  margin-top: var(--space-xl);
+  margin-bottom: var(--space-md);
+
+  color: var(--color-text);
+
+  font-weight: 700;
+
+  line-height: 1.25;
+
+  text-align: left;
+}
+
+.ff-markdown h1 {
+  font-size: 2rem;
+}
+
+.ff-markdown h2 {
+  font-size: 1.5rem;
+}
+
+.ff-markdown h3 {
+  font-size: 1.25rem;
+}
+
+.ff-markdown h4 {
+  font-size: 1.125rem;
+}
+
+.ff-markdown h5 {
+  font-size: 1rem;
+}
+
+.ff-markdown h6 {
+  font-size: 0.875rem;
+}
+
+/* ===========================
+   First Heading
+=========================== */
+
+.ff-markdown > h1:first-child {
+  margin-top: 0;
+}
+
+/* ===========================
+   Paragraph
+=========================== */
+
+.ff-markdown p {
+  margin: 0 0 var(--space-md);
+
+  text-align: left;
+}
+
+/* ===========================
+   Links
+=========================== */
+
+.ff-markdown a {
+  color: var(--color-primary);
+
+  text-decoration: none;
+}
+
+.ff-markdown a:hover {
+  text-decoration: underline;
+}
+
+/* ===========================
+   Lists
+=========================== */
+
+.ff-markdown ul,
+.ff-markdown ol {
+  margin: 0 0 var(--space-md);
+
+  padding-left: var(--space-xl);
+
+  text-align: left;
+}
+
+.ff-markdown ul {
+  list-style-type: disc;
+}
+
+.ff-markdown ol {
+  list-style-type: decimal;
+}
+
+.ff-markdown li {
+  margin-bottom: var(--space-xs);
+
+  text-align: left;
+}
+
+.ff-markdown li > p {
+  margin-bottom: var(--space-xs);
+}
+
+/* ===========================
+   Nested Lists
+=========================== */
+
+.ff-markdown ul ul,
+.ff-markdown ol ol,
+.ff-markdown ul ol,
+.ff-markdown ol ul {
+  margin-top: var(--space-xs);
+  margin-bottom: var(--space-xs);
+}
+
+/* ===========================
+   Blockquote
+=========================== */
+
+.ff-markdown blockquote {
+  margin: var(--space-md) 0;
+
+  padding: var(--space-md);
+
+  border-left: 4px solid var(--color-primary);
+
+  background: var(--color-background-secondary);
+
+  color: var(--color-text-secondary);
+
+  text-align: left;
+}
+
+.ff-markdown blockquote > :last-child {
+  margin-bottom: 0;
+}
+
+/* ===========================
+   Inline Code
+=========================== */
+
+.ff-markdown__inline-code {
+  padding: 0.15rem 0.35rem;
+
+  border-radius: var(--radius-sm);
+
+  background: var(--color-background-secondary);
+
+  color: var(--color-text);
+
+  font-family: monospace;
+  font-size: 0.9em;
+}
+
+
+/* ===========================
+   Code Block
+=========================== */
+
+.ff-markdown__code-block {
+  overflow-x: auto;
+
+  margin: var(--space-md) 0 !important;
+
+  border-radius: var(--radius-md);
+
+  font-size: 0.9rem;
+
+  line-height: 1.6;
+}
+
+.ff-markdown__code-block code {
+  padding: 0;
+
+  background: transparent;
+
+  color: inherit;
+
+  font-family: monospace;
+
+  font-size: inherit;
+}
+
+/* ===========================
+   Syntax Highlighting
+=========================== */
+
+.ff-markdown pre code.hljs {
+  padding: 0;
+  
+  background: transparent;
+}
+
+/* ===========================
+   Tables
+=========================== */
+
+.ff-markdown table {
+  width: 100%;
+
+  margin: var(--space-md) 0;
+
+  border-collapse: collapse;
+
+  text-align: left;
+
+  overflow: hidden;
+}
+
+.ff-markdown th,
+.ff-markdown td {
+  padding: var(--space-sm) var(--space-md);
+
+  border: 1px solid var(--color-border);
+
+  text-align: left;
+
+  vertical-align: top;
+}
+
+.ff-markdown th {
+  background: var(--color-background-secondary);
+
+  font-weight: 600;
+}
+
+/* ===========================
+   Table Wrapper Behavior
+=========================== */
+
+.ff-markdown table {
+  display: table;
+}
+
+/* ===========================
+   Horizontal Rule
+=========================== */
+
+.ff-markdown hr {
+  margin: var(--space-xl) 0;
+
+  border: 0;
+
+  border-top: 1px solid var(--color-border);
+}
+
+/* ===========================
+   Images
+=========================== */
+
+.ff-markdown img {
+  max-width: 100%;
+
+  height: auto;
+
+  border-radius: var(--radius-md);
+}
+
+/* ===========================
+   Strong / Emphasis
+=========================== */
+
+.ff-markdown strong {
+  font-weight: 700;
+}
+
+.ff-markdown em {
+  font-style: italic;
+}
+
+/* ===========================
+   Keyboard
+=========================== */
+
+.ff-markdown kbd {
+  padding: 0.15rem 0.4rem;
+
+  border: 1px solid var(--color-border);
+
+  border-radius: var(--radius-sm);
+
+  background: var(--color-background-secondary);
+
+  font-family: monospace;
+
+  font-size: 0.875em;
+}
+
+/* ===========================
+   Definition / Details
+=========================== */
+
+.ff-markdown details {
+  margin: var(--space-md) 0;
+}
+
+.ff-markdown summary {
+  cursor: pointer;
+
+  font-weight: 600;
+}
+
+/* ===========================
+   Responsive
+=========================== */
+
+@media (max-width: 768px) {
+  .ff-markdown {
+    font-size: 0.95rem;
+  }
+
+  .ff-markdown h1 {
+    font-size: 1.75rem;
+  }
+
+  .ff-markdown h2 {
+    font-size: 1.4rem;
+  }
+
+  .ff-markdown h3 {
+    font-size: 1.2rem;
+  }
+
+  .ff-markdown table {
+    display: block;
+
+    overflow-x: auto;
+
+    white-space: nowrap;
+  }
+
+  .ff-markdown pre {
+    max-width: 100%;
+
+    font-size: 0.875rem;
+  }
+}

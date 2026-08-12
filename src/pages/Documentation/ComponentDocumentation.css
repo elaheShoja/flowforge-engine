@@ -1,0 +1,148 @@
+.ff-docs-page {
+  width: 100%;
+  max-width: 1100px;
+
+  margin: 0 auto;
+
+  padding-bottom: var(--space-3xl);
+}
+
+/* ===========================
+   Toolbar
+=========================== */
+
+.ff-docs-page__toolbar {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: var(--space-md);
+
+  margin-bottom: var(--space-lg);
+
+  padding-bottom: var(--space-md);
+
+  border-bottom: 1px solid var(--color-border);
+}
+
+.ff-docs-page__meta {
+  display: flex;
+
+  align-items: center;
+
+  gap: var(--space-sm);
+}
+
+/* ===========================
+   Status
+=========================== */
+
+.ff-docs-page__status {
+  display: inline-flex;
+
+  align-items: center;
+
+  min-height: 28px;
+
+  padding: 0 var(--space-sm);
+
+  border-radius: var(--radius-md);
+
+  font-size: var(--font-size-sm);
+
+  font-weight: 600;
+
+  text-transform: capitalize;
+}
+
+.ff-docs-page__status--stable {
+  background: var(--color-disabled);
+
+  color: var(--color-text-secondary);
+}
+
+.ff-docs-page__status--experimental {
+  background: var(--color-disabled);
+
+  color: var(--color-text-secondary);
+}
+
+.ff-docs-page__status--deprecated {
+  background: var(--color-disabled);
+
+  color: var(--color-danger);
+}
+
+/* ===========================
+   Playground Link
+=========================== */
+
+.ff-docs-page__playground-link {
+  display: inline-flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  min-height: 36px;
+
+  padding: 0 var(--space-md);
+
+  border-radius: var(--radius-md);
+
+  background: var(--color-primary);
+
+  color: white;
+
+  text-decoration: none;
+
+  font-size: var(--font-size-sm);
+
+  font-weight: 600;
+
+  transition:
+    opacity var(--transition-fast),
+    transform var(--transition-fast);
+}
+
+.ff-docs-page__playground-link:hover {
+  opacity: 0.9;
+}
+
+.ff-docs-page__playground-link:active {
+  transform: translateY(1px);
+}
+
+/* ===========================
+   Empty State
+=========================== */
+
+.ff-docs-page__empty {
+  padding: var(--space-xl);
+
+  border: 1px solid var(--color-border);
+
+  border-radius: var(--radius-md);
+
+  color: var(--color-text-secondary);
+
+  text-align: center;
+}
+
+/* ===========================
+   Responsive
+=========================== */
+
+@media (max-width: 768px) {
+  .ff-docs-page__toolbar {
+    align-items: flex-start;
+
+    flex-direction: column;
+  }
+
+  .ff-docs-page__playground-link {
+    width: 100%;
+  }
+}
