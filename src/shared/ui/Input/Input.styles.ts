@@ -30,7 +30,7 @@ export const inputVariants = cva(
       size: "md",
       error: false,
       disabled: false,
-      fullWidth: false,
+      fullWidth: true,
     },
   }
 );

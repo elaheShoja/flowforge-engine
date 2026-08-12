@@ -1,10 +1,15 @@
+/* ===========================
+   Input
+=========================== */
+
 .ff-input {
   display: flex;
   align-items: center;
 
   gap: var(--space-sm);
 
-  width: 100%;
+  width: fit-content;
+  max-width: 100%;
 
   border: 1px solid var(--color-border);
 
@@ -57,7 +62,7 @@
   border-color: var(--color-primary);
 
   box-shadow:
-    0 0 0 3px rgba(37,99,235,.15);
+    0 0 0 3px rgba(37, 99, 235, 0.15);
 }
 
 .ff-input--error {
@@ -69,8 +74,12 @@
 
   cursor: not-allowed;
 
-  opacity: .7;
+  opacity: 0.7;
 }
+
+/* ===========================
+   Full Width
+=========================== */
 
 .ff-input--full {
   width: 100%;
@@ -83,106 +92,7 @@
 .ff-input__element {
   flex: 1;
 
-  border: none;
-
-  outline: none;
-
-  background: transparent;
-
-  color: var(--color-text);
-
-  font-size: var(--font-size-md);
-
-  font-family: inherit;
-}
-
-.ff-input__element::placeholder {
-  color: var(--color-text-disabled);
-}
-
-.ff-input__element:disabled {
-  cursor: not-allowed;
-}
-
-.ff-input {
-  display: flex;
-  align-items: center;
-
-  gap: var(--space-sm);
-
-  width: 100%;
-
-  border: 1px solid var(--color-border);
-
-  border-radius: var(--radius-md);
-
-  background: var(--color-background);
-
-  transition:
-    border-color var(--transition-fast),
-    box-shadow var(--transition-fast),
-    background var(--transition-fast);
-}
-
-/* ===========================
-   Sizes
-=========================== */
-
-.ff-input--sm {
-  min-height: 36px;
-
-  padding: 0 var(--space-sm);
-}
-
-.ff-input--md {
-  min-height: 42px;
-
-  padding: 0 var(--space-md);
-}
-
-.ff-input--lg {
-  min-height: 48px;
-
-  padding: 0 var(--space-lg);
-}
-
-/* ===========================
-   States
-=========================== */
-
-.ff-input:hover:not(.ff-input--disabled) {
-  border-color: var(--color-border-hover);
-}
-
-.ff-input:focus-within {
-  border-color: var(--color-primary);
-
-  box-shadow:
-    0 0 0 3px rgba(37,99,235,.15);
-}
-
-.ff-input--error {
-  border-color: var(--color-danger);
-}
-
-.ff-input--disabled {
-  background: var(--color-disabled);
-
-  cursor: not-allowed;
-
-  opacity: .7;
-}
-
-.ff-input--full {
-  width: 100%;
-}
-
-/* ===========================
-   Input Element
-=========================== */
-
-.ff-input__element {
-  flex: 1;
+  min-width: 0;
 
   border: none;
 
@@ -206,50 +116,33 @@
 }
 
 /* ===========================
-   Icons
+   Adornments
 =========================== */
 
 .ff-input__adornment {
   display: flex;
-  align-items: center;
-  justify-content: center;
 
-  color: var(--color-text-secondary);
+  align-items: center;
+
+  justify-content: center;
 
   flex-shrink: 0;
 
   padding-inline: var(--space-sm);
 
-  font-size: .875rem;
-}
-
-.ff-input__clear {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-
-  width: 20px;
-  height: 20px;
-
-  border: none;
-  background: transparent;
-
-  cursor: pointer;
-
   color: var(--color-text-secondary);
 
-  font-size: 1rem;
-
-  padding: 0;
+  font-size: 0.875rem;
 }
 
-.ff-input__clear:hover {
-  color: var(--color-text);
-}
+/* ===========================
+   Prefix & Suffix
+=========================== */
 
 .ff-input__prefix,
 .ff-input__suffix {
   display: inline-flex;
+
   align-items: center;
 
   color: var(--color-text-secondary);
@@ -260,26 +153,44 @@
 }
 
 /* ===========================
-   Icons
+   Actions
 =========================== */
-
-.ff-input__adornment {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  color: var(--color-text-secondary);
-
-  flex-shrink: 0;
-
-  padding-inline: var(--space-sm);
-
-  font-size: .875rem;
-}
 
 .ff-input__actions {
   display: inline-flex;
+
   align-items: center;
-  gap: .25rem;
+
+  gap: 0.25rem;
 }
 
+/* ===========================
+   Clear
+=========================== */
+
+.ff-input__clear {
+  display: inline-flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  width: 20px;
+  height: 20px;
+
+  padding: 0;
+
+  border: none;
+
+  background: transparent;
+
+  color: var(--color-text-secondary);
+
+  font-size: 1rem;
+
+  cursor: pointer;
+}
+
+.ff-input__clear:hover {
+  color: var(--color-text);
+}

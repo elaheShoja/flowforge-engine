@@ -45,7 +45,9 @@
 
 .ff-field__control {
   position: relative;
+}
 
+.ff-field--full .ff-field__control {
   width: 100%;
 }
 

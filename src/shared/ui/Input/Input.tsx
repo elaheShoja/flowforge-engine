@@ -20,7 +20,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
 
       size = "md",
 
-      fullWidth = false,
+      fullWidth = true,
 
       loading = false,
       loadingText,
