@@ -2,8 +2,6 @@ import { useState } from "react";
 
 import { Input } from "@/shared/ui";
 
-import "./InputDemo.css";
-
 export default function InputDemo() {
   const [value, setValue] = useState("FlowForge");
 
