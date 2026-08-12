@@ -1,5 +1,231 @@
+/* ===========================
+   Playground
+=========================== */
+
 .playground-stack {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+}
+
+/* ===========================
+   Playground
+=========================== */
+
+.ff-playground {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  padding: 1.5rem;
+}
+
+.ff-playground-demo {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+
+/* ===========================
+   Demo Section
+=========================== */
+
+.ff-playground-demo__section {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+
+  padding: 1.5rem;
+
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+
+  background: var(--color-background);
+}
+
+.ff-playground-demo__section h2 {
+  margin: 0;
+
+  color: var(--color-text);
+
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+
+.ff-playground-demo__section p {
+  margin: 0;
+
+  color: var(--color-text-secondary);
+
+  font-size: var(--font-size-sm);
+}
+
+/* ===========================
+   Demo Grid
+=========================== */
+
+.ff-playground-demo__grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, minmax(0, 1fr));
+
+  gap: 1rem;
+}
+
+/* ===========================
+   Interactive Controls
+=========================== */
+
+.ff-playground-demo__controls {
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, minmax(0, 1fr));
+
+  gap: 1rem;
+
+  padding: 1rem;
+
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+
+  background: var(--color-background-secondary);
+}
+
+.ff-playground-demo__control {
+  display: flex;
+  flex-direction: column;
+
+  gap: 0.4rem;
+}
+
+.ff-playground-demo__control label {
+  color: var(--color-text);
+
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+}
+
+.ff-playground-demo__control select {
+  min-height: 36px;
+
+  padding: 0 0.75rem;
+
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+
+  background: var(--color-background);
+
+  color: var(--color-text);
+
+  font: inherit;
+}
+
+.ff-playground-demo__checkbox {
+  display: flex;
+
+  align-items: center;
+
+  gap: 0.5rem;
+
+  min-height: 36px;
+
+  color: var(--color-text);
+
+  font-size: var(--font-size-sm);
+
+  cursor: pointer;
+}
+
+.ff-playground-demo__checkbox input {
+  margin: 0;
+
+  cursor: pointer;
+}
+
+/* ===========================
+   Interactive Preview
+=========================== */
+
+.ff-playground-demo__preview {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+
+  padding-top: 0.5rem;
+}
+
+/* ===========================
+   Section Header
+=========================== */
+
+.ff-playground-demo__section-header {
+  display: flex;
+  flex-direction: column;
+
+  gap: 0.5rem;
+}
+
+.ff-playground-demo__section-header h2,
+.ff-playground-demo__section-header p {
+  margin: 0;
+}
+
+/* ===========================
+   Responsive Controls
+=========================== */
+
+@media (max-width: 900px) {
+  .ff-playground-demo__controls {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .ff-playground-demo__controls {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ===========================
+   Current Value
+=========================== */
+
+.ff-playground-demo__value {
+  color: var(--color-text-secondary);
+
+  font-size: var(--font-size-sm);
+}
+
+.ff-playground-demo__value strong {
+  color: var(--color-text);
+  font-weight: 600;
+}
+
+/* ===========================
+   Responsive
+=========================== */
+
+@media (max-width: 900px) {
+  .ff-playground-demo__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .ff-playground-demo__section {
+    padding: 1rem;
+  }
 }
