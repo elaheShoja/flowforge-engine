@@ -26,6 +26,17 @@ export const componentRegistry: ComponentMeta[] = [
     status: "stable",
     showInPlayground: true,
   },
+  {
+    id: "textarea",
+    name: "Textarea",
+    category: "form",
+    description:
+      "A flexible multiline text input component for FlowForge forms.",
+    docsPath: "/docs/components/textarea",
+    playgroundPath: "/playground/textarea",
+    status: "stable",
+    showInPlayground: true,
+  },
 ];
 
 export function getComponentById(

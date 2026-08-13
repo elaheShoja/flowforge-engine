@@ -1,5 +1,7 @@
 .ff-textarea {
-  width: 100%;
+  width: fit-content;
+
+  max-width: 100%;
 
   padding: var(--space-md);
 
@@ -13,10 +15,13 @@
 
   font: inherit;
 
-  transition: var(--transition-fast);
+  line-height: 1.5;
 
-  resize: vertical;
-  overflow-y: hidden;
+  overflow-y: auto;
+
+  box-sizing: border-box;
+
+  transition: var(--transition-fast);
 }
 
 .ff-textarea:focus {
@@ -30,7 +35,7 @@
 }
 
 .ff-textarea--disabled {
-  opacity: .6;
+  opacity: 0.6;
 
   cursor: not-allowed;
 }

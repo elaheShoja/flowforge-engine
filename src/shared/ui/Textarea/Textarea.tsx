@@ -13,7 +13,7 @@ export default function Textarea({
   helperText,
   error,
 
-  fullWidth = false,
+  fullWidth = true,
 
   autoResize = false,
 
@@ -32,45 +32,81 @@ export default function Textarea({
 
   ...props
 }: TextareaProps) {
-
   const textareaRef =
     useRef<HTMLTextAreaElement>(null);
 
   const resizeTextarea = () => {
-    if (!autoResize || !textareaRef.current) return;
+    if (!autoResize || !textareaRef.current) {
+      return;
+    }
 
     const textarea = textareaRef.current;
 
-    textarea.style.height = "auto";
+    const styles = getComputedStyle(textarea);
 
     const lineHeight = parseFloat(
-      getComputedStyle(textarea).lineHeight
+      styles.lineHeight
     );
 
-    const minHeight =
-      (minRows ?? rows) * lineHeight;
+    const padding =
+      parseFloat(styles.paddingTop) +
+      parseFloat(styles.paddingBottom);
 
-    const maxHeight =
-      maxRows
-        ? maxRows * lineHeight
-        : Number.POSITIVE_INFINITY;
+    const border =
+      parseFloat(styles.borderTopWidth) +
+      parseFloat(styles.borderBottomWidth);
+
+    if (!lineHeight) {
+      return;
+    }
+
+    const minHeight =
+      (minRows ?? rows) * lineHeight +
+      padding +
+      border;
+
+    const maxHeight = maxRows
+      ? maxRows * lineHeight +
+        padding +
+        border
+      : Number.POSITIVE_INFINITY;
+
+    textarea.style.height = "auto";
+
+    const contentHeight =
+      textarea.scrollHeight;
 
     const nextHeight = Math.min(
-      Math.max(textarea.scrollHeight, minHeight),
+      Math.max(
+        contentHeight,
+        minHeight
+      ),
       maxHeight
     );
 
-    textarea.style.height = `${nextHeight}px`;
+    textarea.style.height =
+      `${nextHeight}px`;
 
     textarea.style.overflowY =
-      textarea.scrollHeight > maxHeight
+      contentHeight > maxHeight
         ? "auto"
         : "hidden";
   };
 
   useEffect(() => {
-    resizeTextarea();
-  }, [props.value, autoResize]);
+    if (autoResize) {
+      resizeTextarea();
+    } else if (textareaRef.current) {
+      textareaRef.current.style.height = "";
+      textareaRef.current.style.overflowY = "";
+    }
+  }, [
+    props.value,
+    autoResize,
+    rows,
+    minRows,
+    maxRows,
+  ]);
 
   return (
     <FieldWrapper
@@ -94,12 +130,15 @@ export default function Textarea({
           className
         )}
         style={{
-          resize: autoResize ? "none" : resize,
+          resize: autoResize
+            ? "none"
+            : resize,
         }}
         {...props}
-        onChange={(e) => {
+        onChange={(event) => {
           resizeTextarea();
-          props.onChange?.(e);
+
+          props.onChange?.(event);
         }}
       />
     </FieldWrapper>

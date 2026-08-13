@@ -30,6 +30,15 @@ export default function MarkdownRenderer({
               ""
             );
 
+            /*
+             * Fenced code block with a language.
+             *
+             * Example:
+             *
+             * ```tsx
+             * const value = "FlowForge";
+             * ```
+             */
             if (match) {
               return (
                 <SyntaxHighlighter
@@ -43,6 +52,37 @@ export default function MarkdownRenderer({
               );
             }
 
+            /*
+             * Code block without a language.
+             *
+             * This is important because our documentation
+             * also supports indented Markdown code blocks.
+             *
+             * Example:
+             *
+             *     import { Input } from "@/shared/ui";
+             *
+             *     <Input
+             *       label="Name"
+             *     />
+             */
+            if (code.includes("\n")) {
+              return (
+                <pre className="ff-markdown__code-block">
+                  <code {...props}>
+                    {code}
+                  </code>
+                </pre>
+              );
+            }
+
+            /*
+             * Inline code.
+             *
+             * Example:
+             *
+             * Use `fullWidth` to make the field responsive.
+             */
             return (
               <code
                 className="ff-markdown__inline-code"

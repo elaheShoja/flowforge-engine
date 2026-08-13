@@ -61,7 +61,18 @@ export const documentationGroups: DocumentationGroup[] = [
             order: 1,
             componentId: "input",
             playgroundPath: "/playground/input",
-        }
+        },
+        {
+            id: "textarea",
+            title: "Textarea",
+            description: "A flexible multiline text input component.",
+            section: "components",
+            path: "/docs/components/textarea",
+            contentPath: "components/textarea.md",
+            order: 2,
+            componentId: "textarea",
+            playgroundPath: "/playground/textarea",
+        },
     ],
   },
   {

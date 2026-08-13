@@ -23,7 +23,7 @@ export const textareaVariants = cva(
     defaultVariants: {
       error: false,
       disabled: false,
-      fullWidth: false,
+      fullWidth: true,
     },
   }
 );

@@ -170,7 +170,6 @@
   font-size: 0.9em;
 }
 
-
 /* ===========================
    Code Block
 =========================== */
@@ -185,9 +184,15 @@
   font-size: 0.9rem;
 
   line-height: 1.6;
+
+  white-space: pre;
+
+  max-width: 100%;
 }
 
 .ff-markdown__code-block code {
+  display: block;
+
   padding: 0;
 
   background: transparent;
@@ -197,6 +202,10 @@
   font-family: monospace;
 
   font-size: inherit;
+
+  white-space: pre;
+
+  overflow-wrap: normal;
 }
 
 /* ===========================
@@ -205,8 +214,10 @@
 
 .ff-markdown pre code.hljs {
   padding: 0;
-  
+
   background: transparent;
+
+  white-space: pre;
 }
 
 /* ===========================
