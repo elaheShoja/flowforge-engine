@@ -1,7 +1,7 @@
 <div align="center">
 
      <img
-     src="./public/flowforge-engine.svg"
+     src="./public/branding/flowforge-engine.svg"
      alt="FlowForge Engine"
      width="600"
      />
