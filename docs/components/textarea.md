@@ -39,6 +39,28 @@ import { Textarea } from "@/shared/ui";
 
 ---
 
+## Interactive Playground
+
+The Interactive Playground provides controls for experimenting with the main `Textarea` properties.
+
+You can change:
+
+- `resize`
+- `rows`
+- `minRows`
+- `maxRows`
+- `fullWidth`
+- `autoResize`
+- `disabled`
+- `error`
+- `required`
+
+The current value is also displayed below the preview.
+
+[Open Interactive Playground](/playground/textarea?focusId=textarea-interactive)
+
+---
+
 ## Basic Usage
 
 The simplest way to use `Textarea` is to provide a label and/or placeholder.
@@ -49,6 +71,8 @@ The simplest way to use `Textarea` is to provide a label and/or placeholder.
   placeholder="Enter a description"
 />
 ```
+
+[Open Basic Usage in Playground](/playground/textarea?focusId=textarea-basic-usage)
 
 ---
 
@@ -75,6 +99,8 @@ export default function Example() {
   );
 }
 ```
+
+[Open Controlled Textarea in Playground](/playground/textarea?focusId=textarea-controlled)
 
 ---
 
@@ -107,6 +133,8 @@ creates a textarea with approximately three visible text rows.
 creates a taller textarea with approximately six visible text rows.
 
 When `autoResize` is enabled, `rows` acts as the default/base row count unless `minRows` is provided.
+
+[Open Rows in Playground](/playground/textarea?focusId=textarea-rows)
 
 ---
 
@@ -148,6 +176,8 @@ When `fullWidth` is `false`, the textarea uses a content-based width while remai
 />
 ```
 
+[Open Full Width in Playground](/playground/textarea?focusId=textarea-full-width)
+
 ---
 
 ## Required Field
@@ -161,6 +191,8 @@ The `required` property can be used together with the label.
   placeholder="Enter a description"
 />
 ```
+
+[Open Required Field in Playground](/playground/textarea?focusId=textarea-states&innerFocusId=textarea-states-required)
 
 ---
 
@@ -191,6 +223,8 @@ The `error` property displays the validation error associated with the field.
 
 The FlowForge Form Engine will be responsible for integrating field-level validation and displaying these errors automatically.
 
+[Open Validation Error in Playground](/playground/textarea?focusId=textarea-states&innerFocusId=textarea-states-error)
+
 ---
 
 ## Disabled State
@@ -206,6 +240,8 @@ Use `disabled` when the user should not be able to interact with the textarea.
 ```
 
 Disabled textareas cannot be edited or resized by the user.
+
+[Open Disabled State in Playground](/playground/textarea?focusId=textarea-states&innerFocusId=textarea-states-disabled)
 
 ---
 
@@ -226,6 +262,8 @@ When `autoResize` is enabled, the textarea automatically adjusts its height acco
 As the user enters more text, the textarea grows.
 
 When the content becomes shorter, the textarea can shrink accordingly.
+
+[Open Auto Resize in Playground](/playground/textarea?focusId=textarea-auto-resize)
 
 ---
 
@@ -250,6 +288,8 @@ In this example:
 
 The effective automatic resize range is controlled by `minRows` and `maxRows`.
 
+[Open Automatic Resize with Row Limits in Playground](/playground/textarea?focusId=textarea-auto-resize)
+
 ---
 
 ## Minimum Rows
@@ -268,6 +308,8 @@ When `autoResize` is enabled, the textarea will not automatically shrink below t
 
 `minRows` only affects automatic resizing.
 
+[Open Minimum Rows in Playground](/playground/textarea?focusId=textarea-min-rows)
+
 ---
 
 ## Maximum Rows
@@ -285,6 +327,8 @@ When `autoResize` is enabled, the textarea will not automatically shrink below t
 When the content exceeds the maximum height, the textarea stops growing and vertical scrolling becomes available.
 
 `maxRows` only affects automatic resizing.
+
+[Open Maximum Rows in Playground](/playground/textarea?focusId=textarea-max-rows)
 
 ---
 
@@ -324,6 +368,8 @@ Maximum reached
 Vertical scrolling
 ```
 
+[Open Minimum and Maximum Rows in Playground](/playground/textarea?focusId=textarea-auto-resize)
+
 ---
 
 ## Manual Resize
@@ -342,6 +388,8 @@ The user can drag the resize handle to change the textarea size.
 When manual resizing is enabled, `minRows` and `maxRows` do not restrict the user's manual resizing.
 
 This keeps manual resizing independent from automatic content-based resizing.
+
+[Open Manual Resize in Playground](/playground/textarea?focusId=textarea-resize)
 
 ---
 
@@ -394,6 +442,8 @@ Supported values are:
 />
 ```
 
+[Open Resize Direction in Playground](/playground/textarea?focusId=textarea-resize)
+
 ---
 
 ## Auto Resize vs Manual Resize
@@ -429,6 +479,8 @@ In this mode, `minRows` and `maxRows` do not restrict manual resizing.
 
 This separation keeps automatic behavior predictable while allowing unrestricted manual resizing when desired.
 
+[Open Auto Resize in Playground](/playground/textarea?focusId=textarea-auto-resize)
+
 ---
 
 ## Combining Rows and Auto Resize
@@ -449,6 +501,8 @@ The textarea initially displays approximately three rows.
 
 As the user enters content, the component automatically grows up to ten rows.
 
+[Open Rows and Auto Resize in Playground](/playground/textarea?focusId=textarea-auto-resize)
+
 ---
 
 ## Error State with Auto Resize
@@ -466,6 +520,8 @@ Automatic resizing works together with validation states.
 ```
 
 The validation message is rendered by `FieldWrapper` independently from the textarea's height behavior.
+
+[Open Error State in Playground](/playground/textarea?focusId=textarea-states&innerFocusId=textarea-states-error)
 
 ---
 
@@ -526,6 +582,8 @@ The resizing behavior can be summarized as follows:
 
 `minRows` and `maxRows` intentionally apply only to automatic resizing. Manual resizing remains unrestricted.
 
+[Open Resizing Behavior in Playground](/playground/textarea?focusId=textarea-resize)
+
 ---
 
 ## Validation
@@ -544,6 +602,38 @@ The `Textarea` component is responsible for displaying validation state:
 The Form Engine will be responsible for defining and executing validation rules.
 
 This separation allows the same textarea component to work independently as well as inside dynamically generated forms.
+
+[Open Validation in Playground](/playground/textarea?focusId=textarea-states&innerFocusId=textarea-states-error)
+
+---
+
+## States
+
+`Textarea` supports several common visual states.
+
+### Default
+
+The default state represents a normal interactive textarea.
+
+[Open Default State in Playground](/playground/textarea?focusId=textarea-states&innerFocusId=textarea-states-default)
+
+### Required
+
+The required state indicates that the field must contain a value.
+
+[Open Required State in Playground](/playground/textarea?focusId=textarea-states&innerFocusId=textarea-states-required)
+
+### Disabled
+
+The disabled state prevents user interaction.
+
+[Open Disabled State in Playground](/playground/textarea?focusId=textarea-states&innerFocusId=textarea-states-disabled)
+
+### Error
+
+The error state displays a validation error associated with the field.
+
+[Open Error State in Playground](/playground/textarea?focusId=textarea-states&innerFocusId=textarea-states-error)
 
 ---
 
@@ -593,6 +683,8 @@ the textarea uses a content-based width while remaining constrained by its paren
 
 Responsive form layout and field positioning are handled by higher-level FlowForge form layout and Form Engine systems.
 
+[Open Responsive Full Width Behavior in Playground](/playground/textarea?focusId=textarea-full-width)
+
 ---
 
 ## Form Builder Integration
@@ -633,22 +725,21 @@ Validation / Dependencies / State
 
 The interactive Playground allows developers to experiment with the component without modifying application code.
 
-[Open Textarea Playground](/playground/textarea)
-
 The Playground provides interactive examples for:
 
+- Interactive configuration
 - Basic usage
 - Rows
 - Full-width layout
-- Disabled state
-- Error state
-- Required state
 - Auto resize
 - Minimum rows
 - Maximum rows
 - Manual resize
 - Resize direction
+- Textarea states
 - Controlled textarea
+
+[Open Textarea Playground](/playground/textarea?focusId=textarea-interactive)
 
 ---
 

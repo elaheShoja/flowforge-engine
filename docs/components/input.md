@@ -49,6 +49,8 @@ The simplest way to use `Input` is to provide a label and/or placeholder.
 />
 ```
 
+[Open Basic Usage in Playground](/playground/input?focusId=input-basic-usage)
+
 ---
 
 ## Controlled Input
@@ -66,12 +68,16 @@ export default function Example() {
     <Input
       label="Name"
       value={value}
-      onChange={(event) => setValue(event.target.value)}
+      onChange={(event) =>
+        setValue(event.target.value)
+      }
       placeholder="Enter your name"
     />
   );
 }
 ```
+
+[Open Controlled Input in Playground](/playground/input?focusId=input-controlled)
 
 ---
 
@@ -85,6 +91,8 @@ The component supports three predefined sizes:
 | `md` | Medium input |
 | `lg` | Large input |
 
+The Playground provides each size as an individual inner Collapse inside the `Sizes` section.
+
 ### Small
 
 ```tsx
@@ -94,6 +102,8 @@ The component supports three predefined sizes:
   placeholder="Small input"
 />
 ```
+
+[Open Small Size in Playground](/playground/input?focusId=input-sizes&innerFocusId=input-size-small)
 
 ### Medium
 
@@ -105,6 +115,8 @@ The component supports three predefined sizes:
 />
 ```
 
+[Open Medium Size in Playground](/playground/input?focusId=input-sizes&innerFocusId=input-size-medium)
+
 ### Large
 
 ```tsx
@@ -114,6 +126,10 @@ The component supports three predefined sizes:
   placeholder="Large input"
 />
 ```
+
+[Open Large Size in Playground](/playground/input?focusId=input-sizes&innerFocusId=input-size-large)
+
+[Open Sizes in Playground](/playground/input?focusId=input-sizes)
 
 ---
 
@@ -129,6 +145,30 @@ Use `fullWidth` when the input should occupy the available horizontal space.
 />
 ```
 
+The default value of `fullWidth` is `false`.
+
+When `fullWidth` is `true`, the input occupies the available width of its parent container.
+
+```tsx
+<Input
+  label="Email"
+  fullWidth
+/>
+```
+
+When `fullWidth` is `false`, the input keeps its content-based layout.
+
+```tsx
+<Input
+  label="Email"
+  fullWidth={false}
+/>
+```
+
+The Interactive Playground allows this behavior to be changed using the `Full Width` control.
+
+[Open Full Width in Playground](/playground/input?focusId=input-interactive)
+
 ---
 
 ## Required Field
@@ -142,6 +182,12 @@ The `required` property can be used together with the label.
   required
 />
 ```
+
+The Playground demonstrates the required state as an individual inner Collapse inside the `States` section.
+
+[Open Required State in Playground](/playground/input?focusId=input-states&innerFocusId=input-state-required)
+
+[Open Input States in Playground](/playground/input?focusId=input-states)
 
 ---
 
@@ -173,6 +219,10 @@ The `error` property displays the validation error associated with the field.
 
 The FlowForge Form Engine will be responsible for integrating field-level validation and displaying these errors automatically.
 
+The Playground demonstrates the error state inside the `States` section.
+
+[Open Validation Error in Playground](/playground/input?focusId=input-states&innerFocusId=input-state-error)
+
 ---
 
 ## Disabled State
@@ -188,6 +238,10 @@ Use `disabled` when the user should not be able to interact with the field.
 ```
 
 Disabled inputs cannot be edited or focused by the user.
+
+The Playground demonstrates the disabled state inside the `States` section.
+
+[Open Disabled State in Playground](/playground/input?focusId=input-states&innerFocusId=input-state-disabled)
 
 ---
 
@@ -219,6 +273,10 @@ Server response
 Validation result
 ```
 
+The Playground demonstrates the loading state inside the `States` section.
+
+[Open Loading State in Playground](/playground/input?focusId=input-states&innerFocusId=input-state-loading)
+
 ---
 
 ## Clearable Input
@@ -238,11 +296,17 @@ Use `clearable` to display a clear action when the input contains a value.
 
 The `onClear` callback is called when the user activates the clear action.
 
+The Playground includes an interactive clearable example with a controlled value.
+
+[Open Clearable Input in Playground](/playground/input?focusId=input-clearable)
+
 ---
 
 ## Prefix and Suffix
 
 `prefix` and `suffix` can be used for contextual content around the input value.
+
+The Playground provides separate inner Collapses for Prefix and Suffix inside the `Prefix & Suffix` section.
 
 ### Prefix
 
@@ -254,15 +318,19 @@ The `onClear` callback is called when the user activates the clear action.
 />
 ```
 
+[Open Prefix in Playground](/playground/input?focusId=input-prefix-suffix&innerFocusId=input-prefix)
+
 ### Suffix
 
 ```tsx
 <Input
-  label="Username"
-  suffix="@company.com"
-  placeholder="username"
+  label="Price"
+  suffix="USD"
+  placeholder="100"
 />
 ```
+
+[Open Suffix in Playground](/playground/input?focusId=input-prefix-suffix&innerFocusId=input-suffix)
 
 ### Both
 
@@ -274,6 +342,8 @@ The `onClear` callback is called when the user activates the clear action.
   placeholder="100"
 />
 ```
+
+[Open Prefix and Suffix in Playground](/playground/input?focusId=input-prefix-suffix)
 
 ---
 
@@ -304,6 +374,8 @@ import { Search } from "lucide-react";
   endAdornment={<Search size={18} />}
 />
 ```
+
+`startAdornment` and `endAdornment` are supported by the component API.
 
 ---
 
@@ -375,6 +447,30 @@ The component supports several common states.
 
 Read-only behavior can be provided through the native HTML input attributes when required.
 
+The Playground presents the main visual states as individual inner Collapses.
+
+### Default
+
+[Open Default State in Playground](/playground/input?focusId=input-states&innerFocusId=input-state-default)
+
+### Required
+
+[Open Required State in Playground](/playground/input?focusId=input-states&innerFocusId=input-state-required)
+
+### Disabled
+
+[Open Disabled State in Playground](/playground/input?focusId=input-states&innerFocusId=input-state-disabled)
+
+### Loading
+
+[Open Loading State in Playground](/playground/input?focusId=input-states&innerFocusId=input-state-loading)
+
+### Error
+
+[Open Error State in Playground](/playground/input?focusId=input-states&innerFocusId=input-state-error)
+
+[Open All Input States in Playground](/playground/input?focusId=input-states)
+
 ---
 
 ## API
@@ -418,6 +514,8 @@ For example:
 />
 ```
 
+Other native input properties such as `name`, `value`, `defaultValue`, `onChange`, `required`, `disabled`, `readOnly`, `type`, and `placeholder` are also supported.
+
 ---
 
 ## Validation
@@ -436,6 +534,8 @@ The `Input` component is responsible for displaying validation state:
 The Form Engine will be responsible for defining and executing validation rules.
 
 This separation allows the same input component to work independently as well as inside dynamically generated forms.
+
+[Open Validation State in Playground](/playground/input?focusId=input-states&innerFocusId=input-state-error)
 
 ---
 
@@ -472,6 +572,10 @@ When `fullWidth` is enabled:
 ```
 
 the input uses the available width of its parent container.
+
+The Interactive Playground allows the `fullWidth` property to be toggled interactively.
+
+[Open Full Width Behavior in Playground](/playground/input?focusId=input-interactive)
 
 Responsive form layout and field positioning are handled by higher-level FlowForge form layout and Form Engine systems.
 
@@ -514,21 +618,70 @@ Validation / Dependencies / State
 
 The interactive Playground allows developers to experiment with the component without modifying application code.
 
-**Open Playground**
+The Playground is organized into top-level sections and nested sections where multiple related states or variants are demonstrated.
 
-[Open Input Playground](/playground/input)
+### Top-Level Sections
 
-The Playground will provide interactive examples for:
-
-- Basic usage
+- Interactive Playground
+- Basic Usage
+- Controlled Input
 - Sizes
-- Disabled state
-- Error state
-- Loading state
-- Clearable input
-- Prefix and suffix
-- Adornments
-- Full-width layout
+- States
+- Clearable Input
+- Prefix & Suffix
+
+### Nested Sizes
+
+The `Sizes` section contains:
+
+- Small
+- Medium
+- Large
+
+### Nested States
+
+The `States` section contains:
+
+- Default
+- Required
+- Disabled
+- Loading
+- Error
+
+### Nested Prefix & Suffix
+
+The `Prefix & Suffix` section contains:
+
+- Prefix
+- Suffix
+
+[Open Input Playground](/playground/input?focusId=input-interactive)
+
+---
+
+## Playground Navigation
+
+The Playground supports deep-linking to nested examples using `focusId` and `innerFocusId`.
+
+For example, to open the Error state directly:
+
+```text
+/playground/input?focusId=input-states&innerFocusId=input-state-error
+```
+
+To open the Large size directly:
+
+```text
+/playground/input?focusId=input-sizes&innerFocusId=input-size-large
+```
+
+To open the Prefix example directly:
+
+```text
+/playground/input?focusId=input-prefix-suffix&innerFocusId=input-prefix
+```
+
+This allows documentation links to open the relevant parent Collapse and automatically focus the requested inner Collapse.
 
 ---
 
