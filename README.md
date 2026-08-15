@@ -1,17 +1,13 @@
-<div align="center">
 
-     <img
-     src="./public/branding/flowforge-engine.svg"
-     alt="FlowForge Engine"
-     width="600"
-     />
 
-     <p>
-     A workflow-driven dynamic form platform built with
-     React, TypeScript, Supabase, and PostgreSQL.
-     </p>
+<p align="center">
+  <img src="./public/branding/flowforge-engine.svg" alt="FlowForge Engine" width="600">
+</p>
 
-</div>
+<p align="center">
+  A workflow-driven dynamic form platform built with
+  React, TypeScript, Supabase, and PostgreSQL.
+</p>
 
 ---
 
