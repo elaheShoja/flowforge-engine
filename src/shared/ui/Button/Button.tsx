@@ -20,7 +20,6 @@ export default function Button({
   type = "button",
   ...props
 }: ButtonProps) {
-
   const isDisabled = disabled || loading;
 
   const classes = clsx(
@@ -42,17 +41,23 @@ export default function Button({
       {...props}
     >
       {loading ? (
-        <Spinner
-          size="sm"
-          variant={
-            variant === "outline" || variant === "ghost"
-              ? "primary"
-              : "light"
-          }
-        />
+        <span aria-hidden="true">
+          <Spinner
+            size="sm"
+            variant={
+              variant === "outline" ||
+              variant === "ghost"
+                ? "primary"
+                : "light"
+            }
+          />
+        </span>
       ) : (
         leftIcon && (
-          <span className="ff-button__icon">
+          <span
+            className="ff-button__icon"
+            aria-hidden="true"
+          >
             {leftIcon}
           </span>
         )
@@ -65,7 +70,10 @@ export default function Button({
       )}
 
       {!loading && rightIcon && (
-        <span className="ff-button__icon">
+        <span
+          className="ff-button__icon"
+          aria-hidden="true"
+        >
           {rightIcon}
         </span>
       )}

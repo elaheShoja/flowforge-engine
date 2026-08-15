@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import clsx from "clsx";
 
 import type { SpinnerProps } from "./Spinner.types";
@@ -8,16 +9,21 @@ import "./Spinner.css";
 export default function Spinner({
   size = "md",
   variant = "primary",
-  label = "Loading...",
+  label,
   fullscreen = false,
   className,
   ...props
 }: SpinnerProps) {
+  const { t } = useTranslation();
+
+  const spinnerLabel =
+    label ?? t("loading");
+
   return (
     <span
       role="status"
       aria-live="polite"
-      aria-label={label}
+      aria-label={spinnerLabel}
       className={clsx(
         spinnerVariants({
           size,
@@ -28,7 +34,9 @@ export default function Spinner({
       )}
       {...props}
     >
-      <span className="sr-only">{label}</span>
+      <span className="sr-only">
+        {spinnerLabel}
+      </span>
     </span>
   );
 }

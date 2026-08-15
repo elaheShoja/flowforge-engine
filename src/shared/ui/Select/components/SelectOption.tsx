@@ -1,14 +1,21 @@
-import { useEffect, useRef } from "react";
+import {
+  useEffect,
+  useRef,
+} from "react";
 import clsx from "clsx";
 
-import type { SelectOption as SelectOptionType } from "../Select.types";
+import type {
+  SelectOption as SelectOptionType,
+} from "../Select.types";
 
 interface Props {
   option: SelectOptionType;
 
   selected: boolean;
 
-  onSelect: (value: string) => void;
+  onSelect: (
+    value: string
+  ) => void;
 
   index: number;
 
@@ -27,7 +34,10 @@ export default function SelectOption({
   active,
   listRef,
 }: Props) {
-  const optionRef = useRef<HTMLButtonElement | null>(null);
+  const optionRef =
+    useRef<HTMLButtonElement | null>(
+      null
+    );
 
   /**
    * Keep the option registered for keyboard navigation.
@@ -44,7 +54,8 @@ export default function SelectOption({
     node: HTMLButtonElement | null
   ) => {
     optionRef.current = node;
-    listRef.current[index] = node;
+    listRef.current[index] =
+      node;
   };
 
   /**
@@ -54,11 +65,15 @@ export default function SelectOption({
    * the scroll position back to the first item.
    */
   useEffect(() => {
-    if (!active) return;
+    if (!active) {
+      return;
+    }
 
-    optionRef.current?.scrollIntoView({
-      block: "nearest",
-    });
+    optionRef.current?.scrollIntoView(
+      {
+        block: "nearest",
+      }
+    );
   }, [active]);
 
   return (
@@ -73,15 +88,22 @@ export default function SelectOption({
         active &&
           "ff-select__option--active"
       )}
-      tabIndex={active ? 0 : 1}
+      tabIndex={
+        active ? 0 : -1
+      }
       role="option"
       aria-selected={selected}
       onClick={() =>
-        onSelect(option.value)
+        onSelect(
+          option.value
+        )
       }
     >
       {option.icon && (
-        <span className="ff-select__option-icon">
+        <span
+          className="ff-select__option-icon"
+          aria-hidden="true"
+        >
           {option.icon}
         </span>
       )}

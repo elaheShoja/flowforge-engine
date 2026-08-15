@@ -1,3 +1,9 @@
 {
-    "hallo":"hi"
+  "clear": "Clear",
+  "selectPlaceholder": "Select...",
+  "clearSelection": "Clear selection",
+  "search": "Search...",
+  "selectAll": "Select All",
+  "loading": "Loading...",
+  "noResults": "No results found"
 }

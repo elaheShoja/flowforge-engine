@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 import { Input } from "@/shared/ui";
 
@@ -8,6 +9,8 @@ export default function PasswordInput({
   endAdornment,
   ...props
 }: PasswordInputProps) {
+  const { t } = useTranslation();
+
   const [visible, setVisible] =
     useState(false);
 
@@ -20,6 +23,11 @@ export default function PasswordInput({
           type="button"
           onClick={() =>
             setVisible(!visible)
+          }
+          aria-label={
+            visible
+              ? t("hidePassword") 
+              : t("showPassword")
           }
         >
           {visible ? "🙈" : "👁"}

@@ -5,9 +5,15 @@ export interface FieldWrapperProps
 
   label?: string;
 
+  htmlFor?: string;
+
   required?: boolean;
 
+  errorId?: string;
+
   error?: string;
+
+  helperId?: string;
 
   helperText?: string;
 

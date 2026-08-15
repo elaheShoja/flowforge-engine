@@ -82,7 +82,7 @@ export default function CollapseGroup({
 
     const element =
       groupRef.current?.querySelector<HTMLElement>(
-        `[data-collapse-id="${focusId}"]`
+        `[data-collapse-id="${CSS.escape(focusId)}"]`
       );
 
     if (!element) {
@@ -144,7 +144,7 @@ export default function CollapseGroup({
          * اگر child خودش CollapseGroup باشد،
          * اصلاً وارد مدیریت این Group نمی‌شود.
          */
-        
+
         const isOpen =
           currentActiveIds.includes(id);
 

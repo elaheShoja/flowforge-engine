@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import clsx from "clsx";
 
 interface Props {
@@ -13,6 +14,9 @@ export default function SelectAllOption({
   indeterminate = false,
   onClick,
 }: Props) {
+  const { t } =
+    useTranslation();
+
   return (
     <button
       type="button"
@@ -28,6 +32,7 @@ export default function SelectAllOption({
         }
       )}
       onClick={onClick}
+      aria-pressed={checked}
     >
       <span
         className={clsx(
@@ -40,6 +45,7 @@ export default function SelectAllOption({
               indeterminate,
           }
         )}
+        aria-hidden="true"
       >
         {checked
           ? "✓"
@@ -49,7 +55,7 @@ export default function SelectAllOption({
       </span>
 
       <span>
-        Select All
+        {t("selectAll")}
       </span>
     </button>
   );

@@ -7,8 +7,11 @@ import "./FieldWrapper.css";
 
 export default function FieldWrapper({
   label,
+  htmlFor,
   required = false,
+  errorId,
   error,
+  helperId,
   helperText,
   tooltip,
   fullWidth = false,
@@ -31,7 +34,10 @@ export default function FieldWrapper({
       {(label || tooltip) && (
         <div className="ff-field__header">
           {label && (
-            <label className="ff-field__label">
+            <label 
+              htmlFor={htmlFor}
+              className="ff-field__label"
+            >
               {label}
 
               {required && (
@@ -55,12 +61,18 @@ export default function FieldWrapper({
       </div>
 
       {error ? (
-        <p className="ff-field__error">
+        <p 
+          id={errorId}
+          className="ff-field__error"
+        >
           {error}
         </p>
       ) : (
         helperText && (
-          <p className="ff-field__helper">
+          <p 
+            id={helperId}
+            className="ff-field__helper"
+          >
             {helperText}
           </p>
         )

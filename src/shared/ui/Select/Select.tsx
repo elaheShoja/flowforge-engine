@@ -4,7 +4,7 @@ import {
   useRef,
   useState,
 } from "react";
-
+import { useTranslation } from "react-i18next";
 import clsx from "clsx";
 
 import useSelect from "./hooks/useSelect";
@@ -34,9 +34,11 @@ const SEARCH_DEBOUNCE = 300;
 export default function Select(
   props: SelectProps
 ) {
+  const { t } = useTranslation();
+
   const {
     label,
-    placeholder = "Select Country",
+    placeholder = t("selectPlaceholder"),
     helperText,
     error,
     required,
@@ -75,8 +77,10 @@ export default function Select(
     Array<SelectOption | SelectGroup>
   >([]);
 
-  const [remoteSelectedOptions, setRemoteSelectedOptions] =
-    useState<SelectOption[]>([]);
+  const [
+    remoteSelectedOptions,
+    setRemoteSelectedOptions,
+  ] = useState<SelectOption[]>([]);
 
   const [offset, setOffset] =
     useState(0);
@@ -155,7 +159,9 @@ export default function Select(
         limit: number,
         append: boolean
       ) => {
-        if (!onSearch) return;
+        if (!onSearch) {
+          return;
+        }
 
         const requestId =
           ++requestIdRef.current;
@@ -228,8 +234,13 @@ export default function Select(
    */
 
   useEffect(() => {
-    if (!onSearch) return;
-    if (!searchable) return;
+    if (!onSearch) {
+      return;
+    }
+
+    if (!searchable) {
+      return;
+    }
 
     const timer =
       window.setTimeout(() => {
@@ -276,8 +287,13 @@ export default function Select(
     useRef(false);
 
   useEffect(() => {
-    if (!onSearch) return;
-    if (searchable) return;
+    if (!onSearch) {
+      return;
+    }
+
+    if (searchable) {
+      return;
+    }
 
     if (
       initialRemoteLoadRef.current
@@ -319,9 +335,13 @@ export default function Select(
 
   const handleLoadMore =
     useCallback(() => {
-      if (!onSearch) return;
+      if (!onSearch) {
+        return;
+      }
 
-      if (loading) return;
+      if (loading) {
+        return;
+      }
 
       if (
         loadingMoreRef.current
@@ -329,7 +349,9 @@ export default function Select(
         return;
       }
 
-      if (!hasMore) return;
+      if (!hasMore) {
+        return;
+      }
 
       const nextOffset =
         offset +
@@ -381,28 +403,41 @@ export default function Select(
     );
 
   useEffect(() => {
-    if (!onSearch) return;
+    if (!onSearch) {
+      return;
+    }
 
-    setRemoteSelectedOptions((previous) => {
-      const next = [...previous];
+    setRemoteSelectedOptions(
+      (previous) => {
+        const next = [...previous];
 
-      flatOptions.forEach((option) => {
-        if (
-          Array.isArray(selectedValue) &&
-          selectedValue.includes(option.value)
-        ) {
-          const exists = next.some(
-            (item) => item.value === option.value
-          );
+        flatOptions.forEach(
+          (option) => {
+            if (
+              Array.isArray(
+                selectedValue
+              ) &&
+              selectedValue.includes(
+                option.value
+              )
+            ) {
+              const exists =
+                next.some(
+                  (item) =>
+                    item.value ===
+                    option.value
+                );
 
-          if (!exists) {
-            next.push(option);
+              if (!exists) {
+                next.push(option);
+              }
+            }
           }
-        }
-      });
+        );
 
-      return next;
-    });
+        return next;
+      }
+    );
   }, [
     onSearch,
     flatOptions,
@@ -421,17 +456,25 @@ export default function Select(
    */
 
   const selectedIndex = multi
-  ? flatOptions.findIndex((option) =>
-      Array.isArray(selectedValue) &&
-      selectedValue.includes(option.value)
-    )
-  : flatOptions.findIndex(
-      (option) =>
-        option.value === selectedValue
-    );
+    ? flatOptions.findIndex(
+        (option) =>
+          Array.isArray(
+            selectedValue
+          ) &&
+          selectedValue.includes(
+            option.value
+          )
+      )
+    : flatOptions.findIndex(
+        (option) =>
+          option.value ===
+          selectedValue
+      );
 
   const allSourceOptions =
-    flattenOptions(sourceOptions);
+    flattenOptions(
+      sourceOptions
+    );
 
   const selectedOptions = multi
     ? (
@@ -440,8 +483,12 @@ export default function Select(
           : allSourceOptions
       ).filter(
         (option) =>
-          Array.isArray(selectedValue) &&
-          selectedValue.includes(option.value)
+          Array.isArray(
+            selectedValue
+          ) &&
+          selectedValue.includes(
+            option.value
+          )
       )
     : (
         onSearch
@@ -452,25 +499,28 @@ export default function Select(
           : allSourceOptions
       ).filter(
         (option) =>
-          option.value === selectedValue
+          option.value ===
+          selectedValue
       );
 
   const selectableValues =
-  flatOptions.map(
-    (option) =>
-      option.value
-  );
+    flatOptions.map(
+      (option) =>
+        option.value
+    );
 
-
-const {
+  const {
     isAllSelected,
     isIndeterminate,
     toggleSelectAll,
   } = useSelectAll({
-    options: selectableValues,
+    options:
+      selectableValues,
 
     selectedValues:
-      Array.isArray(selectedValue)
+      Array.isArray(
+        selectedValue
+      )
         ? selectedValue
         : [],
 
@@ -550,7 +600,9 @@ const {
   ) => {
     if (multi) {
       const currentValues =
-        Array.isArray(selectedValue)
+        Array.isArray(
+          selectedValue
+        )
           ? selectedValue
           : [];
 
@@ -569,12 +621,16 @@ const {
             optionValue,
           ];
 
-      setSelectedValue(nextValues);
+      setSelectedValue(
+        nextValues
+      );
 
       return;
     }
 
-    setSelectedValue(optionValue);
+    setSelectedValue(
+      optionValue
+    );
 
     setOpen(false);
   };
@@ -600,7 +656,13 @@ const {
     >
       <div
         ref={refs.setReference}
-        tabIndex={0}
+        tabIndex={
+          disabled ? -1 : 0
+        }
+        role="combobox"
+        aria-expanded={open}
+        aria-haspopup="listbox"
+        aria-disabled={disabled}
         {...getReferenceProps({
           onKeyDown(event) {
             if (
@@ -631,23 +693,36 @@ const {
         )}
       >
         <div className="ff-select__content">
-          <SelectValue 
-            options={selectedOptions}
-            placeholder={placeholder}
+          <SelectValue
+            options={
+              selectedOptions
+            }
+            placeholder={
+              placeholder
+            }
             multi={multi}
-            displayMode={displayMode}        
+            displayMode={
+              displayMode
+            }
           />
         </div>
 
         <div className="ff-select__actions">
           {clearable &&
-            (Array.isArray(selectedValue)
-              ? selectedValue.length > 0
-              : Boolean(selectedValue)) && (
+            (Array.isArray(
+              selectedValue
+            )
+              ? selectedValue.length >
+                0
+              : Boolean(
+                  selectedValue
+                )) && (
               <button
                 type="button"
                 className="ff-select__clear"
-                aria-label="Clear selection"
+                aria-label={t(
+                  "clearSelection"
+                )}
                 onClick={(event) => {
                   event.stopPropagation();
                   handleClear();
@@ -657,7 +732,10 @@ const {
               </button>
             )}
 
-          <span className="ff-select__icon">
+          <span
+            className="ff-select__icon"
+            aria-hidden="true"
+          >
             ▼
           </span>
         </div>
@@ -665,73 +743,70 @@ const {
 
       {!disabled && open && (
         <SelectDropdown
-          options={sourceOptions}
-          value={selectedValue}
-
+          options={
+            sourceOptions
+          }
+          value={
+            selectedValue
+          }
           floatingRef={
             refs.setFloating
           }
-
           floatingStyles={{
             ...floatingStyles,
             width:
               referenceWidth,
           }}
-
           floatingProps={
             getFloatingProps()
           }
-
           activeIndex={
             activeIndex
           }
-
-          listRef={listRef}
-
+          listRef={
+            listRef
+          }
           searchable={
             searchable
           }
-
           search={search}
-
           setSearch={
             setSearch
           }
-
           filteredOptions={
             filteredOptions
           }
-
           flatOptions={
             flatOptions
           }
-
-          loading={loading}
-
-          hasMore={hasMore}
-
+          loading={
+            loading
+          }
+          hasMore={
+            hasMore
+          }
           onLoadMore={
             onSearch
               ? handleLoadMore
               : undefined
           }
-
-          onSelect={handleSelect}
-
+          onSelect={
+            handleSelect
+          }
           showSelectAll={
             multi &&
-            !onSearch && 
-            Boolean(props.selectAll?.enabled)
+            !onSearch &&
+            Boolean(
+              props.selectAll
+                ?.enabled
+            )
           }
-
           selectAllChecked={
             isAllSelected
           }
-
           selectAllIndeterminate={
             isIndeterminate
           }
-
           onSelectAll={
             toggleSelectAll
           }

@@ -24,8 +24,8 @@ const resources = {
     auth: enAuth,
     forms: enForms,
     workflow: enWorkflow,
-    dashbord: enDashboard,
-    setting: enSetting,
+    dashboard: enDashboard,
+    settings: enSetting,
     submissions: enSubmissions,
   },
 
@@ -34,8 +34,8 @@ const resources = {
     auth: deAuth,
     forms: deForms,
     workflow: deWorkflow,
-    dashbord: deDashboard,
-    setting: deSetting,
+    dashboard: deDashboard,
+    settings: deSetting,
     submissions: deSubmissions,
   },
 };
@@ -47,7 +47,7 @@ i18n
   .use(initReactI18next)
   .init({
     resources,
-    ns:["common", "auth", "forms", "workflow", "dashboard", "setting", "submissions"],
+    ns:["common", "auth", "forms", "workflow", "dashboard", "settings", "submissions"],
     defaultNS: "common",
     lng: savedLang, // ✅ ensures correct language before render
     fallbackLng: 'en',

@@ -1,5 +1,6 @@
 import clsx from "clsx";
-import { forwardRef } from "react";
+import { forwardRef, useId } from "react";
+import { useTranslation } from "react-i18next";
 
 import {
   FieldWrapper,
@@ -48,10 +49,28 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
     },
     ref
   ) {
+    const { t } = useTranslation("common");
+
     const hasValue =
       inputProps.value !== undefined &&
       inputProps.value !== null &&
       String(inputProps.value).length > 0;
+
+    const generatedId = useId();
+
+    const inputId = inputProps.id ?? generatedId;
+
+    const helperId = helperText
+      ? `${inputId}-helper`
+      : undefined;
+
+    const errorId = error
+      ? `${inputId}-error`
+      : undefined;
+
+    const describedBy = error
+      ? errorId
+      : helperId;
 
     const handleClear = () => {
       onClear?.();
@@ -90,6 +109,8 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
         )}
 
         <input
+          {...inputProps}
+          id={inputId}
           ref={ref}
           className="ff-input__element"
           disabled={disabled || loading}
@@ -98,7 +119,8 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
               ? loadingText
               : placeholder
           }
-          {...inputProps}
+          aria-invalid={error ? true : undefined }
+          aria-describedby={describedBy}
         />
 
         {suffix && (
@@ -115,6 +137,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
                 type="button"
                 className="ff-input__clear"
                 onClick={handleClear}
+                aria-label={t("clear")}
               >
                 ×
               </button>
@@ -139,8 +162,11 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
     return (
       <FieldWrapper
         label={label}
+        htmlFor={inputId}
         helperText={helperText}
+        helperId={helperId}
         error={error}
+        errorId={errorId}
         required={required}
         fullWidth={fullWidth}
         disabled={disabled}

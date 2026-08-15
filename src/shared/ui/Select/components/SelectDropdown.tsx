@@ -4,6 +4,7 @@ import {
   useLayoutEffect,
   useRef,
 } from "react";
+import { useTranslation } from "react-i18next";
 
 import Dropdown from "@/shared/ui/Dropdown";
 import SearchInput from "@/shared/ui/SearchInput";
@@ -85,37 +86,47 @@ interface SelectSearchProps {
     React.SetStateAction<string>
   >;
 
-  inputRef: React.RefObject<HTMLInputElement | null>;
+  inputRef: React.RefObject<
+    HTMLInputElement | null
+  >;
 
   onFocus: () => void;
 
   onBlur: () => void;
 }
 
-const SelectSearch = memo(function SelectSearch({
-  search,
-  setSearch,
-  inputRef,
-  onFocus,
-  onBlur,
-}: SelectSearchProps) {
-  
-  return (
-    <div className="ff-select__search">
-      <SearchInput
-        ref={inputRef}
-        value={search}
-        onChange={(event) => {
-          setSearch(event.target.value);
-        }}
-        onFocus={onFocus}
-        onBlur={onBlur}
-        placeholder="Search..."
-        withWrapper={false}
-      />
-    </div>
-  );
-});
+const SelectSearch = memo(
+  function SelectSearch({
+    search,
+    setSearch,
+    inputRef,
+    onFocus,
+    onBlur,
+  }: SelectSearchProps) {
+    const { t } =
+      useTranslation();
+
+    return (
+      <div className="ff-select__search">
+        <SearchInput
+          ref={inputRef}
+          value={search}
+          onChange={(event) => {
+            setSearch(
+              event.target.value
+            );
+          }}
+          onFocus={onFocus}
+          onBlur={onBlur}
+          placeholder={t(
+            "search"
+          )}
+          withWrapper={false}
+        />
+      </div>
+    );
+  }
+);
 
 /**
  * --------------------------------------------------
@@ -143,35 +154,47 @@ export default function SelectDropdown({
   loading = false,
   hasMore = false,
 }: SelectDropdownProps) {
+  const { t } =
+    useTranslation();
 
   const isOptionSelected = (
     optionValue: string
   ) => {
-    if (Array.isArray(value)) {
+    if (
+      Array.isArray(value)
+    ) {
       return value.includes(
         optionValue
       );
     }
 
-    return value === optionValue;
+    return (
+      value === optionValue
+    );
   };
 
   const activeOption =
     activeIndex !== null
-      ? flatOptions[activeIndex]
+      ? flatOptions[
+          activeIndex
+        ]
       : null;
 
   /**
    * Search input DOM node.
    */
   const searchInputRef =
-    useRef<HTMLInputElement>(null);
+    useRef<HTMLInputElement>(
+      null
+    );
 
   /**
    * Options scroll container.
    */
   const optionsRef =
-    useRef<HTMLDivElement>(null);
+    useRef<HTMLDivElement>(
+      null
+    );
 
   /**
    * Prevent multiple load-more requests.
@@ -200,7 +223,9 @@ export default function SelectDropdown({
    * update.
    */
   useEffect(() => {
-    if (!searchable) return;
+    if (!searchable) {
+      return;
+    }
 
     searchInputRef.current?.focus();
   }, [searchable]);
@@ -213,28 +238,28 @@ export default function SelectDropdown({
    * If the search input had focus before an async
    * update, restore focus after React commits the
    * update.
-   *
-   * This protects typing during:
-   *
-   * search request
-   * pagination
-   * loading state
-   * options update
    */
   useLayoutEffect(() => {
-    if (!searchable) return;
+    if (!searchable) {
+      return;
+    }
 
-    if (!searchHasFocusRef.current) {
+    if (
+      !searchHasFocusRef.current
+    ) {
       return;
     }
 
     const input =
       searchInputRef.current;
 
-    if (!input) return;
+    if (!input) {
+      return;
+    }
 
     if (
-      document.activeElement !== input
+      document.activeElement !==
+      input
     ) {
       input.focus();
     }
@@ -250,7 +275,8 @@ export default function SelectDropdown({
    */
   useEffect(() => {
     if (!loading) {
-      loadingMoreRef.current = false;
+      loadingMoreRef.current =
+        false;
     }
   }, [loading]);
 
@@ -263,15 +289,26 @@ export default function SelectDropdown({
     const element =
       optionsRef.current;
 
-    if (!element) return;
-    if (!onLoadMore) return;
+    if (!element) {
+      return;
+    }
+
+    if (!onLoadMore) {
+      return;
+    }
 
     const handleScroll = () => {
-      if (loading) return;
+      if (loading) {
+        return;
+      }
 
-      if (!hasMore) return;
+      if (!hasMore) {
+        return;
+      }
 
-      if (loadingMoreRef.current) {
+      if (
+        loadingMoreRef.current
+      ) {
         return;
       }
 
@@ -291,7 +328,9 @@ export default function SelectDropdown({
        * Do not load the next page
        * at the initial scroll position.
        */
-      if (element.scrollTop <= 0) {
+      if (
+        element.scrollTop <= 0
+      ) {
         return;
       }
 
@@ -304,11 +343,14 @@ export default function SelectDropdown({
        * Start loading before reaching
        * the exact bottom.
        */
-      if (distanceFromBottom > 30) {
+      if (
+        distanceFromBottom > 30
+      ) {
         return;
       }
 
-      loadingMoreRef.current = true;
+      loadingMoreRef.current =
+        true;
 
       onLoadMore();
     };
@@ -335,23 +377,22 @@ export default function SelectDropdown({
 
   return (
     <Dropdown
-      containerRef={floatingRef}
+      containerRef={
+        floatingRef
+      }
       {...floatingProps}
-      role="listbox"
       style={{
         ...floatingStyles,
         zIndex: 1000,
       }}
     >
-      {/* 
-        Search area is isolated from the options
-        rendering.
-      */}
       {searchable && (
         <SelectSearch
           search={search}
           setSearch={setSearch}
-          inputRef={searchInputRef}
+          inputRef={
+            searchInputRef
+          }
           onFocus={() => {
             searchHasFocusRef.current =
               true;
@@ -365,31 +406,41 @@ export default function SelectDropdown({
 
       {showSelectAll && (
         <SelectAllOption
-          checked={selectAllChecked}
-          indeterminate={selectAllIndeterminate}
+          checked={
+            selectAllChecked
+          }
+          indeterminate={
+            selectAllIndeterminate
+          }
           onClick={() => {
             onSelectAll?.();
           }}
         />
       )}
 
-      {/* 
-        ONLY this part is responsible for the
-        scrollable/paginated options.
-      */}
       <div
         ref={optionsRef}
         className="ff-select__options"
+        role="listbox"
       >
         {loading &&
-        filteredOptions.length === 0 ? (
-          <div className="ff-select__empty">
-            Loading ...
+        filteredOptions.length ===
+          0 ? (
+          <div
+            className="ff-select__empty"
+            role="status"
+            aria-live="polite"
+          >
+            {t("loading")}
           </div>
         ) : filteredOptions.length ===
             0 && search ? (
-          <div className="ff-select__empty">
-            No results found
+          <div
+            className="ff-select__empty"
+            role="status"
+            aria-live="polite"
+          >
+            {t("noResults")}
           </div>
         ) : (
           filteredOptions.map(
@@ -397,20 +448,29 @@ export default function SelectDropdown({
               /**
                * Group
                */
-              if ("options" in option) {
+              if (
+                "options" in
+                option
+              ) {
                 return (
                   <div
-                    key={option.label}
+                    key={
+                      option.label
+                    }
                   >
                     <SelectGroup
                       group={option}
                     />
 
                     {option.options.map(
-                      (child) => {
+                      (
+                        child
+                      ) => {
                         const index =
                           flatOptions.findIndex(
-                            (item) =>
+                            (
+                              item
+                            ) =>
                               item.value ===
                               child.value
                           );
@@ -420,8 +480,12 @@ export default function SelectDropdown({
                             key={
                               child.value
                             }
-                            option={child}
-                            index={index}
+                            option={
+                              child
+                            }
+                            index={
+                              index
+                            }
                             active={
                               activeOption?.value ===
                               child.value
@@ -429,9 +493,9 @@ export default function SelectDropdown({
                             listRef={
                               listRef
                             }
-                            selected={
-                              isOptionSelected(child.value)
-                            }
+                            selected={isOptionSelected(
+                              child.value
+                            )}
                             onSelect={
                               onSelect
                             }
@@ -448,47 +512,56 @@ export default function SelectDropdown({
                */
               const index =
                 flatOptions.findIndex(
-                  (item) =>
+                  (
+                    item
+                  ) =>
                     item.value ===
                     option.value
                 );
 
               return (
                 <SelectOption
-                  key={option.value}
-                  option={option}
-                  index={index}
+                  key={
+                    option.value
+                  }
+                  option={
+                    option
+                  }
+                  index={
+                    index
+                  }
                   active={
                     activeOption?.value ===
                     option.value
                   }
-                  listRef={listRef}
-                  selected={
-                    isOptionSelected(option.value)
+                  listRef={
+                    listRef
                   }
-                  onSelect={onSelect}
+                  selected={isOptionSelected(
+                    option.value
+                  )}
+                  onSelect={
+                    onSelect
+                  }
                 />
               );
             }
           )
         )}
 
-        {/* 
-          Loading indicator for pagination.
-          This does NOT contain the search input.
-        */}
-        {onLoadMore && hasMore && (
-          <div
-            className="ff-select__load-more"
-            aria-hidden="true"
-          >
-            {loading && (
-              <div className="ff-select__loading-more">
-                Loading...
-              </div>
-            )}
-          </div>
-        )}
+        {onLoadMore &&
+          hasMore && (
+            <div
+              className="ff-select__load-more"
+              aria-hidden="true"
+            >
+              {loading && (
+                <div className="ff-select__loading-more">
+                  {t("loading")}
+                </div>
+              )}
+            </div>
+          )}
       </div>
     </Dropdown>
   );

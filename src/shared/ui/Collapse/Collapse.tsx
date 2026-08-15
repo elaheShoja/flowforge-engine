@@ -8,7 +8,7 @@ import clsx from "clsx";
 
 import type { CollapseProps } from "./Collapse.types";
 
-import {collapseVariants} from "./Collapse.styles";
+import { collapseVariants } from "./Collapse.styles";
 
 import "./Collapse.css";
 
@@ -46,6 +46,9 @@ const Collapse = forwardRef<
 
     const contentId =
       `ff-collapse-content-${generatedId}`;
+
+    const titleId =
+      `ff-collapse-title-${generatedId}`;
 
     const [internalOpen, setInternalOpen] =
       useState(defaultOpen);
@@ -122,7 +125,10 @@ const Collapse = forwardRef<
                   )}
             </span>
 
-            <span className="ff-collapse__title">
+            <span
+              id={titleId}
+              className="ff-collapse__title"
+            >
               {title}
             </span>
           </span>
@@ -144,6 +150,7 @@ const Collapse = forwardRef<
             bodyClassName
           )}
           role="region"
+          aria-labelledby={titleId}
           aria-hidden={!isOpen}
         >
           <div className="ff-collapse__body-inner">
