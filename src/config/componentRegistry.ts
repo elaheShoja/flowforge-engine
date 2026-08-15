@@ -26,6 +26,7 @@ export const componentRegistry: ComponentMeta[] = [
     status: "stable",
     showInPlayground: true,
   },
+
   {
     id: "textarea",
     name: "Textarea",
@@ -34,6 +35,30 @@ export const componentRegistry: ComponentMeta[] = [
       "A flexible multiline text input component for FlowForge forms.",
     docsPath: "/docs/components/textarea",
     playgroundPath: "/playground/textarea",
+    status: "stable",
+    showInPlayground: true,
+  },
+
+  {
+    id: "collapse",
+    name: "Collapse",
+    category: "general",
+    description:
+      "A reusable collapsible content component for showing and hiding content.",
+    docsPath: "/docs/components/collapse",
+    playgroundPath: "/playground/collapse",
+    status: "stable",
+    showInPlayground: true,
+  },
+
+  {
+    id: "collapse-group",
+    name: "Collapse Group",
+    category: "general",
+    description:
+      "A component for coordinating multiple Collapse components and managing their open state.",
+    docsPath: "/docs/components/collapse-group",
+    playgroundPath: "/playground/collapse-group",
     status: "stable",
     showInPlayground: true,
   },

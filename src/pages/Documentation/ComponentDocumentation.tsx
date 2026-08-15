@@ -92,6 +92,8 @@ export default function ComponentDocumentation() {
           <Link
             to={component.playgroundPath}
             className="ff-docs-page__playground-link"
+            target="_blank"
+            rel="noopener noreferrer"
           >
             Open Playground
           </Link>

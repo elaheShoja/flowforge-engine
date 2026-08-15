@@ -40,71 +40,108 @@ export const documentationGroups: DocumentationGroup[] = [
     order: 1,
     items: [],
   },
+
   {
     id: "guides",
     title: "Guides",
     order: 2,
     items: [],
   },
+
   {
     id: "components",
     title: "Components",
     order: 3,
     items: [
-        {
-            id: "input",
-            title: "Input",
-            description: "A flexible and reusable text input component.",
-            section: "components",
-            path: "/docs/components/input",
-            contentPath: "components/input.md",
-            order: 1,
-            componentId: "input",
-            playgroundPath: "/playground/input",
-        },
-        {
-            id: "textarea",
-            title: "Textarea",
-            description: "A flexible multiline text input component.",
-            section: "components",
-            path: "/docs/components/textarea",
-            contentPath: "components/textarea.md",
-            order: 2,
-            componentId: "textarea",
-            playgroundPath: "/playground/textarea",
-        },
+      {
+        id: "input",
+        title: "Input",
+        description:
+          "A flexible and reusable text input component.",
+        section: "components",
+        path: "/docs/components/input",
+        contentPath: "components/input.md",
+        order: 1,
+        componentId: "input",
+        playgroundPath: "/playground/input",
+      },
+
+      {
+        id: "textarea",
+        title: "Textarea",
+        description:
+          "A flexible multiline text input component.",
+        section: "components",
+        path: "/docs/components/textarea",
+        contentPath: "components/textarea.md",
+        order: 2,
+        componentId: "textarea",
+        playgroundPath: "/playground/textarea",
+      },
+
+      {
+        id: "collapse",
+        title: "Collapse",
+        description:
+          "A reusable collapsible content component for showing and hiding content.",
+        section: "components",
+        path: "/docs/components/collapse",
+        contentPath: "components/collapse.md",
+        order: 3,
+        componentId: "collapse",
+        playgroundPath: "/playground/collapse",
+      },
+
+      {
+        id: "collapse-group",
+        title: "Collapse Group",
+        description:
+          "A component for coordinating multiple Collapse components and managing their open state.",
+        section: "components",
+        path: "/docs/components/collapse-group",
+        contentPath: "components/collapse-group.md",
+        order: 4,
+        componentId: "collapse-group",
+        playgroundPath: "/playground/collapse-group",
+      },
     ],
   },
+
   {
     id: "form-engine",
     title: "Form Engine",
     order: 4,
     items: [],
   },
+
   {
     id: "form-builder",
     title: "Form Builder",
     order: 5,
     items: [],
   },
+
   {
     id: "architecture",
     title: "Architecture",
     order: 6,
     items: [],
   },
+
   {
     id: "decisions",
     title: "Decisions",
     order: 7,
     items: [],
   },
+
   {
     id: "challenges",
     title: "Challenges",
     order: 8,
     items: [],
   },
+
   {
     id: "api",
     title: "API",

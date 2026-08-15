@@ -1,5 +1,8 @@
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+
+import { Link } from "react-router-dom";
+
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { oneDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 
@@ -16,6 +19,34 @@ export default function MarkdownRenderer({
       <ReactMarkdown
         remarkPlugins={[remarkGfm]}
         components={{
+          a({
+            href,
+            children,
+            ...props
+          }) {
+            if (href?.startsWith("/playground/")) {
+              return(
+                <Link 
+                  to={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  {...props}
+                >
+                  {children}
+                </Link>
+              );
+            }
+
+            return (
+              <a
+                href={href}
+                {...props}
+              >
+                {children}
+              </a>
+            );
+          },
+
           code({
             className,
             children,
@@ -32,12 +63,6 @@ export default function MarkdownRenderer({
 
             /*
              * Fenced code block with a language.
-             *
-             * Example:
-             *
-             * ```tsx
-             * const value = "FlowForge";
-             * ```
              */
             if (match) {
               return (
@@ -54,17 +79,6 @@ export default function MarkdownRenderer({
 
             /*
              * Code block without a language.
-             *
-             * This is important because our documentation
-             * also supports indented Markdown code blocks.
-             *
-             * Example:
-             *
-             *     import { Input } from "@/shared/ui";
-             *
-             *     <Input
-             *       label="Name"
-             *     />
              */
             if (code.includes("\n")) {
               return (
@@ -78,10 +92,6 @@ export default function MarkdownRenderer({
 
             /*
              * Inline code.
-             *
-             * Example:
-             *
-             * Use `fullWidth` to make the field responsive.
              */
             return (
               <code

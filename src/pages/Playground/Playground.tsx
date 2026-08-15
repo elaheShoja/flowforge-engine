@@ -1,4 +1,8 @@
-import { Link, useParams } from "react-router-dom";
+import {
+  Link,
+  useParams,
+  useSearchParams,
+} from "react-router-dom";
 
 import { getComponentById } from "@/config/componentRegistry";
 import { playgroundRegistry } from "./demoRegistry";
@@ -7,6 +11,14 @@ import "./Playground.css";
 
 export default function Playground() {
   const { componentId } = useParams();
+
+  const [searchParams] = useSearchParams();
+
+  const focusId =
+    searchParams.get("focusId") ?? undefined;
+
+  const innerFocusId =
+    searchParams.get("innerFocusId") ?? undefined;
 
   if (!componentId) {
     return (
@@ -87,7 +99,10 @@ export default function Playground() {
       </div>
 
       <div className="ff-playground__content">
-        <Demo />
+        <Demo
+          focusId={focusId}
+          innerFocusId={innerFocusId}
+        />
       </div>
 
     </div>
