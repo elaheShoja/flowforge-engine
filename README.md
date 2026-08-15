@@ -1,10 +1,17 @@
-# FlowForge
+<div align="center">
 
-> A workflow-driven dynamic form platform built with React, TypeScript, Supabase, and PostgreSQL.
+     <img
+     src="./public/flowforge-engine.svg"
+     alt="FlowForge Engine"
+     width="600"
+     />
 
-FlowForge is an extensible low-code platform for designing, rendering, validating, and executing dynamic forms and workflows.
+     <p>
+     A workflow-driven dynamic form platform built with
+     React, TypeScript, Supabase, and PostgreSQL.
+     </p>
 
-Unlike traditional form builders, FlowForge is designed around a modular architecture where forms, workflows, submissions, and storage are independent layers. This allows the platform to scale from simple data collection forms to complex enterprise workflow systems.
+</div>
 
 ---
 

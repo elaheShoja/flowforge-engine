@@ -181,3 +181,12 @@
     padding: var(--space-md);
   }
 }
+
+.ff-docs__logo {
+  display: block;
+
+  width: 100%;
+  max-width: 220px;
+
+  height: auto;
+}

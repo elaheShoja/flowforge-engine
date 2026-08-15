@@ -15,13 +15,11 @@ export default function DocumentationLayout() {
     <div className="ff-docs">
       <aside className="ff-docs__sidebar">
         <div className="ff-docs__brand">
-          <div className="ff-docs__brand-title">
-            FlowForge
-          </div>
-
-          <div className="ff-docs__brand-subtitle">
-            Documentation
-          </div>
+          <img
+            src="/branding/flowforge-engine.svg"
+            alt="FlowForge Engine"
+            className="ff-docs__logo"
+          />
         </div>
 
         <nav className="ff-docs__nav">
