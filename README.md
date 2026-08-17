@@ -2,22 +2,104 @@
   <img src="./public/branding/flowforge-engine.svg" alt="FlowForge Engine" width="600">
 </p>
 
+<h1 align="center">FlowForge Engine</h1>
+
 <p align="center">
-  A workflow-driven dynamic form platform built with
-  React, TypeScript, Supabase, and PostgreSQL.
+  A reusable foundation for building scalable, data-driven business applications.
+</p>
+
+<p align="center">
+  <strong>Build once. Reuse across projects. Ship faster.</strong>
 </p>
 
 ---
 
-## Vision
+# What is FlowForge?
 
-FlowForge is not just a Form Builder.
+FlowForge is an open-source, reusable application foundation designed to make the development of large and scalable business applications faster and easier.
 
-It is a platform for building data-driven business applications where forms are only one piece of the architecture.
+Its primary goal is to provide reusable building blocks for complex applications such as:
+
+- ERP systems
+- SaaS platforms
+- CRM systems
+- Internal business applications
+- Workflow-driven applications
+- Enterprise dashboards and admin platforms
+
+Instead of rebuilding the same form components, validation logic, dynamic field behavior, documentation, and eventually workflow capabilities for every project, FlowForge aims to provide these capabilities as reusable infrastructure.
+
+```text
+                    FlowForge Engine
+                           │
+          ┌────────────────┼────────────────┐
+          │                │                │
+          ▼                ▼                ▼
+         ERP              SaaS             CRM
+          │                │                │
+          └────────────────┼────────────────┘
+                           │
+                    Reusable Foundation
+```
+
+The goal is not simply to provide a collection of UI components.
+
+The goal is to **reduce development time, reduce duplication, and make scalable business applications easier to build and maintain.**
+
+---
+
+# Why FlowForge?
+
+Large business applications repeatedly require the same types of infrastructure:
+
+- Dynamic forms
+- Complex field dependencies
+- Validation
+- Conditional logic
+- Reusable UI components
+- Data-driven interfaces
+- Documentation
+- Workflow management
+- Submission handling
+- File management
+- Reporting and dashboards
+
+Building these capabilities independently for every ERP, SaaS, or enterprise application increases development time and creates duplicated maintenance costs.
+
+FlowForge aims to solve this problem by providing a reusable foundation that can be integrated into different applications.
+
+```text
+Traditional Approach
+
+Project A ──► Build Form System
+Project B ──► Build Form System
+Project C ──► Build Form System
+Project D ──► Build Form System
+
+
+FlowForge Approach
+
+                 ┌──► ERP
+                 │
+FlowForge ───────┼──► SaaS
+                 │
+                 ├──► CRM
+                 │
+                 └──► Enterprise App
+```
+
+Build the foundation once, improve it centrally, and reuse it across multiple products.
+
+---
+
+# Vision
+
+FlowForge is evolving toward a reusable form and workflow foundation for scalable business applications.
 
 The long-term vision includes:
 
-- Dynamic Form Builder
+- Dynamic Form Engine
+- Form Builder
 - Workflow Engine
 - Rule Engine
 - Submission Engine
@@ -27,159 +109,374 @@ The long-term vision includes:
 - Multi-Tenant Architecture
 - API-first Design
 
+The project is being developed incrementally, starting with a reusable component and form-engine foundation.
+
 ---
 
 # Architecture
 
-The system follows a layered architecture.
+FlowForge separates the reusable engine layer from application infrastructure and application-facing pages.
 
 ```text
-          Form Definition
-                 │
-                 ▼
-            Form Engine
-                 │
-                 ▼
-        Submission Engine
-                 │
-                 ▼
-          Storage Adapter
+                         FlowForge
+                            │
+             ┌──────────────┴──────────────┐
+             │                             │
+        Application                      Engine
+             │                             │
+     ┌───────┼────────┐              Reusable Core
+     │       │        │                    │
+    app    pages    config           components
+     │       │        │                    │
+     │       │        │             ┌──────┼──────┐
+     │       │        │             │      │      │
+     │       │        │           form   layout primitives
+     │       │        │
+     │       ├── Documentation
+     │       └── Playground
+     │
+     └── Application Infrastructure
+
+                            │
+                         shared
+                            │
+                  Cross-cutting utilities
+                  and reusable infrastructure
 ```
 
-Each layer has a single responsibility and can evolve independently.
+The architecture is designed to keep the reusable engine independent from application-specific pages such as Documentation and Playground.
 
-The frontend architecture provides the application foundation for these layers while keeping reusable components, documentation, and interactive demonstrations separated from application-specific pages.
+This separation is essential for the long-term goal of consuming the engine inside independent ERP, SaaS, CRM, and enterprise applications.
 
 ---
 
 # Frontend Architecture
 
-The React application is organized into application-level layers with clear separation of responsibilities.
+The frontend is organized into the following major layers:
 
 ```text
-src
+src/
 │
-├── app
-│   ├── router
-│   ├── providers
-│   ├── layouts
-│   └── hooks
+├── app/
+│   ├── layouts/
+│   ├── providers/
+│   ├── router/
+│   └── App.tsx
 │
-├── config
+├── config/
+│   ├── i18n/
 │   ├── componentRegistry.ts
 │   ├── documentationRegistry.ts
-│   ├── i18n
 │   ├── queryClient.ts
 │   ├── supabase.ts
 │   └── theme.ts
 │
-├── pages
-│   ├── Documentation
-│   └── Playground
+├── engine/
+│   ├── components/
+│   │   ├── form/
+│   │   ├── layout/
+│   │   └── primitives/
+│   └── index.ts
 │
-├── shared
-│   ├── components
-│   │   └── MarkdownRenderer
-│   ├── hooks
-│   └── lib
-│       └── documentation
+├── pages/
+│   ├── Documentation/
+│   └── Playground/
 │
-├── styles
+├── shared/
+│   ├── components/
+│   │   └── MarkdownRenderer/
+│   ├── hooks/
+│   └── lib/
+│       └── documentation/
+│
+├── styles/
 │
 └── main.tsx
 ```
 
-### App
+---
 
-The `app` layer contains application-level infrastructure such as:
+# Application Layer
 
+## `app`
+
+The `app` layer contains application-level infrastructure and composition.
+
+Responsibilities include:
+
+- Application providers
 - Routing
-- Providers
 - Layouts
-- Application hooks
+- Application shell
+- Composing the application entry point
 
-This layer is responsible for composing the application rather than implementing individual reusable components.
-
-### Config
-
-The `config` layer contains application configuration and registries.
-
-Important registries include:
-
-- `componentRegistry.ts` — defines the components exposed by the application.
-- `documentationRegistry.ts` — connects components with their documentation.
-
-Keeping these registries separate allows component implementations, documentation, and application pages to evolve independently.
-
-### Pages
-
-The `pages` layer contains application-level pages.
-
-Current pages include:
-
-- `Documentation`
-- `Playground`
-
-The Documentation page provides component documentation, while the Playground provides interactive demonstrations.
-
-### Shared
-
-The `shared` layer contains reusable functionality that is not tied to a specific page.
-
-Examples include:
-
-- Shared components
-- Markdown rendering
-- Documentation loading
-- Reusable hooks
-- Shared libraries
+The application layer should not contain reusable component implementations.
 
 ---
 
-# Component Architecture
+## `pages`
 
-FlowForge treats reusable UI components as an important foundation of the form engine.
+The `pages` layer contains application-facing pages.
 
-The component architecture is designed around:
+Current pages include:
 
-- Reusability
-- Type safety
-- Predictable APIs
-- Composition
-- Accessibility
-- Minimal application coupling
+- Documentation
+- Playground
 
-Components should remain independent from Documentation and Playground pages.
+### Documentation
 
-Instead, relationships between components, documentation, and demonstrations are established through registries.
+The Documentation page provides structured documentation for FlowForge components.
+
+### Playground
+
+The Playground provides interactive demonstrations of components and allows component behavior and APIs to be explored visually.
+
+---
+
+# Configuration Layer
+
+## `config`
+
+The `config` layer contains application configuration and metadata registries.
+
+Important files include:
+
+### Component Registry
+
+`componentRegistry.ts`
+
+The component registry provides metadata about available components, including:
+
+- Component ID
+- Name
+- Category
+- Description
+- Documentation path
+- Playground path
+- Status
+- Playground visibility
+
+### Documentation Registry
+
+`documentationRegistry.ts`
+
+The documentation registry connects components with their documentation resources.
+
+Keeping registries separate from component implementations allows application tooling to discover components without coupling the component implementation to Documentation or Playground.
+
+---
+
+# Engine Layer
+
+## `engine`
+
+The `engine` layer contains the reusable core of FlowForge.
+
+This layer is the foundation for the Form Engine and provides reusable components that can be consumed by the application.
+
+The component architecture is organized into three categories:
 
 ```text
-Component
-   │
-   ├──────────────► Component Registry
-   │
-   └──────────────► Demo Registry
-                         │
-                         ▼
-                    Playground
-
-
-Component
-   │
-   ▼
-Documentation Registry
-   │
-   ▼
-Documentation
+engine/components/
+│
+├── primitives/
+├── form/
+└── layout/
 ```
 
-This separation keeps component implementations independent from the tools used to document and demonstrate them.
+The engine is intentionally separated from the application layer so that its capabilities can eventually be packaged and consumed by independent applications.
+
+---
+
+## Primitives
+
+Primitive components provide the lowest-level reusable building blocks.
+
+Examples include:
+
+- Button
+- Spinner
+- Typography
+
+Primitive components should remain small, reusable, and independent from application-specific concerns.
+
+---
+
+## Form Components
+
+Form components provide reusable building blocks for dynamic forms.
+
+Examples include:
+
+- Input
+- Textarea
+- Select
+- SearchInput
+- PasswordInput
+- Dropdown
+- FieldWrapper
+
+These components form the foundation for the Dynamic Form Engine.
+
+---
+
+## Layout Components
+
+Layout components provide reusable structural UI behavior.
+
+Examples include:
+
+- Collapse
+- CollapseGroup
+
+---
+
+# Component Independence
+
+Components in the engine should not depend on:
+
+- Documentation pages
+- Playground pages
+- Application routing
+- Application-specific state
+- Documentation rendering
+
+Instead, application tooling discovers components through configuration and registries.
+
+```text
+                    Engine Component
+                           │
+             ┌─────────────┴─────────────┐
+             │                           │
+             ▼                           ▼
+      Component Registry          Component Implementation
+             │
+       ┌─────┴─────┐
+       ▼           ▼
+ Documentation  Playground
+```
+
+This keeps the engine reusable and allows the application layer to evolve independently.
+
+---
+
+# Shared Layer
+
+## `shared`
+
+The `shared` layer contains cross-cutting reusable functionality that is not part of the core engine itself.
+
+Current areas include:
+
+- Shared infrastructure
+- Hooks
+- Documentation utilities
+- Markdown rendering
+
+For example:
+
+```text
+shared/
+├── components/
+│   └── MarkdownRenderer/
+├── hooks/
+└── lib/
+    └── documentation/
+```
+
+The `shared` layer should remain focused on infrastructure and utilities rather than becoming a second component library.
+
+---
+
+# Integration & Reuse
+
+FlowForge is designed to be reusable beyond the FlowForge application itself.
+
+The `engine` layer is intentionally separated from application-specific concerns such as Documentation, Playground, routing, and application state.
+
+This allows the FlowForge Engine to evolve into a reusable package that can be integrated into different types of applications.
+
+```text
+                         FlowForge Engine
+                                │
+             ┌──────────────────┼──────────────────┐
+             │                  │                  │
+             ▼                  ▼                  ▼
+          ERP App           SaaS App       Business Application
+             │                  │                  │
+             └──────────────────┼──────────────────┘
+                                │
+                         Shared Form Engine
+```
+
+## Example Use Cases
+
+FlowForge can be integrated into applications such as:
+
+- ERP systems
+- SaaS platforms
+- CRM systems
+- Internal business applications
+- Workflow-based applications
+- Admin panels
+- Enterprise applications
+
+The consuming application should depend on the reusable engine and its public APIs rather than the internal application structure of FlowForge.
+
+---
+
+# Future Package Model
+
+The long-term goal is to make the engine consumable as a package.
+
+For example:
+
+```text
+my-erp/
+├── src/
+│   ├── modules/
+│   ├── pages/
+│   └── ...
+│
+└── package.json
+```
+
+The application could consume FlowForge components and form-engine capabilities through a public package API:
+
+```tsx
+import {
+  Input,
+  Select,
+  Textarea,
+  FormEngine,
+} from "@flowforge/engine";
+```
+
+The exact package name and distribution strategy may evolve as the project approaches a reusable library release.
+
+The example above represents the intended public API direction and does not imply that the package is currently published.
+
+---
+
+# Application Independence
+
+A consuming application should not need to include:
+
+- FlowForge Documentation pages
+- FlowForge Playground
+- FlowForge-specific routing
+- FlowForge application layouts
+- Internal development tooling
+
+Only the required engine capabilities should be consumed.
+
+This separation is one of the main architectural goals of FlowForge.
 
 ---
 
 # Documentation Architecture
 
-FlowForge includes a dedicated documentation system for reusable components.
+FlowForge uses Markdown-based documentation for reusable components.
 
 Documentation is stored under:
 
@@ -194,46 +491,116 @@ docs/
 
 The documentation system consists of:
 
-1. Markdown documentation files
-2. Documentation registry
-3. Documentation loader
-4. Markdown renderer
+1. Markdown documentation
+2. Documentation Registry
+3. Documentation Loader
+4. Markdown Renderer
+5. Playground integration
 
-The documentation registry connects a component with its Markdown documentation.
-
-The Markdown renderer is responsible for rendering documentation content and syntax-highlighted code examples.
-
-This separation allows documentation to evolve independently from component implementations.
+This allows documentation to remain separate from component implementation.
 
 ---
 
-# Playground
+# Playground Architecture
 
 The Playground provides interactive demonstrations of FlowForge components.
 
-Its purpose is to:
-
-- Demonstrate component behavior
-- Test component APIs interactively
-- Provide a visual development environment
-- Connect documentation with live examples
-
-The Playground uses a demo registry to associate components with their interactive demonstrations.
+The Playground maintains a dedicated demo registry.
 
 ```text
-Component
-    │
-    ▼
+pages/Playground/
+├── demos/
+├── demoRegistry.ts
+├── Playground.tsx
+└── Playground.css
+```
+
+The registry maps component IDs to their interactive demos.
+
+```text
+Component ID
+     │
+     ▼
 Demo Registry
-    │
-    ▼
+     │
+     ▼
 Interactive Demo
-    │
-    ▼
+     │
+     ▼
 Playground
 ```
 
-Documentation can also provide direct links to relevant Playground examples.
+Documentation can reference Playground demonstrations through component metadata and Playground links.
+
+---
+
+# Documentation ↔ Playground
+
+FlowForge intentionally keeps documentation and interactive demonstrations separate while allowing them to be connected.
+
+```text
+                    Component
+                        │
+          ┌─────────────┴─────────────┐
+          │                           │
+          ▼                           ▼
+ Documentation Registry        Component Registry
+          │                           │
+          ▼                           ▼
+    Documentation               Playground
+                                      │
+                                      ▼
+                                Demo Registry
+```
+
+This enables:
+
+- Documentation without embedding demo implementation
+- Playground demos without coupling them to Markdown
+- Reusable component metadata
+- Direct navigation between documentation and interactive examples
+
+---
+
+# Current Components
+
+The current component foundation includes:
+
+### Primitives
+
+- Button
+- Spinner
+- Typography
+
+### Form
+
+- Input
+- Textarea
+- Select
+- SearchInput
+- PasswordInput
+- Dropdown
+- FieldWrapper
+
+### Layout
+
+- Collapse
+- CollapseGroup
+
+Not every component currently has complete documentation or Playground coverage.
+
+---
+
+# Documentation Coverage
+
+Current component documentation includes:
+
+- Input
+- Textarea
+- Collapse
+- CollapseGroup
+
+Additional documentation will be added as components and their APIs stabilize.
 
 ---
 
@@ -241,24 +608,16 @@ Documentation can also provide direct links to relevant Playground examples.
 
 ## Frontend
 
-- React 19
+- React
 - TypeScript
 - Vite
 - React Router
 - i18next
 
-## Backend
+## Backend & Data
 
 - Supabase
-
-## Database
-
 - PostgreSQL
-
-## Styling
-
-- Tailwind CSS *(planned)*
-- Ant Design *(planned integration)*
 
 ## Documentation
 
@@ -267,172 +626,167 @@ Documentation can also provide direct links to relevant Playground examples.
 - GitHub Flavored Markdown
 - Syntax Highlighting
 
----
+## Styling
 
-# Core Modules
-
-### Authentication
-
-User authentication and authorization.
-
----
-
-### Form Builder
-
-Visual form designer.
-
----
-
-### Form Engine
-
-Dynamic form rendering based on metadata.
-
----
-
-### Workflow Engine
-
-State transitions and business processes.
-
----
-
-### Submission Engine
-
-Handles form submission lifecycle.
-
----
-
-### Storage Adapter
-
-Database abstraction for persistence.
+- CSS
+- Tailwind CSS *(planned)*
+- Ant Design *(planned integration)*
 
 ---
 
 # Engineering Principles
 
-FlowForge follows modern software engineering practices.
+FlowForge follows the following principles:
 
-- Modular Architecture
-- Clear Separation of Responsibilities
 - Separation of Concerns
-- Single Responsibility Principle
-- Dependency Inversion
+- Single Responsibility
+- Component Independence
+- Reusability
+- Type Safety
 - Configuration over Hardcoding
 - Registry-based Composition
-- Reusable Components
-- Type Safety
-- Scalable Folder Structure
-- Clean Code
+- Clear Dependency Boundaries
+- Incremental Architecture
 - Maintainable Documentation
+- Minimal Coupling
+- Scalable Structure
 
-The architecture is intentionally kept simple at the current stage so that complexity is introduced only when it provides clear value.
+The architecture should grow only when new complexity provides clear value.
 
 ---
 
 # Current Status
 
-The current development phase focuses on establishing a stable component, documentation, and playground foundation for the FlowForge platform.
+FlowForge is currently in active development.
 
-### Implemented
+The current focus is establishing a stable and reusable component foundation together with the Documentation and Playground infrastructure.
 
-- Project Architecture
-- React Application Structure
-- Routing
-- Providers
-- Internationalization (i18n)
-- Reusable UI Components
-- Component Registry
-- Documentation Registry
-- Documentation Loader
-- Documentation Page
-- Playground Page
-- Markdown Documentation Renderer
-- Interactive Component Demonstrations
-- Component Documentation
+## Implemented
 
-Current documented components include:
+- React application foundation
+- Application routing
+- Application providers
+- Layout foundation
+- Internationalization foundation
+- Engine component architecture
+- Component registry
+- Documentation registry
+- Documentation loader
+- Documentation page
+- Playground page
+- Playground demo registry
+- Markdown renderer
+- Interactive component demonstrations
+- Component documentation
 
-- Input
-- Textarea
-- Collapse
-- CollapseGroup
-
-### In Progress
+## In Progress
 
 - Expanding the component library
-- Improving form-oriented component behavior
+- Improving form component APIs
+- Select enhancements
 - Dynamic Form Engine
+- Form validation
+- Conditional fields
 - Additional Playground capabilities
-- Increasing documentation coverage
+- Documentation coverage
 
 ---
 
 # Roadmap
 
-## v0.1
+## Phase 1 — Foundation
 
-- Project Foundation
-- Authentication
-- Form Engine
+- [x] Application architecture
+- [x] Engine component architecture
+- [x] Component registry
+- [x] Documentation architecture
+- [x] Playground architecture
 
-## v0.2
+## Phase 2 — Component Library
 
-- Form Builder
-- Dynamic Validation
-- Conditional Fields
+- [x] Primitive components
+- [x] Form components
+- [x] Layout components
+- [x] Component documentation foundation
+- [x] Interactive Playground
+- [ ] Additional form components
+- [ ] Advanced Select capabilities
+- [ ] Additional component documentation
 
-## v0.3
+## Phase 3 — Dynamic Form Engine
 
-- Workflow Engine
-- Rule Engine
+- [ ] Metadata-driven form rendering
+- [ ] Field configuration
+- [ ] Field dependencies
+- [ ] Validation system
+- [ ] Conditional fields
+- [ ] Form state management
 
-## v0.4
+## Phase 4 — Form Builder
 
-- Dashboard
-- Analytics
+- [ ] Visual form builder
+- [ ] Form schema management
+- [ ] Field configuration UI
+- [ ] Form versioning
 
-## v1.0
+## Phase 5 — Workflow Platform
 
-Production Ready Platform
+- [ ] Workflow Engine
+- [ ] Rule Engine
+- [ ] Submission Engine
+- [ ] File Management
+- [ ] Dashboard & Analytics
+- [ ] Multi-Tenant Architecture
 
 ---
 
-# Documentation
+# Core Platform Modules
 
-FlowForge provides both Markdown-based component documentation and an interactive Documentation page.
+The long-term FlowForge platform is expected to include:
 
-Current component documentation is available under:
+### Form Engine
 
-```text
-docs/components/
-```
+Dynamic rendering of forms based on metadata and configuration.
 
-Current documentation includes:
+### Form Builder
 
-- Input
-- Textarea
-- Collapse
-- CollapseGroup
+Visual creation and configuration of form definitions.
 
-The documentation system is connected to the component registry and Playground, allowing components to be documented and demonstrated independently from their implementation.
+### Workflow Engine
+
+Business process and state transition management.
+
+### Rule Engine
+
+Conditional logic and business rules.
+
+### Submission Engine
+
+Form submission lifecycle and processing.
+
+### Storage Adapter
+
+Persistence abstraction for form definitions and submissions.
 
 ---
 
 # Why FlowForge?
 
-The purpose of this project is to demonstrate software engineering practices rather than only frontend implementation.
+FlowForge is being developed as an engineering-focused platform rather than only a collection of UI components.
 
-The project showcases:
+The project demonstrates:
 
-- Architectural thinking
+- Frontend architecture
 - Component architecture
-- Scalable design
-- Clean code principles
+- Form engine design
+- Registry-based composition
 - Documentation architecture
 - Interactive development tooling
 - Type-safe React development
-- Modern full-stack development using React, TypeScript, Supabase, and PostgreSQL
+- Separation of application and reusable engine concerns
+- Scalable software design
 
-FlowForge is being developed as a foundation that can evolve from a reusable component and form engine into a complete dynamic form and workflow platform.
+The long-term goal is to evolve the project from a reusable component and form-engine foundation into a complete dynamic form and workflow platform.
 
 ---
 
