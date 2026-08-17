@@ -24,7 +24,7 @@ import type {
 import SelectDropdown from "./components/SelectDropdown";
 import SelectValue from "./components/SelectValue";
 
-import FieldWrapper from "@/shared/ui/FieldWrapper";
+import FieldWrapper from "@/engine/components/form/FieldWrapper";
 
 import "./Select.css";
 

@@ -4,7 +4,7 @@ import {
   Collapse,
   CollapseGroup,
   Textarea,
-} from "@/shared/ui";
+} from "@/engine/components";
 
 interface TextareaDemoProps {
   focusId?: string;

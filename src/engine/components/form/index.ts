@@ -1,12 +1,3 @@
-export { default as Button } from "./Button";
-export type { ButtonProps } from "./Button";
-
-export { default as Spinner } from "./Spinner";
-export type { SpinnerProps } from "./Spinner";
-
-export { default as Typography } from "./Typography"
-export type { TypographyProps } from "./Typography";
-
 export { default as FieldWrapper } from "./FieldWrapper"
 export type { FieldWrapperProps } from "./FieldWrapper";
 
@@ -25,9 +16,3 @@ export type { TextareaProps } from "./Textarea";
 
 export { default as Select } from "./Select";
 export type { SelectProps } from "./Select";
-
-export { Collapse } from "./Collapse";
-export type {CollapseProps,} from "./Collapse";
-
-export { default as CollapseGroup } from "./CollapseGroup";
-export type { CollapseGroupProps,} from "./CollapseGroup";

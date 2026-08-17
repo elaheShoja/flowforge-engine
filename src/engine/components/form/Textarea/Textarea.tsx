@@ -1,7 +1,7 @@
 import { useEffect, useId, useRef } from "react";
 import clsx from "clsx";
 
-import { FieldWrapper } from "@/shared/ui";
+import { FieldWrapper } from "@/engine/components";
 
 import type { TextareaProps } from "./Textarea.types";
 import { textareaVariants } from "./Textarea.styles";

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 
-import { Input } from "@/shared/ui";
+import { Input } from "@/engine/components";
 
 import type { PasswordInputProps } from "./PasswordInput.types";
 

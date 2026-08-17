@@ -9,8 +9,8 @@ import { FloatingPortal } from "@floating-ui/react";
 
 import { useTranslation } from "react-i18next";
 
-import Dropdown from "@/shared/ui/Dropdown";
-import SearchInput from "@/shared/ui/SearchInput";
+import Dropdown from "@/engine/components/form/Dropdown";
+import SearchInput from "@/engine/components/form/SearchInput";
 
 import SelectGroup from "./SelectGroup";
 import SelectOption from "./SelectOption";

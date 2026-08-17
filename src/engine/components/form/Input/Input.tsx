@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import {
   FieldWrapper,
   Spinner,
-} from "@/shared/ui";
+} from "@/engine/components";
 
 import type { InputProps } from "./Input.types";
 import { inputVariants } from "./Input.styles";

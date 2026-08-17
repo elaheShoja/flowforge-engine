@@ -4,7 +4,7 @@ import {
   Collapse,
   CollapseGroup,
   Input,
-} from "@/shared/ui";
+} from "@/engine/components";
 
 interface InputDemoProps {
   focusId?: string;

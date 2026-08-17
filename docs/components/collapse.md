@@ -32,7 +32,7 @@ It can be used independently or as part of a `CollapseGroup` when multiple Colla
 ## Import
 
 ```tsx
-import { Collapse } from "@/shared/ui";
+import { Collapse } from "@/engine/components/layout";
 ```
 
 ---
@@ -105,7 +105,7 @@ Use `defaultOpen` when the Collapse should initially be open.
 
 ```tsx
 import { useState } from "react";
-import { Collapse } from "@/shared/ui";
+import { Collapse } from "@/engine/components/layout";
 
 export default function Example() {
   const [open, setOpen] = useState(false);
@@ -294,7 +294,7 @@ This can be useful for displaying status information, metadata, badges, or other
 import {
   Collapse,
   CollapseGroup,
-} from "@/shared/ui";
+} from "@/engine/components/layout";
 
 export default function Example() {
   return (

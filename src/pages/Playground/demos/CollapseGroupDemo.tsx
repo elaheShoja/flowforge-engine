@@ -3,7 +3,7 @@ import { useState } from "react";
 import {
   Collapse,
   CollapseGroup,
-} from "@/shared/ui";
+} from "@/engine/components";
 
 interface CollapseGroupDemoProps {
   focusId?: string;

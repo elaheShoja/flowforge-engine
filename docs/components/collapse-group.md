@@ -37,7 +37,7 @@ Instead of managing each Collapse independently, `CollapseGroup` provides a sing
 import {
   Collapse,
   CollapseGroup,
-} from "@/shared/ui";
+} from "@/engine/components/layout";
 ```
 
 ---
@@ -245,7 +245,7 @@ import { useState } from "react";
 import {
   Collapse,
   CollapseGroup,
-} from "@/shared/ui";
+} from "@/engine/components/layout";
 
 export default function Example() {
   const [activeIds, setActiveIds] =
@@ -298,7 +298,7 @@ import { useState } from "react";
 import {
   Collapse,
   CollapseGroup,
-} from "@/shared/ui";
+} from "@/engine/components/layout";
 
 export default function Example() {
   const [activeIds, setActiveIds] =
@@ -548,7 +548,7 @@ import { useState } from "react";
 import {
   Collapse,
   CollapseGroup,
-} from "@/shared/ui";
+} from "@/engine/components/layout";
 
 export default function Example() {
   const ids = [
