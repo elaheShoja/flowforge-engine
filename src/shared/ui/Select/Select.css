@@ -20,6 +20,8 @@
 
   background: var(--color-background);
 
+  box-sizing: border-box;
+
   cursor: pointer;
 
   transition: var(--transition-fast);
@@ -137,6 +139,20 @@
 
 .ff-select__option--active {
     background: var(--color-surface-hover);
+}
+
+.ff-select__option:disabled {
+  color: var(--color-text-secondary);
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.ff-select__option:disabled:hover {
+  background: transparent;
+}
+
+.ff-select__option:disabled.ff-select__option--selected {
+  background: transparent;
 }
 
 .ff-select__menu{
@@ -298,25 +314,37 @@
 
 
 .ff-select__checkbox {
-
   display: flex;
 
   align-items: center;
-
   justify-content: center;
 
-  width: 18px;
+  flex-shrink: 0;
 
+  width: 18px;
   height: 18px;
 
   margin-right: 8px;
 
   border: 1px solid var(--color-border);
-
   border-radius: 4px;
 
-  font-size: 14px;
+  background: var(--color-background);
 
+  font-size: 12px;
   font-weight: 700;
 
+  box-sizing: border-box;
+}
+
+.ff-select__checkbox--checked {
+  border-color: var(--color-primary);
+
+  background: var(--color-primary);
+
+  color: white;
+}
+
+.ff-select__checkbox--disabled {
+  opacity: 0.5;
 }

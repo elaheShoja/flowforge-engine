@@ -10,7 +10,10 @@ export interface ComponentMeta {
   description: string;
   docsPath: string;
   playgroundPath: string;
-  status: "stable" | "experimental" | "deprecated";
+  status:
+    | "stable"
+    | "experimental"
+    | "deprecated";
   showInPlayground: boolean;
 }
 
@@ -35,6 +38,18 @@ export const componentRegistry: ComponentMeta[] = [
       "A flexible multiline text input component for FlowForge forms.",
     docsPath: "/docs/components/textarea",
     playgroundPath: "/playground/textarea",
+    status: "stable",
+    showInPlayground: true,
+  },
+
+  {
+    id: "select",
+    name: "Select",
+    category: "form",
+    description:
+      "A flexible single and multi-value selection component for FlowForge forms.",
+    docsPath: "/docs/components/select",
+    playgroundPath: "/playground/select",
     status: "stable",
     showInPlayground: true,
   },
@@ -68,6 +83,7 @@ export function getComponentById(
   componentId: string
 ) {
   return componentRegistry.find(
-    (component) => component.id === componentId
+    (component) =>
+      component.id === componentId
   );
 }

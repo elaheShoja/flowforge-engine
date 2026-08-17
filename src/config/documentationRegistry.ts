@@ -80,6 +80,19 @@ export const documentationGroups: DocumentationGroup[] = [
       },
 
       {
+        id: "select",
+        title: "Select",
+        description:
+          "A flexible single and multi-value selection component.",
+        section: "components",
+        path: "/docs/components/select",
+        contentPath: "components/select.md",
+        order: 3,
+        componentId: "select",
+        playgroundPath: "/playground/select",
+      },
+
+      {
         id: "collapse",
         title: "Collapse",
         description:
@@ -87,7 +100,7 @@ export const documentationGroups: DocumentationGroup[] = [
         section: "components",
         path: "/docs/components/collapse",
         contentPath: "components/collapse.md",
-        order: 3,
+        order: 4,
         componentId: "collapse",
         playgroundPath: "/playground/collapse",
       },
@@ -100,7 +113,7 @@ export const documentationGroups: DocumentationGroup[] = [
         section: "components",
         path: "/docs/components/collapse-group",
         contentPath: "components/collapse-group.md",
-        order: 4,
+        order: 5,
         componentId: "collapse-group",
         playgroundPath: "/playground/collapse-group",
       },

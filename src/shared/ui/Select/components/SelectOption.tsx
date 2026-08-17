@@ -21,6 +21,8 @@ interface Props {
 
   active: boolean;
 
+  multi?: boolean;
+
   listRef: React.MutableRefObject<
     Array<HTMLElement | null>
   >;
@@ -32,6 +34,7 @@ export default function SelectOption({
   onSelect,
   index,
   active,
+  multi = false,
   listRef,
 }: Props) {
   const optionRef =
@@ -108,11 +111,26 @@ export default function SelectOption({
         </span>
       )}
 
+      {multi && (
+        <span
+          className={clsx(
+            "ff-select__checkbox",
+            selected &&
+              "ff-select__checkbox--checked",
+            option.disabled &&
+              "ff-select__checkbox--disabled"
+          )}
+          aria-hidden="true"
+        >
+          {selected ? "✓" : ""}
+        </span>
+      )}
+
       <span className="ff-select__option-label">
         {option.label}
       </span>
 
-      {selected && (
+      {!multi && selected && (
         <span
           className="ff-select__option-check"
           aria-hidden="true"

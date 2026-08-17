@@ -4,6 +4,9 @@ import {
   useLayoutEffect,
   useRef,
 } from "react";
+
+import { FloatingPortal } from "@floating-ui/react";
+
 import { useTranslation } from "react-i18next";
 
 import Dropdown from "@/shared/ui/Dropdown";
@@ -25,11 +28,15 @@ interface SelectDropdownProps {
 
   value?: string | string[];
 
+  multi?: boolean;
+
   floatingRef: React.Ref<HTMLDivElement>;
 
   floatingStyles: React.CSSProperties;
 
   floatingProps: React.HTMLProps<HTMLElement>;
+
+  isPositioned: boolean;
 
   activeIndex: number | null;
 
@@ -135,9 +142,11 @@ const SelectSearch = memo(
  */
 export default function SelectDropdown({
   value,
+  multi = false,
   floatingRef,
   floatingStyles,
   floatingProps,
+  isPositioned,
   activeIndex,
   listRef,
   searchable,
@@ -227,8 +236,12 @@ export default function SelectDropdown({
       return;
     }
 
+    if (!isPositioned) {
+      return;
+    }
+
     searchInputRef.current?.focus();
-  }, [searchable]);
+  }, [searchable, isPositioned]);
 
   /**
    * --------------------------------------------------
@@ -376,193 +389,199 @@ export default function SelectDropdown({
   ]);
 
   return (
-    <Dropdown
-      containerRef={
-        floatingRef
-      }
-      {...floatingProps}
-      style={{
-        ...floatingStyles,
-        zIndex: 1000,
-      }}
-    >
-      {searchable && (
-        <SelectSearch
-          search={search}
-          setSearch={setSearch}
-          inputRef={
-            searchInputRef
-          }
-          onFocus={() => {
-            searchHasFocusRef.current =
-              true;
-          }}
-          onBlur={() => {
-            searchHasFocusRef.current =
-              false;
-          }}
-        />
-      )}
+    <FloatingPortal>
 
-      {showSelectAll && (
-        <SelectAllOption
-          checked={
-            selectAllChecked
-          }
-          indeterminate={
-            selectAllIndeterminate
-          }
-          onClick={() => {
-            onSelectAll?.();
-          }}
-        />
-      )}
-
-      <div
-        ref={optionsRef}
-        className="ff-select__options"
-        role="listbox"
+      <Dropdown
+        containerRef={
+          floatingRef
+        }
+        {...floatingProps}
+        style={{
+          ...floatingStyles,
+          zIndex: 1000,
+        }}
       >
-        {loading &&
-        filteredOptions.length ===
-          0 ? (
-          <div
-            className="ff-select__empty"
-            role="status"
-            aria-live="polite"
-          >
-            {t("loading")}
-          </div>
-        ) : filteredOptions.length ===
-            0 && search ? (
-          <div
-            className="ff-select__empty"
-            role="status"
-            aria-live="polite"
-          >
-            {t("noResults")}
-          </div>
-        ) : (
-          filteredOptions.map(
-            (option) => {
-              /**
-               * Group
-               */
-              if (
-                "options" in
-                option
-              ) {
-                return (
-                  <div
-                    key={
-                      option.label
-                    }
-                  >
-                    <SelectGroup
-                      group={option}
-                    />
-
-                    {option.options.map(
-                      (
-                        child
-                      ) => {
-                        const index =
-                          flatOptions.findIndex(
-                            (
-                              item
-                            ) =>
-                              item.value ===
-                              child.value
-                          );
-
-                        return (
-                          <SelectOption
-                            key={
-                              child.value
-                            }
-                            option={
-                              child
-                            }
-                            index={
-                              index
-                            }
-                            active={
-                              activeOption?.value ===
-                              child.value
-                            }
-                            listRef={
-                              listRef
-                            }
-                            selected={isOptionSelected(
-                              child.value
-                            )}
-                            onSelect={
-                              onSelect
-                            }
-                          />
-                        );
-                      }
-                    )}
-                  </div>
-                );
-              }
-
-              /**
-               * Normal option
-               */
-              const index =
-                flatOptions.findIndex(
-                  (
-                    item
-                  ) =>
-                    item.value ===
-                    option.value
-                );
-
-              return (
-                <SelectOption
-                  key={
-                    option.value
-                  }
-                  option={
-                    option
-                  }
-                  index={
-                    index
-                  }
-                  active={
-                    activeOption?.value ===
-                    option.value
-                  }
-                  listRef={
-                    listRef
-                  }
-                  selected={isOptionSelected(
-                    option.value
-                  )}
-                  onSelect={
-                    onSelect
-                  }
-                />
-              );
+        {searchable && (
+          <SelectSearch
+            search={search}
+            setSearch={setSearch}
+            inputRef={
+              searchInputRef
             }
-          )
+            onFocus={() => {
+              searchHasFocusRef.current =
+                true;
+            }}
+            onBlur={() => {
+              searchHasFocusRef.current =
+                false;
+            }}
+          />
         )}
 
-        {onLoadMore &&
-          hasMore && (
+        {showSelectAll && (
+          <SelectAllOption
+            checked={
+              selectAllChecked
+            }
+            indeterminate={
+              selectAllIndeterminate
+            }
+            onClick={() => {
+              onSelectAll?.();
+            }}
+          />
+        )}
+
+        <div
+          ref={optionsRef}
+          className="ff-select__options"
+          role="listbox"
+        >
+          {loading &&
+          filteredOptions.length ===
+            0 ? (
             <div
-              className="ff-select__load-more"
-              aria-hidden="true"
+              className="ff-select__empty"
+              role="status"
+              aria-live="polite"
             >
-              {loading && (
-                <div className="ff-select__loading-more">
-                  {t("loading")}
-                </div>
-              )}
+              {t("loading")}
             </div>
+          ) : filteredOptions.length ===
+              0 && search ? (
+            <div
+              className="ff-select__empty"
+              role="status"
+              aria-live="polite"
+            >
+              {t("noResults")}
+            </div>
+          ) : (
+            filteredOptions.map(
+              (option) => {
+                /**
+                 * Group
+                 */
+                if (
+                  "options" in
+                  option
+                ) {
+                  return (
+                    <div
+                      key={
+                        option.label
+                      }
+                    >
+                      <SelectGroup
+                        group={option}
+                      />
+
+                      {option.options.map(
+                        (
+                          child
+                        ) => {
+                          const index =
+                            flatOptions.findIndex(
+                              (
+                                item
+                              ) =>
+                                item.value ===
+                                child.value
+                            );
+
+                          return (
+                            <SelectOption
+                              key={
+                                child.value
+                              }
+                              option={
+                                child
+                              }
+                              index={
+                                index
+                              }
+                              active={
+                                activeOption?.value ===
+                                child.value
+                              }
+                              multi={multi}
+                              listRef={
+                                listRef
+                              }
+                              selected={isOptionSelected(
+                                child.value
+                              )}
+                              onSelect={
+                                onSelect
+                              }
+                            />
+                          );
+                        }
+                      )}
+                    </div>
+                  );
+                }
+
+                /**
+                 * Normal option
+                 */
+                const index =
+                  flatOptions.findIndex(
+                    (
+                      item
+                    ) =>
+                      item.value ===
+                      option.value
+                  );
+
+                return (
+                  <SelectOption
+                    key={
+                      option.value
+                    }
+                    option={
+                      option
+                    }
+                    index={
+                      index
+                    }
+                    active={
+                      activeOption?.value ===
+                      option.value
+                    }
+                    multi={multi}
+                    listRef={
+                      listRef
+                    }
+                    selected={isOptionSelected(
+                      option.value
+                    )}
+                    onSelect={
+                      onSelect
+                    }
+                  />
+                );
+              }
+            )
           )}
-      </div>
-    </Dropdown>
+
+          {onLoadMore &&
+            hasMore && (
+              <div
+                className="ff-select__load-more"
+                aria-hidden="true"
+              >
+                {loading && (
+                  <div className="ff-select__loading-more">
+                    {t("loading")}
+                  </div>
+                )}
+              </div>
+            )}
+        </div>
+      </Dropdown>
+      
+    </FloatingPortal>
   );
 }

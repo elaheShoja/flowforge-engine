@@ -42,7 +42,7 @@ export default function Select(
     helperText,
     error,
     required,
-    fullWidth = false,
+    fullWidth = true,
     disabled = false,
 
     searchable = false,
@@ -504,7 +504,11 @@ export default function Select(
       );
 
   const selectableValues =
-    flatOptions.map(
+    flatOptions.filter(
+      (option)=>
+        !option.disabled
+    )
+    .map(
       (option) =>
         option.value
     );
@@ -542,12 +546,25 @@ export default function Select(
       )
       .join("|");
 
+  const disabledIndices =
+    flatOptions.reduce<number[]>(
+      (indices, option, index) => {
+        if (option.disabled) {
+          indices.push(index);
+        }
+
+        return indices;
+      },
+      []
+    );
+
   const {
     open,
     setOpen,
 
     refs,
     floatingStyles,
+    isPositioned,
 
     activeIndex,
     listRef,
@@ -561,6 +578,8 @@ export default function Select(
     selectedIndex,
 
     itemsKey,
+
+    disabledIndices,
   });
 
   /**
@@ -749,6 +768,8 @@ export default function Select(
           value={
             selectedValue
           }
+          multi={multi}
+          isPositioned={isPositioned}
           floatingRef={
             refs.setFloating
           }

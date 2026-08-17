@@ -55,7 +55,11 @@ export default function useSelectAll({
     useCallback(() => {
 
       if (isAllSelected) {
-        onChange([]);
+        onChange(
+          selectedValues.filter(
+            (value) => !options.includes(value)
+          )
+        );
         return;
       }
 

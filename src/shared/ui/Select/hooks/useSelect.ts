@@ -16,11 +16,13 @@ interface UseSelectProps {
   itemCount: number;
   selectedIndex: number;
   itemsKey: string;
+  disabledIndices?: number[];
 }
 
 export default function useSelect({
   itemCount,
   selectedIndex,
+  disabledIndices = [],
 }: UseSelectProps) {
   const [open, setOpen] =
     useState(false);
@@ -37,6 +39,8 @@ export default function useSelect({
     onOpenChange: setOpen,
 
     placement: "bottom-start",
+
+    strategy: "fixed",
 
     middleware: [
       offset(6),
@@ -65,6 +69,8 @@ export default function useSelect({
           setActiveIndex,
 
         loop: true,
+
+        disabledIndices,
       }
     );
 
@@ -108,36 +114,50 @@ export default function useSelect({
     setActiveIndex((current) => {
       /**
        * Keep current active item if it is
-       * still inside the list.
+       * still valid and not disabled.
        */
       if (
         current !== null &&
         current >= 0 &&
-        current < itemCount
+        current < itemCount &&
+        !disabledIndices.includes(current)
       ) {
         return current;
       }
 
       /**
-       * If selected item exists,
-       * use it as initial active item.
+       * Use selected item only if it is
+       * not disabled.
        */
       if (
         selectedIndex >= 0 &&
-        selectedIndex < itemCount
+        selectedIndex < itemCount &&
+        !disabledIndices.includes(
+          selectedIndex
+        )
       ) {
         return selectedIndex;
       }
 
       /**
-       * Otherwise start from first item.
+       * Find the first enabled item.
        */
-      return 0;
+      const firstEnabledIndex =
+        Array.from(
+          { length: itemCount },
+          (_, index) => index
+        ).find(
+          (index) =>
+            !disabledIndices.includes(index)
+        );
+
+      return firstEnabledIndex ?? null;
     });
   }, [
     open,
     itemCount,
     selectedIndex,
+    disabledIndices,
   ]);
 
   return {
