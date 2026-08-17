@@ -2,22 +2,19 @@
 
 import { Outlet } from "react-router-dom";
 
+import Header from "./Header/Header";
+import Footer from "./Footer/Footer";
+
 export default function MainLayout() {
   return (
     <div className="min-h-screen flex flex-col">
-      <header className="h-16 border-b flex items-center px-6">
-        <h1 className="text-xl font-bold">
-          Header
-        </h1>
-      </header>
+      <Header />
 
       <main className="flex-1">
         <Outlet />
       </main>
 
-      <footer className="h-12 border-t flex items-center justify-center text-sm">
-        © 2026 FlowForge
-      </footer>
+      <Footer />
     </div>
   );
 }

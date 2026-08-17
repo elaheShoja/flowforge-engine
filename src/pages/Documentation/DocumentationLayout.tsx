@@ -14,14 +14,6 @@ export default function DocumentationLayout() {
   return (
     <div className="ff-docs">
       <aside className="ff-docs__sidebar">
-        <div className="ff-docs__brand">
-          <img
-            src="/branding/flowforge-engine.svg"
-            alt="FlowForge Engine"
-            className="ff-docs__logo"
-          />
-        </div>
-
         <nav className="ff-docs__nav">
           {visibleGroups.map((group) => (
             <section
