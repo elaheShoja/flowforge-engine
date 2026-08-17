@@ -2,8 +2,6 @@
   <img src="./public/branding/flowforge-engine.svg" alt="FlowForge Engine" width="600">
 </p>
 
-<h1 align="center">FlowForge Engine</h1>
-
 <p align="center">
   A reusable foundation for building scalable, data-driven business applications.
 </p>
