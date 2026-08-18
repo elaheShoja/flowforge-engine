@@ -3,8 +3,12 @@ import react from "@vitejs/plugin-react";
 import path from "path";
 
 export default defineConfig({
-  base: "flowforge-engine/",
+  base: process.env.NODE_ENV === "production"
+    ? "/flowforge-engine/"
+    : "/",
+
   plugins: [react()],
+
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
