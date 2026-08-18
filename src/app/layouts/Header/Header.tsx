@@ -13,7 +13,7 @@ export default function Header() {
           aria-label="FlowForge home"
         >
           <img
-            src="/branding/flowforge-engine.svg"
+            src={`${import.meta.env.BASE_URL}branding/flowforge-engine.svg`}
             alt="FlowForge Engine"
             className="ff-header__logo"
           />
