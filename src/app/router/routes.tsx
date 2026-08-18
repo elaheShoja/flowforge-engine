@@ -2,15 +2,13 @@ import { Routes, Route } from "react-router-dom";
 
 import MainLayout from "../layouts/MainLayout";
 
+import HomePage from "@/pages/Home/HomePage";
+
 import DocumentationLayout from "@/pages/Documentation/DocumentationLayout";
 import Documentation from "@/pages/Documentation/Documentation";
 import ComponentDocumentation from "@/pages/Documentation/ComponentDocumentation";
 
 import Playground from "@/pages/Playground/Playground";
-
-function HomePage() {
-  return <h1>FlowForge</h1>;
-}
 
 export default function AppRoutes() {
   return (
