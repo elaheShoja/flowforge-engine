@@ -1,28 +1,685 @@
-/* ===========================
+/* =========================================================
    Playground
-=========================== */
-
-.playground-stack {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-}
-
-/* ===========================
-   Playground
-=========================== */
+========================================================= */
 
 .ff-playground {
   width: 100%;
-  max-width: 100%;
   min-width: 0;
+
   box-sizing: border-box;
-  padding: 1.5rem;
+
+  margin: 0 auto;
+
+  padding: var(--space-xl);
 }
 
-/* ===========================
-   Playground Sections
-=========================== */
+
+/* =========================================================
+   Landing Hero
+========================================================= */
+
+.ff-playground__hero {
+  max-width: 900px;
+
+  margin: 0 auto;
+
+  padding:
+    var(--space-lg)
+    var(--space-lg)
+    calc(var(--space-xl) * 1.5);
+
+  text-align: center;
+}
+
+.ff-playground__eyebrow {
+  display: inline-block;
+
+  margin-bottom: var(--space-md);
+
+  color: var(--color-primary);
+
+  font-size: var(--font-size-sm);
+
+  font-weight: var(--font-weight-medium);
+
+  letter-spacing: 0.08em;
+}
+
+.ff-playground__title {
+  margin: 0;
+
+  color: var(--color-text);
+
+  font-size: clamp(
+    2.25rem,
+    5vw,
+    3.5rem
+  );
+
+  line-height: 1.08;
+
+  font-weight: 700;
+
+  letter-spacing: -0.035em;
+}
+
+.ff-playground__description {
+  max-width: 720px;
+
+  margin:
+    var(--space-lg)
+    auto
+    0;
+
+  color: var(--color-text-secondary);
+
+  font-size: 1.05rem;
+
+  line-height: 1.7;
+}
+
+
+/* =========================================================
+   Hero Actions
+========================================================= */
+
+.ff-playground__hero-actions {
+  display: flex;
+
+  justify-content: center;
+
+  margin-top: var(--space-xl);
+}
+
+.ff-playground__primary-action {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 0.5rem;
+
+  min-height: 44px;
+
+  padding:
+    0
+    var(--space-xl);
+
+  border:
+    1px solid
+    var(--color-primary);
+
+  border-radius: var(--radius-md);
+
+  background:
+    var(--color-primary);
+
+  color: #ffffff;
+
+  font-size: var(--font-size-sm);
+
+  font-weight: var(--font-weight-medium);
+
+  text-decoration: none;
+
+  box-shadow:
+    0 5px 16px
+    rgba(0, 0, 0, 0.12);
+
+  transition:
+    transform var(--transition-fast),
+    box-shadow var(--transition-fast),
+    opacity var(--transition-fast);
+}
+
+.ff-playground__primary-action:hover {
+  transform: translateY(-1px);
+
+  box-shadow:
+    0 8px 22px
+    rgba(0, 0, 0, 0.16);
+
+  opacity: 0.95;
+}
+
+.ff-playground__action-icon {
+  font-size: 1rem;
+
+  line-height: 1;
+}
+
+
+/* =========================================================
+   Components Section
+========================================================= */
+
+.ff-playground__components {
+  padding-top: var(--space-xl);
+
+  border-top:
+    1px solid
+    var(--color-border);
+}
+
+.ff-playground__section-header {
+  margin-bottom: var(--space-xl);
+
+  text-align: center;
+}
+
+.ff-playground__section-header h2 {
+  margin: 0;
+
+  color: var(--color-text);
+
+  font-size: 1.5rem;
+
+  font-weight: 600;
+
+  letter-spacing: -0.02em;
+}
+
+.ff-playground__section-header p {
+  margin:
+    var(--space-sm)
+    0
+    0;
+
+  color: var(--color-text-secondary);
+
+  font-size: var(--font-size-sm);
+
+  line-height: 1.6;
+}
+
+
+/* =========================================================
+   Component Grid
+========================================================= */
+
+.ff-playground__component-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, minmax(0, 1fr));
+
+  gap: var(--space-lg);
+}
+
+
+/* =========================================================
+   Component Card
+========================================================= */
+
+.ff-playground__component-card {
+  display: flex;
+
+  flex-direction: column;
+
+  min-height: 190px;
+
+  box-sizing: border-box;
+
+  padding: var(--space-lg);
+
+  border:
+    1px solid
+    var(--color-border);
+
+  border-radius: var(--radius-md);
+
+  background:
+    var(--color-background);
+
+  box-shadow:
+    0 2px 8px
+    rgba(0, 0, 0, 0.025);
+
+  transition:
+    transform var(--transition-fast),
+    border-color var(--transition-fast),
+    box-shadow var(--transition-fast);
+}
+
+.ff-playground__component-card:hover {
+  transform: translateY(-2px);
+
+  border-color:
+    rgba(79, 70, 229, 0.25);
+
+  box-shadow:
+    0 10px 28px
+    rgba(0, 0, 0, 0.07);
+}
+
+
+/* =========================================================
+   Card Header
+========================================================= */
+
+.ff-playground__card-header {
+  display: flex;
+
+  align-items: flex-start;
+  justify-content: space-between;
+
+  gap: var(--space-md);
+}
+
+.ff-playground__card-title {
+  display: flex;
+
+  align-items: center;
+
+  gap: 0.75rem;
+
+  min-width: 0;
+}
+
+.ff-playground__card-title h3 {
+  margin: 0;
+
+  color: var(--color-text);
+
+  font-size: 1.05rem;
+
+  font-weight: 600;
+}
+
+
+/* =========================================================
+   Card Icon
+========================================================= */
+
+.ff-playground__card-icon {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  flex:
+    0 0
+    38px;
+
+  width: 38px;
+  height: 38px;
+
+  border-radius: 9px;
+
+  background:
+    rgba(79, 70, 229, 0.08);
+
+  color:
+    var(--color-primary);
+
+  font-size: 1.15rem;
+
+  font-weight: 600;
+
+  line-height: 1;
+}
+
+
+/* =========================================================
+   Status Badge
+========================================================= */
+
+.ff-playground__status {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  min-height: 24px;
+
+  padding:
+    0
+    0.65rem;
+
+  border-radius: 999px;
+
+  background:
+    rgba(79, 70, 229, 0.06);
+
+  color:
+    var(--color-text-secondary);
+
+  font-size: 0.72rem;
+
+  font-weight:
+    var(--font-weight-medium);
+
+  text-transform: capitalize;
+
+  white-space: nowrap;
+}
+
+.ff-playground__status--stable {
+  color:
+    var(--color-primary);
+}
+
+
+/* =========================================================
+   Card Description
+========================================================= */
+
+.ff-playground__card-description {
+  flex: 1;
+
+  max-width: 95%;
+
+  margin:
+    var(--space-md)
+    0
+    0;
+
+  color:
+    var(--color-text-secondary);
+
+  font-size:
+    var(--font-size-sm);
+
+  line-height: 1.65;
+}
+
+
+/* =========================================================
+   Card Actions
+========================================================= */
+
+.ff-playground__card-actions {
+  display: flex;
+
+  align-items: center;
+
+  flex-wrap: wrap;
+
+  gap:
+    1.5rem;
+
+  margin-top: auto;
+
+  padding-top:
+    var(--space-lg);
+}
+
+.ff-playground__card-playground,
+.ff-playground__card-docs {
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 0.25rem;
+
+  font-size:
+    var(--font-size-sm);
+
+  font-weight:
+    var(--font-weight-medium);
+
+  text-decoration: none;
+
+  transition:
+    color var(--transition-fast),
+    opacity var(--transition-fast);
+}
+
+.ff-playground__card-playground {
+  color:
+    var(--color-primary);
+}
+
+.ff-playground__card-docs {
+  color:
+    var(--color-text-secondary);
+}
+
+.ff-playground__card-playground:hover,
+.ff-playground__card-docs:hover {
+  text-decoration: underline;
+}
+
+.ff-playground__card-playground:hover {
+  opacity: 0.82;
+}
+
+.ff-playground__card-docs:hover {
+  color:
+    var(--color-text);
+}
+
+
+/* =========================================================
+   Component Playground
+========================================================= */
+
+.ff-playground--component {
+  max-width: 100%;
+}
+
+
+/* =========================================================
+   Component Navigation
+========================================================= */
+
+.ff-playground__component-navigation {
+  display: flex;
+
+  align-items: center;
+
+  margin-bottom:
+    var(--space-lg);
+}
+
+.ff-playground__back-link {
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 0.45rem;
+
+  color:
+    var(--color-primary);
+
+  font-size:
+    var(--font-size-sm);
+
+  font-weight:
+    var(--font-weight-medium);
+
+  text-decoration: none;
+
+  transition:
+    opacity var(--transition-fast);
+}
+
+.ff-playground__back-link:hover {
+  opacity: 0.75;
+
+  text-decoration: underline;
+}
+
+
+/* =========================================================
+   Component Hero
+========================================================= */
+
+.ff-playground__component-hero {
+  max-width: 850px;
+
+  margin: 0 auto;
+
+  padding:
+    var(--space-md)
+    var(--space-lg)
+    calc(var(--space-xl) * 1.5);
+
+  text-align: center;
+}
+
+.ff-playground__component-hero
+.ff-playground__title {
+  font-size:
+    clamp(
+      2.2rem,
+      4vw,
+      3.1rem
+    );
+}
+
+.ff-playground__component-hero
+.ff-playground__description {
+  max-width: 700px;
+}
+
+
+/* =========================================================
+   Component Documentation Action
+========================================================= */
+
+.ff-playground__component-actions {
+  display: flex;
+
+  justify-content: center;
+
+  margin-top:
+    var(--space-lg);
+}
+
+.ff-playground__documentation-action {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 0.5rem;
+
+  min-height: 42px;
+
+  padding:
+    0
+    1.1rem;
+
+  border:
+    1px solid
+    rgba(79, 70, 229, 0.14);
+
+  border-radius: 999px;
+
+  background:
+    rgba(79, 70, 229, 0.07);
+
+  color:
+    var(--color-primary);
+
+  font-size:
+    var(--font-size-sm);
+
+  font-weight:
+    var(--font-weight-medium);
+
+  text-decoration: none;
+
+  box-shadow:
+    0 3px 10px
+    rgba(0, 0, 0, 0.04);
+
+  transition:
+    background var(--transition-fast),
+    border-color var(--transition-fast),
+    transform var(--transition-fast),
+    box-shadow var(--transition-fast);
+}
+
+.ff-playground__documentation-action:hover {
+  transform: translateY(-1px);
+
+  background:
+    rgba(79, 70, 229, 0.11);
+
+  border-color:
+    rgba(79, 70, 229, 0.22);
+
+  box-shadow:
+    0 5px 14px
+    rgba(0, 0, 0, 0.07);
+}
+
+
+/* =========================================================
+   Interactive Demo
+========================================================= */
+
+.ff-playground__demo-wrapper {
+  width: 100%;
+
+  box-sizing: border-box;
+
+  padding-top:
+    var(--space-xl);
+
+  border-top:
+    1px solid
+    var(--color-border);
+}
+
+.ff-playground__demo-header {
+  margin-bottom:
+    var(--space-lg);
+
+  text-align: center;
+}
+
+.ff-playground__demo-header h2 {
+  margin: 0;
+
+  color:
+    var(--color-text);
+
+  font-size: 1.5rem;
+
+  font-weight: 600;
+
+  letter-spacing: -0.02em;
+}
+
+.ff-playground__demo-header p {
+  margin:
+    var(--space-sm)
+    0
+    0;
+
+  color:
+    var(--color-text-secondary);
+
+  font-size:
+    var(--font-size-sm);
+
+  line-height: 1.6;
+}
+
+.ff-playground__demo-content {
+  width: 100%;
+}
+
+
+/* =========================================================
+   Playground Demo Shared Layout
+========================================================= */
+
+.playground-stack {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 1.5rem;
+}
+
+
+/* =========================================================
+   Demo Section
+========================================================= */
 
 .playground-section {
   width: 100%;
@@ -31,11 +688,15 @@
 
   padding: 1.5rem;
 
-  border: 1px solid var(--color-border);
+  border:
+    1px solid
+    var(--color-border);
 
-  border-radius: var(--radius-md);
+  border-radius:
+    var(--radius-md);
 
-  background: var(--color-background);
+  background:
+    var(--color-background);
 }
 
 .playground-section__header {
@@ -45,9 +706,13 @@
 }
 
 .playground-section__header h2 {
-  margin: 0 0 0.5rem;
+  margin:
+    0
+    0
+    0.5rem;
 
-  color: var(--color-text);
+  color:
+    var(--color-text);
 
   font-size: 1.25rem;
 }
@@ -55,14 +720,17 @@
 .playground-section__header p {
   margin: 0;
 
-  color: var(--color-text-secondary);
+  color:
+    var(--color-text-secondary);
 
-  font-size: var(--font-size-sm);
+  font-size:
+    var(--font-size-sm);
 }
 
-/* ===========================
+
+/* =========================================================
    Playground Controls
-=========================== */
+========================================================= */
 
 .playground-controls {
   display: grid;
@@ -74,11 +742,13 @@
 
   margin-bottom: 1.5rem;
 
-  background-color: var(--color-surface);
-
   padding: 1rem;
 
-  border-radius: var(--radius-md);
+  border-radius:
+    var(--radius-md);
+
+  background:
+    var(--color-surface);
 }
 
 .playground-control {
@@ -90,11 +760,14 @@
 }
 
 .playground-control label {
-  color: var(--color-text);
+  color:
+    var(--color-text);
 
-  font-size: var(--font-size-sm);
+  font-size:
+    var(--font-size-sm);
 
-  font-weight: var(--font-weight-medium);
+  font-weight:
+    var(--font-weight-medium);
 }
 
 .playground-control select {
@@ -102,16 +775,30 @@
 
   min-height: 40px;
 
-  padding: 0 0.75rem;
+  box-sizing: border-box;
 
-  border: 1px solid var(--color-border);
+  padding:
+    0
+    0.75rem;
 
-  border-radius: var(--radius-md);
+  border:
+    1px solid
+    var(--color-border);
 
-  background: var(--color-background);
+  border-radius:
+    var(--radius-md);
 
-  color: var(--color-text);
+  background:
+    var(--color-background);
+
+  color:
+    var(--color-text);
 }
+
+
+/* =========================================================
+   Checkbox
+========================================================= */
 
 .playground-checkbox {
   display: flex;
@@ -120,18 +807,21 @@
 
   gap: 0.5rem;
 
-  color: var(--color-text);
+  color:
+    var(--color-text);
 
-  font-size: var(--font-size-sm);
+  font-size:
+    var(--font-size-sm);
 }
 
 .playground-checkbox input {
   margin: 0;
 }
 
-/* ===========================
+
+/* =========================================================
    Playground Preview
-=========================== */
+========================================================= */
 
 .playground-preview {
   width: 100%;
@@ -142,33 +832,87 @@
 
   text-align: center;
 
-  color: var(--color-text-secondary);
+  color:
+    var(--color-text-secondary);
 
-  font-size: var(--font-size-sm);
+  font-size:
+    var(--font-size-sm);
 }
 
-/* ===========================
-   Responsive
-=========================== */
 
-@media (max-width: 768px) {
-  .playground-controls {
-    grid-template-columns: 1fr;
-  }
-}
-
-/* ===========================
-   grid
-=========================== */
+/* =========================================================
+   Playground Grid
+========================================================= */
 
 .playground-grid {
   display: grid;
-  grid-template-columns: repeat(
-    3,
-    minmax(0, 1fr)
-  );
+
+  grid-template-columns:
+    repeat(3, minmax(0, 1fr));
 
   gap: 1rem;
+}
+
+
+/* =========================================================
+   State
+========================================================= */
+
+.ff-playground--state {
+  max-width: 800px;
+
+  margin: 0 auto;
+
+  text-align: center;
+}
+
+.ff-playground--state h1 {
+  margin-top: var(--space-xl);
+
+  color:
+    var(--color-text);
+}
+
+.ff-playground--state p {
+  color:
+    var(--color-text-secondary);
+}
+
+.ff-playground__secondary-action {
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 0.5rem;
+
+  margin-top: var(--space-lg);
+
+  color:
+    var(--color-primary);
+
+  font-size:
+    var(--font-size-sm);
+
+  font-weight:
+    var(--font-weight-medium);
+
+  text-decoration: none;
+}
+
+.ff-playground__secondary-action:hover {
+  text-decoration: underline;
+}
+
+
+/* =========================================================
+   Responsive
+========================================================= */
+
+@media (max-width: 1000px) {
+  .ff-playground__component-grid {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
 }
 
 @media (max-width: 900px) {
@@ -177,3 +921,65 @@
   }
 }
 
+@media (max-width: 768px) {
+  .ff-playground {
+    padding:
+      var(--space-md);
+  }
+
+  .ff-playground__hero {
+    padding-top:
+      var(--space-lg);
+  }
+
+  .ff-playground__title {
+    font-size: 2.25rem;
+  }
+
+  .ff-playground__description {
+    font-size: 1rem;
+  }
+
+  .ff-playground__component-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ff-playground__component-navigation {
+    margin-bottom:
+      var(--space-md);
+  }
+
+  .ff-playground__component-hero {
+    padding:
+      var(--space-md)
+      0
+      var(--space-xl);
+  }
+
+  .playground-controls {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .ff-playground__card-actions {
+    align-items: flex-start;
+
+    flex-direction: column;
+
+    gap: 0.75rem;
+  }
+
+  .ff-playground__hero-actions {
+    margin-top:
+      var(--space-lg);
+  }
+
+  .ff-playground__primary-action {
+    width: 100%;
+  }
+
+  .ff-playground__documentation-action {
+    max-width: 100%;
+  }
+}

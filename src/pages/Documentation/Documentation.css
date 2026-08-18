@@ -1,7 +1,7 @@
 .ff-docs {
   display: flex;
 
-  min-height: calc(100vh - 112px);
+  min-height: calc(100vh - 72px);
 
   background: var(--color-background);
 }
@@ -27,13 +27,15 @@
    */
   position: sticky;
 
-  top: 112px;
+  top: 72px;
 
-  height: calc(100vh - 112px);
+  height: calc(100vh - 72px);
 
   overflow-y: auto;
 
   align-self: flex-start;
+
+  box-sizing: border-box;
 }
 
 .ff-docs__brand {
@@ -189,4 +191,229 @@
   max-width: 220px;
 
   height: auto;
+}
+
+/* ===========================
+   Documentation Home
+=========================== */
+
+.ff-docs-home {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* ===========================
+   Hero
+=========================== */
+
+.ff-docs-home__hero {
+  padding: var(--space-xl) 0
+    calc(var(--space-xl) * 1.5);
+}
+
+.ff-docs-home__title {
+
+  margin: 0;
+
+  color: var(--color-text);
+
+  font-size: clamp(2rem, 4vw, 3.25rem);
+
+  line-height: 1.1;
+
+  font-weight: 700;
+}
+
+.ff-docs-home__description {
+
+  margin: var(--space-lg) 0 0;
+
+  color: var(--color-text-secondary);
+
+  font-size: 1.05rem;
+
+  line-height: 1.7;
+}
+
+/* ===========================
+   Actions
+=========================== */
+
+.ff-docs-home__actions {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: var(--space-md);
+
+  margin-top: var(--space-xl);
+}
+
+.ff-docs-home__primary-action,
+.ff-docs-home__secondary-action {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  min-height: 42px;
+
+  padding: 0 var(--space-lg);
+
+  border-radius: var(--radius-md);
+
+  text-decoration: none;
+
+  font-size: var(--font-size-sm);
+
+  font-weight: var(--font-weight-medium);
+
+  transition:
+    background var(--transition-fast),
+    color var(--transition-fast),
+    border-color var(--transition-fast);
+}
+
+.ff-docs-home__primary-action {
+  background: var(--color-primary);
+
+  color: white;
+}
+
+.ff-docs-home__primary-action:hover {
+  opacity: 0.9;
+}
+
+.ff-docs-home__secondary-action {
+  border: 1px solid var(--color-border);
+
+  background: var(--color-background);
+
+  color: var(--color-text);
+}
+
+.ff-docs-home__secondary-action:hover {
+  background: var(--color-disabled);
+}
+
+/* ===========================
+   Explore
+=========================== */
+
+.ff-docs-home__section {
+  padding-top: var(--space-xl);
+
+  border-top: 1px solid var(--color-border);
+}
+
+.ff-docs-home__section-header {
+  margin-bottom: var(--space-xl);
+}
+
+.ff-docs-home__section-header h2 {
+  margin: 0;
+
+  color: var(--color-text);
+
+  font-size: 1.5rem;
+}
+
+.ff-docs-home__section-header p {
+
+  margin: var(--space-sm) 0 0;
+
+  color: var(--color-text-secondary);
+
+  line-height: 1.6;
+}
+
+/* ===========================
+   Cards
+=========================== */
+
+.ff-docs-home__cards {
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+
+  gap: var(--space-lg);
+}
+
+.ff-docs-home__card {
+  min-height: 190px;
+
+  padding: var(--space-lg);
+
+  border: 1px solid var(--color-border);
+
+  border-radius: var(--radius-md);
+
+  background: var(--color-background);
+}
+
+.ff-docs-home__card h3 {
+  margin: 0;
+
+  color: var(--color-text);
+
+  font-size: 1.1rem;
+}
+
+.ff-docs-home__card p {
+  margin: var(--space-sm) 0 0;
+
+  color: var(--color-text-secondary);
+
+  font-size: var(--font-size-sm);
+
+  line-height: 1.6;
+}
+
+.ff-docs-home__card-link {
+  display: inline-block;
+
+  margin-top: var(--space-lg);
+
+  color: var(--color-primary);
+
+  font-size: var(--font-size-sm);
+
+  font-weight: var(--font-weight-medium);
+
+  text-decoration: none;
+}
+
+.ff-docs-home__card-link:hover {
+  text-decoration: underline;
+}
+
+.ff-docs-home__card--planned {
+  background: var(--color-surface);
+}
+
+.ff-docs-home__card--planned span {
+  display: inline-block;
+
+  margin-top: var(--space-lg);
+
+  color: var(--color-text-secondary);
+
+  font-size: var(--font-size-sm);
+}
+
+/* ===========================
+   Responsive
+=========================== */
+
+@media (max-width: 768px) {
+  .ff-docs-home__hero {
+    padding-top: var(--space-lg);
+  }
+
+  .ff-docs-home__cards {
+    grid-template-columns: 1fr;
+  }
 }
