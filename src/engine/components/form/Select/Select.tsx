@@ -4,6 +4,9 @@ import {
   useRef,
   useState,
 } from "react";
+
+import { Icon } from "@/engine/components";
+
 import { useTranslation } from "react-i18next";
 import clsx from "clsx";
 
@@ -747,16 +750,18 @@ export default function Select(
                   handleClear();
                 }}
               >
-                ×
+                <Icon
+                  name="clear"
+                  size={16}
+                />
               </button>
             )}
 
-          <span
-            className="ff-select__icon"
-            aria-hidden="true"
-          >
-            ▼
-          </span>
+          <Icon
+            name="expand"
+            size={16}
+          />
+
         </div>
       </div>
 

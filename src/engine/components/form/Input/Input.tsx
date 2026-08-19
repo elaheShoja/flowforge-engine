@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 import {
   FieldWrapper,
   Spinner,
+  Icon,
 } from "@/engine/components";
 
 import type { InputProps } from "./Input.types";
@@ -139,7 +140,10 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
                 onClick={handleClear}
                 aria-label={t("clear")}
               >
-                ×
+                <Icon
+                  name="clear"
+                  size={16}
+                />
               </button>
             )}
 

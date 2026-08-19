@@ -1,3 +1,7 @@
+/* ==========================================================
+   FlowForge Select
+   ========================================================== */
+
 .ff-select {
 
   display: flex;
@@ -20,33 +24,110 @@
 
   background: var(--color-background);
 
+  color: var(--color-text);
+
   box-sizing: border-box;
 
   cursor: pointer;
 
-  transition: var(--transition-fast);
+  transition:
+    border-color var(--transition-fast),
+    box-shadow var(--transition-fast),
+    background-color var(--transition-fast);
 }
+
+
+/* ==========================================================
+   Hover
+   ========================================================== */
 
 .ff-select:hover {
   border-color: var(--color-border-hover);
 }
 
+
+/* ==========================================================
+   Focus
+   ========================================================== */
+
+.ff-select:focus {
+  outline: none;
+}
+
+.ff-select:focus-visible {
+  outline: none;
+
+  border-color: var(--color-primary);
+
+  box-shadow: var(--focus-ring);
+}
+
+
+/* ==========================================================
+   Open
+   ========================================================== */
+
 .ff-select--open {
   border-color: var(--color-primary);
+
+  box-shadow: var(--focus-ring);
 }
+
+
+/* ==========================================================
+   Error
+   ========================================================== */
 
 .ff-select--error {
   border-color: var(--color-danger);
 }
 
+.ff-select--error:focus-visible {
+  border-color: var(--color-danger);
+
+  box-shadow:
+    0 0 0 3px
+    rgba(220, 38, 38, 0.16);
+}
+
+
+/* ==========================================================
+   Disabled
+   ========================================================== */
+
 .ff-select--disabled {
 
-  opacity: .6;
+  opacity: 0.6;
 
   cursor: not-allowed;
 
   background: var(--color-surface-disabled);
 }
+
+.ff-select--disabled:hover {
+  border-color: var(--color-border);
+}
+
+.ff-select--disabled:focus-visible {
+  box-shadow: none;
+}
+
+
+/* ==========================================================
+   Content
+   ========================================================== */
+
+.ff-select__content {
+
+  flex: 1;
+
+  min-width: 0;
+}
+
+
+/* ==========================================================
+   Value
+   ========================================================== */
 
 .ff-select__value {
 
@@ -59,19 +140,56 @@
   text-overflow: ellipsis;
 }
 
+
+/* ==========================================================
+   Placeholder
+   ========================================================== */
+
 .ff-select__placeholder {
 
   color: var(--color-text-secondary);
 }
 
-.ff-select__icon {
+
+/* ==========================================================
+   Actions
+   ========================================================== */
+
+.ff-select__actions {
 
   display: flex;
 
   align-items: center;
 
-  justify-content: center;
+  gap: var(--space-sm);
+
+  flex-shrink: 0;
 }
+
+
+/* ==========================================================
+   Select Icon
+   ========================================================== */
+
+.ff-select__icon {
+
+  display: inline-flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  color: var(--color-text-secondary);
+
+  transition:
+    color var(--transition-fast),
+    transform var(--transition-fast);
+}
+
+
+/* ==========================================================
+   Options Container
+   ========================================================== */
 
 .ff-select__options {
 
@@ -79,17 +197,25 @@
 
   flex-direction: column;
 
-  padding: 0px;
+  width: 100%;
 
-  height: 120px;
+  max-height: 240px;
 
-  max-height: 120px;
+  padding: var(--space-xs) 0;
 
   overflow-y: auto;
 
   overflow-x: hidden;
 
+  overscroll-behavior: contain;
+
+  background: var(--color-background);
 }
+
+
+/* ==========================================================
+   Option
+   ========================================================== */
 
 .ff-select__option {
 
@@ -99,252 +225,545 @@
 
   width: 100%;
 
-  padding: 10px 12px;
+  min-height: 40px;
+
+  padding:
+    var(--space-sm)
+    var(--space-md);
 
   border: none;
 
+  border-radius: 0;
+
+  outline: none;
+
   background: transparent;
+
+  color: var(--color-text);
 
   cursor: pointer;
 
   text-align: left;
 
+  font: inherit;
+
+  transition:
+    background-color var(--transition-fast),
+    color var(--transition-fast);
 }
 
-.ff-select__option:hover {
+
+/* ==========================================================
+   Option Hover
+   ========================================================== */
+
+.ff-select__option:hover:not(:disabled) {
 
   background: var(--color-surface-hover);
-
 }
 
-.ff-select__option--selected {
 
-  background: var(--color-primary-50);
+/* ==========================================================
+   Option Active
+   ========================================================== */
 
-  color: var(--color-primary);
+.ff-select__option--active {
 
-  font-weight: 600;
-
+  background: var(--color-surface-hover);
 }
 
-.ff-select__option--selected:hover {
 
-  background: var(--color-primary-100);
-
-}
+/* ==========================================================
+   Option Focus
+   ========================================================== */
 
 .ff-select__option:focus {
   outline: none;
 }
 
-.ff-select__option--active {
-    background: var(--color-surface-hover);
+.ff-select__option:focus-visible {
+
+  outline: none;
+
+  background: var(--color-primary-subtle);
+
+  box-shadow:
+    inset 3px 0 0
+    var(--color-primary);
 }
 
-.ff-select__option:disabled {
-  color: var(--color-text-secondary);
-  opacity: 0.55;
-  cursor: not-allowed;
+
+/* ==========================================================
+   Selected Option
+   ========================================================== */
+
+.ff-select__option--selected {
+
+  background: var(--color-primary-subtle);
+
+  color: var(--color-primary);
+
+  font-weight: var(--font-weight-semibold);
 }
 
-.ff-select__option:disabled:hover {
-  background: transparent;
+
+.ff-select__option--selected:hover {
+
+  background: var(--color-primary-muted);
 }
 
-.ff-select__option:disabled.ff-select__option--selected {
-  background: transparent;
+
+/* ==========================================================
+   Selected + Active
+   ========================================================== */
+
+.ff-select__option--selected.ff-select__option--active {
+
+  background: var(--color-primary-muted);
 }
 
-.ff-select__menu{
-    display:flex;
-    flex-direction:column;
+
+/* ==========================================================
+   Option Icon
+   ========================================================== */
+
+.ff-select__option-icon {
+
+  display: inline-flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  margin-right: var(--space-sm);
 }
+
+
+/* ==========================================================
+   Option Label
+   ========================================================== */
+
+.ff-select__option-label {
+
+  min-width: 0;
+
+  overflow: hidden;
+
+  text-overflow: ellipsis;
+
+  white-space: nowrap;
+}
+
+
+/* ==========================================================
+   Selected Check
+   ========================================================== */
+
+.ff-select__option-check {
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  margin-left: auto;
+
+  padding-left: var(--space-md);
+
+  color: var(--color-primary);
+
+  font-weight: var(--font-weight-semibold);
+}
+
+
+/* ==========================================================
+   Search
+   ========================================================== */
 
 .ff-select__search {
-  margin-bottom: 8px;
-  padding-bottom: 8px;
-  border-bottom: 1px solid var(--color-border);
+
+  margin:
+    var(--space-xs)
+    var(--space-sm)
+    var(--space-xs);
+
+  padding-bottom: var(--space-sm);
+
+  border-bottom:
+    var(--border-width)
+    solid
+    var(--color-border-subtle);
+
   box-sizing: border-box;
 }
 
+
+/* ==========================================================
+   Group Label
+   ========================================================== */
+
 .ff-select__group-label {
-  padding: 8px 12px;
 
-  font-size: 12px;
+  padding:
+    var(--space-sm)
+    var(--space-md);
 
-  font-weight: 600;
+  font-size: var(--font-size-xs);
+
+  font-weight: var(--font-weight-semibold);
 
   color: var(--color-text-secondary);
 
   background: var(--color-surface);
+
+  text-transform: none;
 }
+
+
+/* ==========================================================
+   Empty State
+   ========================================================== */
 
 .ff-select__empty {
-  padding: 12px;
-  text-align: center;
+
+  padding: var(--space-lg);
+
   color: var(--color-text-secondary);
+
   font-size: var(--font-size-sm);
+
+  text-align: center;
 }
 
-.ff-select__option-check {
-  margin-left: auto;
+
+/* ==========================================================
+   Loading More
+   ========================================================== */
+
+.ff-select__load-more {
 
   display: flex;
+
   align-items: center;
+
   justify-content: center;
 
-  font-weight: 600;
+  min-height: 32px;
 }
 
-.ff-select__clear {
-  display: flex;
-  align-items: center;
-  justify-content: center;
 
-  width: 20px;
-  height: 20px;
+.ff-select__loading-more {
 
-  padding: 0;
-
-  border: none;
-  border-radius: 50%;
-
-  background: transparent;
+  padding:
+    var(--space-sm)
+    var(--space-md);
 
   color: var(--color-text-secondary);
 
-  cursor: pointer;
+  font-size: var(--font-size-xs);
 
-  font-size: 16px;
-  line-height: 1;
-}
-
-.ff-select__clear:hover {
-  color: var(--color-text);
-  background: var(--color-surface-hover);
-}
-
-.ff-select__content {
-  flex: 1;
-  min-width: 0;
-}
-
-.ff-select__chips {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  overflow: hidden;
-}
-
-.ff-select__chip {
-  display: inline-flex;
-  white-space: nowrap;
-}
-
-.ff-select__actions {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  flex-shrink: 0;
-}
-
-.ff-select__chips {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  overflow: hidden;
+  text-align: center;
 }
 
 
-.ff-select__chip {
-  display: inline-flex;
-  align-items: center;
-  padding: 3px 8px;
-  border-radius: 14px;
-  background: #f1f5f9;
-  white-space: nowrap;
-  font-size: 13px;
-}
-
-
-.ff-select__chip-more {
-  display: inline-flex;
-  align-items: center;
-  padding: 3px 8px;
-  border-radius: 14px;
-  white-space: nowrap;
-  font-size: 13px;
-}
+/* ==========================================================
+   Select All
+   ========================================================== */
 
 .ff-select__select-all {
-
-  border-bottom: 1px solid var(--color-border);
-
-  background: var(--color-surface);
-
-  font-weight: 600;
 
   position: sticky;
 
   top: 0;
 
   z-index: 1;
+
+  display: flex;
+
+  align-items: center;
+
+  width: 100%;
+
+  min-height: 40px;
+
+  padding:
+    var(--space-sm)
+    var(--space-md);
+
+  border: none;
+
+  border-bottom:
+    var(--border-width)
+    solid
+    var(--color-border-subtle);
+
+  background: var(--color-surface);
+
+  color: var(--color-text);
+
+  font-weight: var(--font-weight-semibold);
+
+  cursor: pointer;
+
+  text-align: left;
+
+  transition:
+    background-color var(--transition-fast),
+    color var(--transition-fast);
 }
 
 
 .ff-select__select-all:hover {
 
   background: var(--color-surface-hover);
-
 }
 
 
 .ff-select__select-all--checked {
 
   color: var(--color-primary);
-
 }
 
 
 .ff-select__select-all--indeterminate {
 
   color: var(--color-primary);
-
 }
 
 
+/* ==========================================================
+   Checkbox
+   ========================================================== */
+
 .ff-select__checkbox {
+
   display: flex;
 
   align-items: center;
+
   justify-content: center;
 
   flex-shrink: 0;
 
   width: 18px;
+
   height: 18px;
 
-  margin-right: 8px;
+  margin-right: var(--space-sm);
 
-  border: 1px solid var(--color-border);
-  border-radius: 4px;
+  border:
+    var(--border-width)
+    solid
+    var(--color-border);
+
+  border-radius: var(--radius-xs);
 
   background: var(--color-background);
 
-  font-size: 12px;
-  font-weight: 700;
+  color: var(--color-on-primary);
+
+  font-size: var(--font-size-xs);
+
+  font-weight: var(--font-weight-bold);
 
   box-sizing: border-box;
+
+  transition:
+    background-color var(--transition-fast),
+    border-color var(--transition-fast);
 }
 
+
 .ff-select__checkbox--checked {
+
   border-color: var(--color-primary);
 
   background: var(--color-primary);
 
-  color: white;
+  color: var(--color-on-primary);
 }
 
+
 .ff-select__checkbox--disabled {
+
   opacity: 0.5;
+}
+
+
+/* ==========================================================
+   Clear Button
+   ========================================================== */
+
+.ff-select__clear {
+
+  display: inline-flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  width: 28px;
+
+  height: 28px;
+
+  padding: 0;
+
+  border: 0;
+
+  border-radius: var(--radius-sm);
+
+  background: transparent;
+
+  color: var(--color-text-secondary);
+
+  cursor: pointer;
+
+  transition:
+    color var(--transition-fast),
+    background-color var(--transition-fast);
+}
+
+
+.ff-select__clear:hover {
+
+  color: var(--color-text);
+
+  background: var(--color-surface-hover);
+}
+
+
+.ff-select__clear:focus {
+
+  outline: none;
+}
+
+
+.ff-select__clear:focus-visible {
+
+  outline: 2px solid var(--color-focus);
+
+  outline-offset: 1px;
+}
+
+
+.ff-select__clear .ff-icon {
+
+  pointer-events: none;
+}
+
+
+/* ==========================================================
+   Multi Select Chips
+   ========================================================== */
+
+.ff-select__chips {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: var(--space-xs);
+
+  min-width: 0;
+
+  overflow: hidden;
+}
+
+
+.ff-select__chip {
+
+  display: inline-flex;
+
+  align-items: center;
+
+  max-width: 100%;
+
+  padding:
+    3px
+    var(--space-sm);
+
+  border-radius: var(--radius-full);
+
+  background: var(--color-surface);
+
+  color: var(--color-text);
+
+  white-space: nowrap;
+
+  font-size: var(--font-size-xs);
+}
+
+
+.ff-select__chip-more {
+
+  display: inline-flex;
+
+  align-items: center;
+
+  padding:
+    3px
+    var(--space-sm);
+
+  border-radius: var(--radius-full);
+
+  background: var(--color-surface);
+
+  color: var(--color-text-secondary);
+
+  white-space: nowrap;
+
+  font-size: var(--font-size-xs);
+}
+
+
+/* ==========================================================
+   Scrollbar
+   ========================================================== */
+
+.ff-select__options {
+  scrollbar-width: thin;
+
+  scrollbar-color:
+    var(--color-border-strong)
+    transparent;
+}
+
+
+/* ==========================================================
+   Responsive
+   ========================================================== */
+
+@media (max-width: 768px) {
+
+  .ff-select {
+
+    min-height: 40px;
+
+    padding:
+      0
+      var(--space-md);
+  }
+
+  .ff-select__option {
+
+    min-height: 42px;
+
+    padding:
+      var(--space-sm)
+      var(--space-md);
+  }
+
+  .ff-select__search {
+
+    margin:
+      var(--space-xs)
+      var(--space-xs)
+      var(--space-xs);
+
+    padding-bottom: var(--space-sm);
+  }
+
 }

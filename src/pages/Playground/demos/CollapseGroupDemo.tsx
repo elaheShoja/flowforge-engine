@@ -3,6 +3,7 @@ import { useState } from "react";
 import {
   Collapse,
   CollapseGroup,
+  Button,
 } from "@/engine/components";
 
 interface CollapseGroupDemoProps {
@@ -152,25 +153,29 @@ export default function CollapseGroupDemo({
 
               {/* Open All */}
 
-              <button
+              <Button
                 type="button"
+                variant="primary"
+                size="sm"
                 onClick={
                   handleInteractiveOpenAll
                 }
               >
                 Open All
-              </button>
+              </Button>
 
               {/* Close All */}
 
-              <button
+              <Button
                 type="button"
+                variant="secondary"
+                size="sm"
                 onClick={
                   handleInteractiveCloseAll
                 }
               >
                 Close All
-              </button>
+              </Button>
 
             </div>
 
@@ -320,8 +325,10 @@ export default function CollapseGroupDemo({
 
             <div className="playground-controls">
 
-              <button
+              <Button
                 type="button"
+                variant="primary"
+                size="sm"
                 onClick={() =>
                   setControlledIds([
                     "collapse-group-controlled-one",
@@ -329,10 +336,12 @@ export default function CollapseGroupDemo({
                 }
               >
                 Open First
-              </button>
+              </Button>
 
-              <button
+              <Button
                 type="button"
+                variant="primary"
+                size="sm"
                 onClick={() =>
                   setControlledIds([
                     "collapse-group-controlled-two",
@@ -340,10 +349,12 @@ export default function CollapseGroupDemo({
                 }
               >
                 Open Second
-              </button>
+              </Button>
 
-              <button
+              <Button
                 type="button"
+                variant="primary"
+                size="sm"
                 onClick={() =>
                   setControlledIds([
                     "collapse-group-controlled-three",
@@ -351,16 +362,18 @@ export default function CollapseGroupDemo({
                 }
               >
                 Open Third
-              </button>
+              </Button>
 
-              <button
+              <Button
                 type="button"
+                variant="secondary"
+                size="sm"
                 onClick={() =>
                   setControlledIds([])
                 }
               >
                 Close All
-              </button>
+              </Button>
 
             </div>
 

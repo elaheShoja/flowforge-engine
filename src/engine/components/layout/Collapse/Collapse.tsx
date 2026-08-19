@@ -6,6 +6,8 @@ import {
 } from "react";
 import clsx from "clsx";
 
+import { Icon } from "@/engine/components";
+
 import type { CollapseProps } from "./Collapse.types";
 
 import { collapseVariants } from "./Collapse.styles";
@@ -108,20 +110,24 @@ const Collapse = forwardRef<
             <span className="ff-collapse__indicator">
               {isOpen
                 ? openIcon ?? (
-                    <span
-                      aria-hidden="true"
+                    <Icon
+                      name="collapse"
+                      size={18}
                       className="ff-collapse__arrow ff-collapse__arrow--open"
-                    >
-                      ›
-                    </span>
+                    />
                   )
                 : closeIcon ?? (
-                    <span
-                      aria-hidden="true"
-                      className="ff-collapse__arrow"
-                    >
-                      ›
-                    </span>
+                    <Icon
+                      name="expand"
+                      size={18}
+                      className={clsx(
+                        "ff-collapse__arrow",
+                        {
+                          "ff-collapse__arrow--open":
+                            isOpen,
+                        }
+                      )}
+                    />
                   )}
             </span>
 

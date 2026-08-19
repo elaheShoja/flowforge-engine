@@ -1,44 +1,102 @@
+/* ==========================================================
+   FlowForge Textarea
+   ========================================================== */
+
 .ff-textarea {
   width: fit-content;
-
   max-width: 100%;
 
   padding: var(--space-md);
 
-  border: 1px solid var(--color-border);
-
+  border: var(--border-width) solid var(--color-border);
   border-radius: var(--radius-md);
 
   background: var(--color-background);
-
   color: var(--color-text);
 
   font: inherit;
-
-  line-height: 1.5;
+  line-height: var(--line-height-md);
 
   overflow-y: auto;
-
   box-sizing: border-box;
+  resize: vertical;
 
-  transition: var(--transition-fast);
+  transition:
+    border-color var(--transition-fast),
+    box-shadow var(--transition-fast),
+    background-color var(--transition-fast);
 }
+
+
+/* ==========================================================
+   Hover
+   ========================================================== */
+
+.ff-textarea:hover:not(:disabled) {
+  border-color: var(--color-border-hover);
+}
+
+
+/* ==========================================================
+   Focus
+   ========================================================== */
 
 .ff-textarea:focus {
   outline: none;
-
-  border-color: var(--color-primary);
 }
+
+.ff-textarea:focus-visible {
+  border-color: var(--color-border-focus);
+
+  box-shadow: var(--focus-ring);
+}
+
+
+/* ==========================================================
+   Error
+   ========================================================== */
 
 .ff-textarea--error {
   border-color: var(--color-danger);
 }
 
-.ff-textarea--disabled {
+.ff-textarea--error:focus-visible {
+  border-color: var(--color-danger);
+
+  box-shadow:
+    0 0 0 3px
+    rgba(220, 38, 38, 0.16);
+}
+
+
+/* ==========================================================
+   Disabled
+   ========================================================== */
+
+.ff-textarea--disabled,
+.ff-textarea:disabled {
   opacity: 0.6;
 
   cursor: not-allowed;
+
+  background: var(--color-surface-disabled);
 }
+
+.ff-textarea--disabled:hover,
+.ff-textarea:disabled:hover {
+  border-color: var(--color-border);
+}
+
+.ff-textarea--disabled:focus,
+.ff-textarea:disabled:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+
+/* ==========================================================
+   Full Width
+   ========================================================== */
 
 .ff-textarea--full {
   width: 100%;

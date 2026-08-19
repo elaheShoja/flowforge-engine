@@ -1,7 +1,10 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 
-import { Input } from "@/engine/components";
+import { 
+  Input,
+  Icon
+} from "@/engine/components";
 
 import type { PasswordInputProps } from "./PasswordInput.types";
 
@@ -30,7 +33,14 @@ export default function PasswordInput({
               : t("showPassword")
           }
         >
-          {visible ? "🙈" : "👁"}
+          <Icon
+            name={
+              visible
+                ? "hidePassword"
+                : "showPassword"
+            }
+            size={18}
+          />
         </button>
       }
     />
