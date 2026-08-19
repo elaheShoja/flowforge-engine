@@ -1,0 +1,354 @@
+/* ==========================================================
+   FlowForge Checkbox
+   ========================================================== */
+
+.ff-checkbox {
+  display: inline-flex;
+
+  align-items: flex-start;
+
+  gap: var(--space-sm);
+
+  position: relative;
+
+  width: fit-content;
+
+  max-width: 100%;
+
+  color: var(--color-text);
+
+  cursor: pointer;
+
+  user-select: none;
+}
+
+.ff-checkbox,
+.ff-checkbox * {
+  box-sizing: border-box;
+}
+
+
+/* ==========================================================
+   Full Width
+   ========================================================== */
+
+.ff-checkbox--full {
+  width: 100%;
+}
+
+
+/* ==========================================================
+   Checkbox Control
+   ========================================================== */
+
+.ff-checkbox__control {
+  position: relative;
+
+  display: inline-flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  border: var(--border-width) solid var(--color-border);
+
+  border-radius: var(--radius-sm);
+
+  background: var(--color-background);
+
+  transition:
+    border-color var(--transition-fast),
+    background-color var(--transition-fast),
+    box-shadow var(--transition-fast);
+}
+
+
+/* ==========================================================
+   Sizes
+   ========================================================== */
+
+.ff-checkbox--sm
+  .ff-checkbox__control {
+  width: 16px;
+  height: 16px;
+}
+
+.ff-checkbox--md
+  .ff-checkbox__control {
+  width: 18px;
+  height: 18px;
+}
+
+.ff-checkbox--lg
+  .ff-checkbox__control {
+  width: 22px;
+  height: 22px;
+}
+
+
+/* ==========================================================
+   Native Input
+   ========================================================== */
+
+.ff-checkbox__input {
+  position: absolute;
+
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  margin: 0;
+
+  opacity: 0;
+
+  cursor: pointer;
+
+  z-index: 2;
+}
+
+
+/* ==========================================================
+   Check Icon
+   ========================================================== */
+
+.ff-checkbox__mark {
+  display: none;
+
+  position: absolute;
+
+  inset: 0;
+
+  align-items: center;
+
+  justify-content: center;
+
+  color: var(--color-background);
+
+  pointer-events: none;
+}
+
+.ff-checkbox__mark::after {
+  content: "";
+
+  width: 5px;
+  height: 9px;
+
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+
+  transform:
+    rotate(45deg)
+    translate(-1px, -1px);
+}
+
+
+/* ==========================================================
+   Checked
+   ========================================================== */
+
+.ff-checkbox__input:checked
+  + .ff-checkbox__control {
+  border-color: var(--color-primary);
+
+  background: var(--color-primary);
+}
+
+.ff-checkbox__input:checked
+  + .ff-checkbox__control
+  .ff-checkbox__mark {
+  display: flex;
+}
+
+
+/* ==========================================================
+   Indeterminate
+   ========================================================== */
+
+.ff-checkbox--indeterminate
+  .ff-checkbox__control {
+  border-color: var(--color-primary);
+
+  background: var(--color-primary);
+}
+
+.ff-checkbox--indeterminate
+  .ff-checkbox__control
+  .ff-checkbox__indeterminate {
+  display: block;
+}
+
+.ff-checkbox__indeterminate {
+  display: none;
+
+  width: 9px;
+  height: 2px;
+
+  border-radius: 2px;
+
+  background: var(--color-background);
+
+  pointer-events: none;
+}
+
+
+/* ==========================================================
+   Hover
+   ========================================================== */
+
+.ff-checkbox:hover:not(
+  .ff-checkbox--disabled
+) .ff-checkbox__control {
+  border-color: var(--color-primary);
+}
+
+
+/* ==========================================================
+   Focus
+   ========================================================== */
+
+.ff-checkbox__input:focus-visible
+  + .ff-checkbox__control {
+  border-color: var(--color-border-focus);
+
+  box-shadow: var(--focus-ring);
+}
+
+
+/* ==========================================================
+   Error
+   ========================================================== */
+
+.ff-checkbox--error
+  .ff-checkbox__control {
+  border-color: var(--color-danger);
+}
+
+.ff-checkbox--error:hover
+  .ff-checkbox__control {
+  border-color: var(--color-danger);
+}
+
+.ff-checkbox--error
+  .ff-checkbox__input:checked
+  + .ff-checkbox__control {
+  border-color: var(--color-danger);
+
+  background: var(--color-danger);
+}
+
+
+/* ==========================================================
+   Label & Description
+   ========================================================== */
+
+.ff-checkbox__content {
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: center;
+
+  gap: var(--space-xs);
+
+  min-width: 0;
+
+  line-height: 1.4;
+}
+
+.ff-checkbox__label {
+  color: var(--color-text);
+
+  font-size: var(--font-size-md);
+
+  font-weight: 500;
+
+  line-height: 1.4;
+}
+
+.ff-checkbox__description {
+  color: var(--color-text-secondary);
+
+  font-size: var(--font-size-sm);
+
+  line-height: 1.5;
+}
+
+
+/* ==========================================================
+   Size-specific label alignment
+   ========================================================== */
+
+.ff-checkbox--sm
+  .ff-checkbox__label {
+  line-height: 16px;
+}
+
+.ff-checkbox--md
+  .ff-checkbox__label {
+  line-height: 18px;
+}
+
+.ff-checkbox--lg
+  .ff-checkbox__label {
+  line-height: 22px;
+}
+
+
+/* ==========================================================
+   Disabled
+   ========================================================== */
+
+.ff-checkbox--disabled {
+  cursor: not-allowed;
+
+  opacity: 0.6;
+}
+
+.ff-checkbox--disabled
+  .ff-checkbox__input {
+  cursor: not-allowed;
+}
+
+.ff-checkbox--disabled
+  .ff-checkbox__control {
+  background: var(--color-surface-disabled);
+
+  cursor: not-allowed;
+}
+
+.ff-checkbox--disabled
+  .ff-checkbox__label,
+.ff-checkbox--disabled
+  .ff-checkbox__description {
+  color: var(--color-text-disabled);
+}
+
+
+/* ==========================================================
+   Alignment With Field
+   ========================================================== */
+
+.ff-checkbox--align-field {
+  width: 100%;
+
+  align-items: center;
+}
+
+.ff-checkbox--align-field
+  .ff-checkbox__content {
+  justify-content: center;
+}
+
+
+/* ==========================================================
+   Required
+   ========================================================== */
+
+.ff-checkbox__required {
+  margin-inline-start: 4px;
+
+  color: var(--color-danger);
+}

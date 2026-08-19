@@ -55,6 +55,18 @@ export const componentRegistry: ComponentMeta[] = [
   },
 
   {
+    id: "checkbox",
+    name: "Checkbox",
+    category: "form",
+    description:
+      "A flexible checkbox component for selecting boolean values in FlowForge forms.",
+    docsPath: "/docs/components/checkbox",
+    playgroundPath: "/playground/checkbox",
+    status: "stable",
+    showInPlayground: true,
+  },
+
+  {
     id: "collapse",
     name: "Collapse",
     category: "general",

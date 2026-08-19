@@ -93,6 +93,19 @@ export const documentationGroups: DocumentationGroup[] = [
       },
 
       {
+        id: "checkbox",
+        title: "Checkbox",
+        description:
+          "A flexible checkbox component for selecting boolean values.",
+        section: "components",
+        path: "/docs/components/checkbox",
+        contentPath: "components/checkbox.md",
+        order: 4,
+        componentId: "checkbox",
+        playgroundPath: "/playground/checkbox",
+      },
+
+      {
         id: "collapse",
         title: "Collapse",
         description:
@@ -100,7 +113,7 @@ export const documentationGroups: DocumentationGroup[] = [
         section: "components",
         path: "/docs/components/collapse",
         contentPath: "components/collapse.md",
-        order: 4,
+        order: 5,
         componentId: "collapse",
         playgroundPath: "/playground/collapse",
       },
@@ -113,7 +126,7 @@ export const documentationGroups: DocumentationGroup[] = [
         section: "components",
         path: "/docs/components/collapse-group",
         contentPath: "components/collapse-group.md",
-        order: 5,
+        order: 6,
         componentId: "collapse-group",
         playgroundPath: "/playground/collapse-group",
       },

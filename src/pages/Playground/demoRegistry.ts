@@ -5,6 +5,7 @@ import TextareaDemo from "./demos/TextareaDemo";
 import CollapseDemo from "./demos/CollapseDemo";
 import CollapseGroupDemo from "./demos/CollapseGroupDemo";
 import SelectDemo from "./demos/SelectDemo";
+import CheckboxDemo from "./demos/CheckboxDemo";
 
 export type PlaygroundDemo = ComponentType<{
   focusId?: string;
@@ -18,6 +19,7 @@ export const playgroundRegistry: Record<
 > = {
   input: InputDemo,
   textarea: TextareaDemo,
+  checkbox: CheckboxDemo,
   collapse: CollapseDemo,
   "collapse-group": CollapseGroupDemo,
   select: SelectDemo,
