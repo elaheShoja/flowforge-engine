@@ -1,8 +1,8 @@
 # CollapseGroup
 
-The `CollapseGroup` component is a reusable state-management component designed to coordinate multiple `Collapse` items within FlowForge interfaces and forms.
+The `CollapseGroup` component is a reusable state-management component designed to coordinate multiple `Collapse` items within FlowForge interfaces, forms, and documentation.
 
-It provides a consistent API for managing active Collapse items while supporting single-open and multiple-open behavior, controlled and uncontrolled usage, default active items, stable item IDs, and documentation-friendly navigation.
+It provides a consistent API for managing active Collapse items while supporting single-open and multiple-open behavior, controlled and uncontrolled usage, default active items, stable item IDs, programmatic control, and Playground navigation.
 
 ---
 
@@ -27,7 +27,7 @@ Instead of managing each Collapse independently, `CollapseGroup` provides a sing
 - Stable Collapse IDs
 - Programmatic control
 - Responsive layout
-- Integration with FlowForge Playground navigation
+- Playground navigation support
 
 ---
 
@@ -68,7 +68,9 @@ The simplest way to use `CollapseGroup` is to place multiple `Collapse` componen
 </CollapseGroup>
 ```
 
-The `CollapseGroup` coordinates the state of its child Collapse items.
+The `CollapseGroup` coordinates the open state of its child Collapse items.
+
+Each Collapse must provide a stable and unique `id` so the group can identify and manage it.
 
 ---
 
@@ -115,7 +117,7 @@ When `multiple` is enabled, opening one item does not close other active items.
 
 ## Single Open Mode
 
-When `multiple` is disabled, only one Collapse item can remain open.
+When `multiple` is disabled, only one Collapse item can remain open at a time.
 
 ```tsx
 <CollapseGroup multiple={false}>
@@ -242,6 +244,7 @@ This is useful when the user should explicitly choose which section to open.
 
 ```tsx
 import { useState } from "react";
+
 import {
   Collapse,
   CollapseGroup,
@@ -281,7 +284,7 @@ export default function Example() {
 }
 ```
 
-The parent component becomes responsible for the active state.
+The parent component becomes responsible for managing the active state.
 
 [Open Controlled Group in Playground](/playground/collapse-group?focusId=collapse-group-controlled)
 
@@ -291,10 +294,11 @@ The parent component becomes responsible for the active state.
 
 A controlled `CollapseGroup` can be manipulated programmatically.
 
-For example, buttons can explicitly select which item is active.
+For example, external controls can explicitly select which item is active.
 
 ```tsx
 import { useState } from "react";
+
 import {
   Collapse,
   CollapseGroup,
@@ -398,6 +402,10 @@ setActiveIds([
   "item-one",
 ]);
 ```
+
+The Playground demonstrates these interactions using the FlowForge `Button` component.
+
+[Open Interactive Example in Playground](/playground/collapse-group?focusId=collapse-group-interactive)
 
 ---
 
@@ -537,6 +545,8 @@ Use `activeIds` and `onChange` when the parent needs to manage the active state.
 </CollapseGroup>
 ```
 
+The controlled approach is recommended when the active Collapse state needs to interact with other application state.
+
 ---
 
 ## Interactive Example
@@ -545,6 +555,7 @@ A common use case is providing controls that change the behavior of the group.
 
 ```tsx
 import { useState } from "react";
+
 import {
   Collapse,
   CollapseGroup,
@@ -654,6 +665,8 @@ export default function Example() {
 }
 ```
 
+The FlowForge Playground provides the same interaction using FlowForge components rather than native controls.
+
 [Open Interactive Example in Playground](/playground/collapse-group?focusId=collapse-group-interactive)
 
 ---
@@ -662,15 +675,23 @@ export default function Example() {
 
 The FlowForge Playground supports opening a specific documentation section through its `focusId`.
 
-Each Playground section has a stable `focusId` that maps directly to the corresponding outer `Collapse` in the `CollapseGroupDemo`.
+Each Playground section has a stable `focusId` that maps directly to the corresponding outer `Collapse` in `CollapseGroupDemo`.
 
-The focused Playground links are placed alongside the relevant documentation sections so that each example can be opened directly.
+For example:
+
+```text
+/playground/collapse-group?focusId=collapse-group-controlled
+```
+
+This opens the Controlled Group section directly.
+
+Focused Playground links are placed alongside the relevant documentation sections so users can move directly from the documentation to the corresponding example.
 
 ---
 
 ## Inner Focus
 
-Some Playground sections may contain multiple independently addressable examples.
+Some Playground components may contain multiple independently addressable examples.
 
 In those cases, the route can provide both `focusId` and `innerFocusId`.
 
@@ -684,7 +705,7 @@ The `innerFocusId` identifies a specific example inside that section.
 
 This mechanism should only be used when a section genuinely contains multiple independently addressable examples.
 
-The current `CollapseGroup` Playground does not require `innerFocusId` because each main example already has its own stable `focusId`.
+The current `CollapseGroup` Playground does not require `innerFocusId` because its examples are represented as separate top-level sections.
 
 ---
 
@@ -721,6 +742,8 @@ Each Collapse should have:
 </CollapseGroup>
 ```
 
+Accessibility responsibilities related to the actual disclosure control remain primarily within the `Collapse` component.
+
 ---
 
 ## Responsive Behavior
@@ -751,7 +774,9 @@ Each Collapse should have:
 </div>
 ```
 
-The surrounding layout system is responsible for page-level spacing and responsive positioning.
+`CollapseGroup` does not require a fixed width.
+
+The surrounding FlowForge layout system is responsible for page-level spacing, sizing, and responsive positioning.
 
 ---
 
@@ -771,9 +796,9 @@ The surrounding layout system is responsible for page-level spacing and responsi
 
 ## Group Behavior
 
-The behavior of the group can be summarized as follows:
+The behavior of `CollapseGroup` can be summarized as follows:
 
-| Mode | Behavior |
+| Mode / Property | Behavior |
 | --- | --- |
 | `multiple={false}` | Only one item can remain open |
 | `multiple={true}` | Multiple items can remain open |
@@ -781,13 +806,15 @@ The behavior of the group can be summarized as follows:
 | `activeIds` | Controls the active items externally |
 | `onChange` | Reports active item changes |
 
+When switching from multiple-open mode to single-open mode, the application should ensure that only one active ID remains.
+
 ---
 
 ## Validation and Form Integration
 
 `CollapseGroup` does not implement business-specific validation.
 
-It is responsible for coordinating the visual and interaction state of Collapse components.
+It is responsible for coordinating the visual and interaction state of its Collapse components.
 
 Form validation, dependencies, conditional rendering, persistence, and submission remain responsibilities of the FlowForge Form Engine.
 
@@ -819,22 +846,15 @@ A group can nevertheless be used to organize related form sections.
 </CollapseGroup>
 ```
 
+This keeps `CollapseGroup` independent from business-specific form logic.
+
 ---
 
 ## Playground
 
-The interactive Playground provides examples of the main `CollapseGroup` capabilities.
+The interactive Playground provides examples of the main `CollapseGroup` capabilities, including multiple-open behavior, controlled state, default active items, programmatic control, and empty active state.
 
 [Open CollapseGroup Playground](/playground/collapse-group)
-
----
-
-## Related Components
-
-- [Collapse](/docs/components/collapse)
-- [Input](/docs/components/input)
-- [Textarea](/docs/components/textarea)
-- [Select](/docs/components/select)
 
 ---
 
@@ -903,3 +923,12 @@ It should remain independent from backend and database implementations.
 ```
 
 This separation allows the FlowForge UI layer and Service layer to evolve independently.
+
+---
+
+## Related Components
+
+- [Collapse](/docs/components/collapse)
+- [Input](/docs/components/input)
+- [Textarea](/docs/components/textarea)
+- [Select](/docs/components/select)

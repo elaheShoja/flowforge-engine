@@ -57,6 +57,8 @@ A description can be provided to give the user additional information.
 />
 ```
 
+[Open Basic Usage in Playground](/playground/checkbox?focusId=checkbox-basic-usage)
+
 ---
 
 ## Controlled Checkbox
@@ -83,6 +85,8 @@ export default function Example() {
 The `checked` value is controlled by React state and updated through the `onChange` callback.
 
 The `onChange` callback receives the new boolean value.
+
+[Open Controlled Checkbox in Playground](/playground/checkbox?focusId=checkbox-controlled)
 
 ---
 
@@ -122,6 +126,8 @@ The component supports three predefined sizes:
   label="Large Checkbox"
 />
 ```
+
+[Open Checkbox Sizes in Playground](/playground/checkbox?focusId=checkbox-sizes)
 
 ---
 
@@ -163,6 +169,8 @@ Use `required` when the Checkbox must be selected as part of a form.
 />
 ```
 
+[Open Required State in Playground](/playground/checkbox?focusId=checkbox-states&innerFocusId=checkbox-states-required)
+
 ---
 
 ## Disabled State
@@ -178,6 +186,8 @@ Use `disabled` when the user should not be able to interact with the Checkbox.
 ```
 
 Disabled Checkboxes cannot be changed by the user.
+
+[Open Disabled State in Playground](/playground/checkbox?focusId=checkbox-states&innerFocusId=checkbox-states-disabled)
 
 ---
 
@@ -195,6 +205,8 @@ The `error` property displays validation feedback associated with the Checkbox.
 The Checkbox is responsible for displaying the visual error state.
 
 Higher-level form logic can provide the validation result and error message when the component is used inside a generated form.
+
+[Open Error State in Playground](/playground/checkbox?focusId=checkbox-states&innerFocusId=checkbox-states-error)
 
 ---
 
@@ -240,6 +252,8 @@ export default function Example() {
 
 Once the user changes the Checkbox, the indeterminate state can be cleared and replaced by the normal checked or unchecked state.
 
+[Open Indeterminate Example in Playground](/playground/checkbox?focusId=checkbox-indeterminate)
+
 ---
 
 ## Full Width
@@ -256,6 +270,8 @@ Use `fullWidth` when the Checkbox should occupy the available horizontal space o
 The default value of `fullWidth` is `false`.
 
 When enabled, the Checkbox can participate in layouts where the field should use the available width.
+
+[Open Full Width in Playground](/playground/checkbox?focusId=checkbox-interactive)
 
 ---
 
@@ -331,6 +347,8 @@ This allows mixed form fields to maintain a consistent visual alignment.
 </div>
 ```
 
+[Open Form Alignment in Playground](/playground/checkbox?focusId=checkbox-form-alignment)
+
 ---
 
 ## Controlling Form Alignment
@@ -366,6 +384,8 @@ The controlled value can then be passed to another Checkbox:
 ```
 
 This allows the same form layout to switch between aligned and non-aligned states.
+
+[Open Form Alignment in Playground](/playground/checkbox?focusId=checkbox-form-alignment)
 
 ---
 
@@ -411,6 +431,8 @@ The component supports several common states:
 - Indeterminate
 - Full Width
 - Form Alignment
+
+[Open Checkbox States in Playground](/playground/checkbox?focusId=checkbox-states)
 
 ---
 
@@ -486,6 +508,8 @@ For example:
 
 The `alignWithField` property controls the vertical relationship between the Checkbox and other field controls.
 
+[Open Form Alignment in Playground](/playground/checkbox?focusId=checkbox-form-alignment)
+
 ---
 
 ## Form Engine Integration
@@ -539,6 +563,8 @@ The Checkbox is responsible for displaying the validation state:
 The Form Engine can be responsible for defining and executing validation rules.
 
 This separation allows the same Checkbox component to work independently as well as inside dynamically generated forms.
+
+[Open Error State in Playground](/playground/checkbox?focusId=checkbox-states&innerFocusId=checkbox-states-error)
 
 ---
 

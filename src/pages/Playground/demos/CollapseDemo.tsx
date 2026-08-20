@@ -1,9 +1,12 @@
 import { useState } from "react";
 
 import {
+  Checkbox,
   Collapse,
   CollapseGroup,
 } from "@/engine/components";
+
+import "../Playground.css";
 
 interface CollapseDemoProps {
   focusId?: string;
@@ -13,9 +16,9 @@ interface CollapseDemoProps {
 export default function CollapseDemo({
   focusId,
 }: CollapseDemoProps) {
-  /* =========================
-     Section Group
-  ========================= */
+  /* ==================================================
+     Section IDs
+  ================================================== */
 
   const sectionIds = [
     "collapse-interactive",
@@ -34,9 +37,9 @@ export default function CollapseDemo({
         : "collapse-interactive",
     ]);
 
-  /* =========================
-     Interactive Playground
-  ========================= */
+  /* ==================================================
+     Interactive Playground State
+  ================================================== */
 
   const [
     interactiveActiveIds,
@@ -50,41 +53,38 @@ export default function CollapseDemo({
     setInteractiveMultiple,
   ] = useState(true);
 
-  /* =========================
-     Controlled Collapse
-  ========================= */
+  /* ==================================================
+     Controlled Collapse State
+  ================================================== */
 
   const [controlledOpen, setControlledOpen] =
     useState(false);
 
-  /* =========================
+  /* ==================================================
      Interactive Helpers
-  ========================= */
+  ================================================== */
 
   const handleInteractiveOpenChange = (
-    open: boolean
+    enabled: boolean
   ) => {
     const id =
       "collapse-interactive-preview-1";
 
-    setInteractiveActiveIds(
-      (currentIds) => {
-        if (open) {
-          if (currentIds.includes(id)) {
-            return currentIds;
-          }
-
-          return interactiveMultiple
-            ? [...currentIds, id]
-            : [id];
+    setInteractiveActiveIds((currentIds) => {
+      if (enabled) {
+        if (currentIds.includes(id)) {
+          return currentIds;
         }
 
-        return currentIds.filter(
-          (currentId) =>
-            currentId !== id
-        );
+        return interactiveMultiple
+          ? [...currentIds, id]
+          : [id];
       }
-    );
+
+      return currentIds.filter(
+        (currentId) => currentId !== id
+      );
+    });
   };
 
   const handleMultipleChange = (
@@ -93,11 +93,10 @@ export default function CollapseDemo({
     setInteractiveMultiple(enabled);
 
     if (!enabled) {
-      setInteractiveActiveIds(
-        (currentIds) =>
-          currentIds.length > 0
-            ? [currentIds[0]]
-            : []
+      setInteractiveActiveIds((currentIds) =>
+        currentIds.length > 0
+          ? [currentIds[0]]
+          : []
       );
     }
   };
@@ -141,39 +140,25 @@ export default function CollapseDemo({
 
             <div className="playground-controls">
 
-              {/* Open */}
+              <Checkbox
+                label="Open"
+                checked={interactiveActiveIds.includes(
+                  "collapse-interactive-preview-1"
+                )}
+                onChange={
+                  handleInteractiveOpenChange
+                }
+                withWrapper={false}
+              />
 
-              <label className="playground-checkbox">
-                <input
-                  type="checkbox"
-                  checked={interactiveActiveIds.includes(
-                    "collapse-interactive-preview-1"
-                  )}
-                  onChange={(event) =>
-                    handleInteractiveOpenChange(
-                      event.target.checked
-                    )
-                  }
-                />
-
-                Open
-              </label>
-
-              {/* Multiple Open */}
-
-              <label className="playground-checkbox">
-                <input
-                  type="checkbox"
-                  checked={interactiveMultiple}
-                  onChange={(event) =>
-                    handleMultipleChange(
-                      event.target.checked
-                    )
-                  }
-                />
-
-                Multiple Open
-              </label>
+              <Checkbox
+                label="Multiple Open"
+                checked={interactiveMultiple}
+                onChange={
+                  handleMultipleChange
+                }
+                withWrapper={false}
+              />
 
             </div>
 
@@ -289,19 +274,12 @@ export default function CollapseDemo({
 
             <div className="playground-controls">
 
-              <label className="playground-checkbox">
-                <input
-                  type="checkbox"
-                  checked={controlledOpen}
-                  onChange={(event) =>
-                    setControlledOpen(
-                      event.target.checked
-                    )
-                  }
-                />
-
-                Open Collapse
-              </label>
+              <Checkbox
+                label="Open Collapse"
+                checked={controlledOpen}
+                onChange={setControlledOpen}
+                withWrapper={false}
+              />
 
             </div>
 

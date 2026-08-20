@@ -1,9 +1,8 @@
-
 # Collapse
 
 The `Collapse` component is a flexible and reusable disclosure component designed to show and hide content within FlowForge forms, interfaces, and documentation.
 
-It provides a consistent API for expandable content while supporting controlled and uncontrolled usage, disabled state, custom icons, additional header content, and responsive layouts.
+It provides a consistent API for expandable content while supporting controlled and uncontrolled usage, disabled state, custom icons, additional header content, and integration with `CollapseGroup`.
 
 ---
 
@@ -32,7 +31,7 @@ It can be used independently or as part of a `CollapseGroup` when multiple Colla
 ## Import
 
 ```tsx
-import { Collapse } from "@/engine/components/layout";
+import { Collapse } from "@/engine/components";
 ```
 
 ---
@@ -75,8 +74,6 @@ By default, `Collapse` manages its own open state internally.
 
 This is useful when the surrounding application does not need to control the open state.
 
-[Open Default Open in Playground](/playground/collapse?focusId=collapse-default-open)
-
 ---
 
 ## Default Open
@@ -97,6 +94,8 @@ Use `defaultOpen` when the Collapse should initially be open.
 
 `defaultOpen` only determines the initial state. After initialization, the Collapse manages its own state.
 
+[Open Default Open in Playground](/playground/collapse?focusId=collapse-default-open)
+
 ---
 
 ## Controlled Collapse
@@ -105,7 +104,7 @@ Use `defaultOpen` when the Collapse should initially be open.
 
 ```tsx
 import { useState } from "react";
-import { Collapse } from "@/engine/components/layout";
+import { Collapse } from "@/engine/components";
 
 export default function Example() {
   const [open, setOpen] = useState(false);
@@ -294,7 +293,7 @@ This can be useful for displaying status information, metadata, badges, or other
 import {
   Collapse,
   CollapseGroup,
-} from "@/engine/components/layout";
+} from "@/engine/components";
 
 export default function Example() {
   return (
@@ -551,16 +550,17 @@ This separation keeps the Collapse component independent from the Form Engine im
 
 The interactive Playground provides examples of the main `Collapse` capabilities without requiring changes to application code.
 
-[Open Collapse Playground](/playground/collapse?collapse-interactive)
+The current Playground includes:
 
----
+- Interactive configuration
+- Basic usage
+- Controlled Collapse
+- Default open state
+- Disabled state
+- Custom icons
+- End content
 
-## Related Components
-
-- [CollapseGroup](/docs/components/collapse-group)
-- [Input](/docs/components/input)
-- [Textarea](/docs/components/textarea)
-- [Select](/docs/components/select)
+[Open Collapse Playground](/playground/collapse?focusId=collapse-interactive)
 
 ---
 
@@ -607,7 +607,7 @@ It should remain independent from backend and database implementations.
 ┌──────────────────────────────┐
 │          FlowForge UI        │
 │                              │
-│   Collapse / Input / Select  │
+│  Collapse / Input / Select   │
 │             ↓                │
 │        Form Builder          │
 │             ↓                │
@@ -627,3 +627,13 @@ It should remain independent from backend and database implementations.
 ```
 
 This separation allows the FlowForge UI layer and Service layer to evolve independently.
+
+---
+
+## Related Components
+
+- [CollapseGroup](/docs/components/collapse-group)
+- [Input](/docs/components/input)
+- [Textarea](/docs/components/textarea)
+- [Select](/docs/components/select)
+- [FieldWrapper](/docs/components/field-wrapper)

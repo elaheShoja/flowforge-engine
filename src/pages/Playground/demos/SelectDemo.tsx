@@ -1,15 +1,22 @@
 import { useState } from "react";
 
 import {
+  Checkbox,
   Collapse,
   CollapseGroup,
   Select,
 } from "@/engine/components";
 
+import "../Playground.css";
+
 interface SelectDemoProps {
   focusId?: string;
   innerFocusId?: string;
 }
+
+/* =========================================================
+   Options
+========================================================= */
 
 const selectOptions = [
   {
@@ -92,13 +99,17 @@ const disabledOptions = [
   },
 ];
 
+/* =========================================================
+   Component
+========================================================= */
+
 export default function SelectDemo({
   focusId,
   innerFocusId,
 }: SelectDemoProps) {
-  /* =========================
-     Section Group
-  ========================= */
+  /* ==================================================
+     Section IDs
+  ================================================== */
 
   const sectionIds = [
     "select-interactive",
@@ -120,9 +131,9 @@ export default function SelectDemo({
         : "select-interactive",
     ]);
 
-  /* =========================
-     States Inner Group
-  ========================= */
+  /* ==================================================
+     State IDs
+  ================================================== */
 
   const stateIds = [
     "select-states-default",
@@ -139,9 +150,9 @@ export default function SelectDemo({
         : "select-states-default",
     ]);
 
-  /* =========================
-     Interactive Playground
-  ========================= */
+  /* ==================================================
+     Interactive Playground State
+  ================================================== */
 
   const [interactiveMulti, setInteractiveMulti] =
     useState(false);
@@ -199,74 +210,42 @@ export default function SelectDemo({
 
               {/* Multi */}
 
-              <label className="playground-checkbox">
-                <input
-                  type="checkbox"
-                  checked={interactiveMulti}
-                  onChange={(event) => {
-                    const checked =
-                      event.target.checked;
+              <Checkbox
+                label="Multi Select"
+                checked={interactiveMulti}
+                onChange={(checked) => {
+                  setInteractiveMulti(checked);
 
-                    setInteractiveMulti(
-                      checked
-                    );
-
-                    setInteractiveValue(
-                      checked ? [] : ""
-                    );
-                  }}
-                />
-
-                Multi Select
-              </label>
+                  setInteractiveValue(
+                    checked ? [] : ""
+                  );
+                }}
+              />
 
               {/* Searchable */}
 
-              <label className="playground-checkbox">
-                <input
-                  type="checkbox"
-                  checked={interactiveSearchable}
-                  onChange={(event) =>
-                    setInteractiveSearchable(
-                      event.target.checked
-                    )
-                  }
-                />
-
-                Searchable
-              </label>
+              <Checkbox
+                label="Searchable"
+                checked={interactiveSearchable}
+                onChange={setInteractiveSearchable}
+              />
 
               {/* Clearable */}
 
-              <label className="playground-checkbox">
-                <input
-                  type="checkbox"
-                  checked={interactiveClearable}
-                  onChange={(event) =>
-                    setInteractiveClearable(
-                      event.target.checked
-                    )
-                  }
-                />
-
-                Clearable
-              </label>
+              <Checkbox
+                label="Clearable"
+                checked={interactiveClearable}
+                onChange={setInteractiveClearable}
+              />
 
               {/* Disabled */}
 
-              <label className="playground-checkbox">
-                <input
-                  type="checkbox"
-                  checked={interactiveDisabled}
-                  onChange={(event) =>
-                    setInteractiveDisabled(
-                      event.target.checked
-                    )
-                  }
-                />
-
-                Disabled
-              </label>
+              <Checkbox
+                label="Disabled"
+                checked={interactiveDisabled}
+                onChange={setInteractiveDisabled}
+                withWrapper={false}
+              />
 
             </div>
 
@@ -326,9 +305,7 @@ export default function SelectDemo({
                   interactiveValue
                 )
                   ? interactiveValue.length > 0
-                    ? interactiveValue.join(
-                        ", "
-                      )
+                    ? interactiveValue.join(", ")
                     : "Empty"
                   : interactiveValue ||
                     "Empty"}
@@ -465,18 +442,14 @@ export default function SelectDemo({
 
               <Select
                 label="Single Select"
-                options={
-                  disabledOptions
-                }
+                options={disabledOptions}
                 placeholder="Try selecting a disabled option..."
               />
 
               <Select
                 label="Multi Select"
                 multi
-                options={
-                  disabledOptions
-                }
+                options={disabledOptions}
                 placeholder="Try selecting multiple options..."
               />
 
@@ -512,9 +485,7 @@ export default function SelectDemo({
               <Select
                 label="Single Select"
                 searchable
-                options={
-                  groupedOptions
-                }
+                options={groupedOptions}
                 placeholder="Select a technology..."
               />
 
@@ -522,9 +493,7 @@ export default function SelectDemo({
                 label="Multi Select"
                 multi
                 searchable
-                options={
-                  groupedOptions
-                }
+                options={groupedOptions}
                 placeholder="Select technologies..."
               />
 
@@ -600,9 +569,7 @@ export default function SelectDemo({
               onChange={setStateActiveIds}
               focusId={
                 innerFocusId &&
-                stateIds.includes(
-                  innerFocusId
-                )
+                stateIds.includes(innerFocusId)
                   ? innerFocusId
                   : undefined
               }
@@ -618,9 +585,7 @@ export default function SelectDemo({
 
                   <Select
                     label="Default"
-                    options={
-                      selectOptions
-                    }
+                    options={selectOptions}
                     placeholder="Default state"
                   />
 
@@ -639,9 +604,7 @@ export default function SelectDemo({
                   <Select
                     label="Required"
                     required
-                    options={
-                      selectOptions
-                    }
+                    options={selectOptions}
                     placeholder="Required field"
                   />
 
@@ -661,9 +624,7 @@ export default function SelectDemo({
                     label="Disabled"
                     disabled
                     value="react"
-                    options={
-                      selectOptions
-                    }
+                    options={selectOptions}
                   />
 
                 </div>
@@ -681,9 +642,7 @@ export default function SelectDemo({
                   <Select
                     label="Error"
                     error="Please select a valid option."
-                    options={
-                      selectOptions
-                    }
+                    options={selectOptions}
                     placeholder="Error state"
                   />
 

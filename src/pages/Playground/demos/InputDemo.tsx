@@ -1,10 +1,14 @@
 import { useState } from "react";
 
 import {
+  Checkbox,
   Collapse,
   CollapseGroup,
   Input,
+  Select,
 } from "@/engine/components";
+
+import "../Playground.css";
 
 interface InputDemoProps {
   focusId?: string;
@@ -15,9 +19,9 @@ export default function InputDemo({
   focusId,
   innerFocusId,
 }: InputDemoProps) {
-  /* =========================
-     Section Group
-  ========================= */
+  /* ==================================================
+     Section IDs
+  ================================================== */
 
   const sectionIds = [
     "input-interactive",
@@ -31,14 +35,15 @@ export default function InputDemo({
 
   const [sectionActiveIds, setSectionActiveIds] =
     useState<string[]>([
-      focusId && sectionIds.includes(focusId)
+      focusId &&
+      sectionIds.includes(focusId)
         ? focusId
         : "input-interactive",
     ]);
 
-  /* =========================
+  /* ==================================================
      Sizes Group
-  ========================= */
+  ================================================== */
 
   const sizeIds = [
     "input-size-small",
@@ -54,9 +59,9 @@ export default function InputDemo({
         : "input-size-medium",
     ]);
 
-  /* =========================
+  /* ==================================================
      States Group
-  ========================= */
+  ================================================== */
 
   const stateIds = [
     "input-state-default",
@@ -74,9 +79,9 @@ export default function InputDemo({
         : "input-state-default",
     ]);
 
-  /* =========================
+  /* ==================================================
      Prefix & Suffix Group
-  ========================= */
+  ================================================== */
 
   const prefixSuffixIds = [
     "input-prefix",
@@ -93,11 +98,12 @@ export default function InputDemo({
       : "input-prefix",
   ]);
 
-  /* =========================
+  /* ==================================================
      Interactive Playground
-  ========================= */
+  ================================================== */
 
-  const [value, setValue] = useState("FlowForge");
+  const [value, setValue] =
+    useState("FlowForge");
 
   const [size, setSize] =
     useState<"sm" | "md" | "lg">("md");
@@ -161,132 +167,84 @@ export default function InputDemo({
 
               {/* Size */}
 
-              <div className="playground-control">
-                <label htmlFor="input-size">
-                  Size
-                </label>
-
-                <select
-                  id="input-size"
-                  value={size}
-                  onChange={(event) =>
-                    setSize(
-                      event.target.value as
-                        | "sm"
-                        | "md"
-                        | "lg"
-                    )
-                  }
-                >
-                  <option value="sm">
-                    Small
-                  </option>
-
-                  <option value="md">
-                    Medium
-                  </option>
-
-                  <option value="lg">
-                    Large
-                  </option>
-                </select>
-              </div>
+              <Select
+                label="Size"
+                value={size}
+                onChange={(value) => {
+                  setSize(
+                    value as
+                      | "sm"
+                      | "md"
+                      | "lg"
+                  );
+                }}
+                options={[
+                  {
+                    value: "sm",
+                    label: "Small",
+                  },
+                  {
+                    value: "md",
+                    label: "Medium",
+                  },
+                  {
+                    value: "lg",
+                    label: "Large",
+                  },
+                ]}
+              />
 
               {/* Disabled */}
 
-              <label className="playground-checkbox">
-                <input
-                  type="checkbox"
-                  checked={disabled}
-                  onChange={(event) =>
-                    setDisabled(
-                      event.target.checked
-                    )
-                  }
-                />
-
-                Disabled
-              </label>
+              <Checkbox
+                label="Disabled"
+                checked={disabled}
+                onChange={setDisabled}
+              />
 
               {/* Loading */}
 
-              <label className="playground-checkbox">
-                <input
-                  type="checkbox"
-                  checked={loading}
-                  onChange={(event) =>
-                    setLoading(
-                      event.target.checked
-                    )
-                  }
-                />
-
-                Loading
-              </label>
+              <Checkbox
+                label="Loading"
+                checked={loading}
+                onChange={setLoading}
+              />
 
               {/* Clearable */}
 
-              <label className="playground-checkbox">
-                <input
-                  type="checkbox"
-                  checked={clearable}
-                  onChange={(event) =>
-                    setClearable(
-                      event.target.checked
-                    )
-                  }
-                />
-
-                Clearable
-              </label>
+              <Checkbox
+                label="Clearable"
+                checked={clearable}
+                onChange={setClearable}
+                withWrapper={false}
+              />
 
               {/* Full Width */}
 
-              <label className="playground-checkbox">
-                <input
-                  type="checkbox"
-                  checked={fullWidth}
-                  onChange={(event) =>
-                    setFullWidth(
-                      event.target.checked
-                    )
-                  }
-                />
-
-                Full Width
-              </label>
+              <Checkbox
+                label="Full Width"
+                checked={fullWidth}
+                onChange={setFullWidth}
+                withWrapper={false}
+              />
 
               {/* Required */}
 
-              <label className="playground-checkbox">
-                <input
-                  type="checkbox"
-                  checked={required}
-                  onChange={(event) =>
-                    setRequired(
-                      event.target.checked
-                    )
-                  }
-                />
-
-                Required
-              </label>
+              <Checkbox
+                label="Required"
+                checked={required}
+                onChange={setRequired}
+                withWrapper={false}
+              />
 
               {/* Error */}
 
-              <label className="playground-checkbox">
-                <input
-                  type="checkbox"
-                  checked={showError}
-                  onChange={(event) =>
-                    setShowError(
-                      event.target.checked
-                    )
-                  }
-                />
-
-                Error
-              </label>
+              <Checkbox
+                label="Error"
+                checked={showError}
+                onChange={setShowError}
+                withWrapper={false}
+              />
 
             </div>
 
@@ -317,6 +275,13 @@ export default function InputDemo({
 
             </div>
 
+            <p className="playground-value">
+              Current value:{" "}
+              <strong>
+                {value || "Empty"}
+              </strong>
+            </p>
+
           </div>
         </Collapse>
 
@@ -342,10 +307,7 @@ export default function InputDemo({
               </p>
             </div>
 
-            <Input
-              label="Name"
-              placeholder="Enter your name"
-            />
+            <BasicInputExample />
 
           </div>
         </Collapse>
@@ -372,23 +334,7 @@ export default function InputDemo({
               </p>
             </div>
 
-            <Input
-              label="Controlled value"
-              value={value}
-              onChange={(event) =>
-                setValue(
-                  event.target.value
-                )
-              }
-              placeholder="Type something..."
-            />
-
-            <p className="playground-value">
-              Current value:{" "}
-              <strong>
-                {value || "Empty"}
-              </strong>
-            </p>
+            <ControlledInputExample />
 
           </div>
         </Collapse>
@@ -431,33 +377,39 @@ export default function InputDemo({
                 id="input-size-small"
                 title="Small"
               >
-                <Input
-                  size="sm"
-                  label="Small"
-                  placeholder="Small input"
-                />
+                <div className="playground-section">
+
+                  <SizeInputExample
+                    size="sm"
+                  />
+
+                </div>
               </Collapse>
 
               <Collapse
                 id="input-size-medium"
                 title="Medium"
               >
-                <Input
-                  size="md"
-                  label="Medium"
-                  placeholder="Medium input"
-                />
+                <div className="playground-section">
+
+                  <SizeInputExample
+                    size="md"
+                  />
+
+                </div>
               </Collapse>
 
               <Collapse
                 id="input-size-large"
                 title="Large"
               >
-                <Input
-                  size="lg"
-                  label="Large"
-                  placeholder="Large input"
-                />
+                <div className="playground-section">
+
+                  <SizeInputExample
+                    size="lg"
+                  />
+
+                </div>
               </Collapse>
 
             </CollapseGroup>
@@ -505,11 +457,16 @@ export default function InputDemo({
                 id="input-state-default"
                 title="Default"
               >
-                <Input
-                  label="Default"
-                  placeholder="Default input"
-                />
+                <div className="playground-section">
+
+                  <StateInputExample
+                    label="Default"
+                    placeholder="Default input"
+                  />
+
+                </div>
               </Collapse>
+
 
               {/* Required */}
 
@@ -517,12 +474,17 @@ export default function InputDemo({
                 id="input-state-required"
                 title="Required"
               >
-                <Input
-                  label="Required"
-                  required
-                  placeholder="Required input"
-                />
+                <div className="playground-section">
+
+                  <StateInputExample
+                    label="Required"
+                    placeholder="Required input"
+                    required
+                  />
+
+                </div>
               </Collapse>
+
 
               {/* Disabled */}
 
@@ -530,12 +492,17 @@ export default function InputDemo({
                 id="input-state-disabled"
                 title="Disabled"
               >
-                <Input
-                  label="Disabled"
-                  placeholder="Disabled input"
-                  disabled
-                />
+                <div className="playground-section">
+
+                  <StateInputExample
+                    label="Disabled"
+                    placeholder="Disabled input"
+                    disabled
+                  />
+
+                </div>
               </Collapse>
+
 
               {/* Loading */}
 
@@ -543,13 +510,18 @@ export default function InputDemo({
                 id="input-state-loading"
                 title="Loading"
               >
-                <Input
-                  label="Loading"
-                  placeholder="Loading..."
-                  loading
-                  loadingText="Loading..."
-                />
+                <div className="playground-section">
+
+                  <StateInputExample
+                    label="Loading"
+                    placeholder="Loading..."
+                    loading
+                    loadingText="Loading..."
+                  />
+
+                </div>
               </Collapse>
+
 
               {/* Error */}
 
@@ -557,11 +529,15 @@ export default function InputDemo({
                 id="input-state-error"
                 title="Error"
               >
-                <Input
-                  label="Error"
-                  placeholder="Input with error"
-                  error="Please enter a valid value."
-                />
+                <div className="playground-section">
+
+                  <StateInputExample
+                    label="Error"
+                    placeholder="Input with error"
+                    error="Please enter a valid value."
+                  />
+
+                </div>
               </Collapse>
 
             </CollapseGroup>
@@ -591,20 +567,7 @@ export default function InputDemo({
               </p>
             </div>
 
-            <Input
-              label="Search"
-              value={value}
-              onChange={(event) =>
-                setValue(
-                  event.target.value
-                )
-              }
-              clearable
-              onClear={() =>
-                setValue("")
-              }
-              placeholder="Search..."
-            />
+            <ClearableInputExample />
 
           </div>
         </Collapse>
@@ -655,12 +618,17 @@ export default function InputDemo({
                 id="input-prefix"
                 title="Prefix"
               >
-                <Input
-                  label="Website"
-                  prefix="https://"
-                  placeholder="example.com"
-                />
+                <div className="playground-section">
+
+                  <Input
+                    label="Website"
+                    prefix="https://"
+                    placeholder="example.com"
+                  />
+
+                </div>
               </Collapse>
+
 
               {/* Suffix */}
 
@@ -668,11 +636,15 @@ export default function InputDemo({
                 id="input-suffix"
                 title="Suffix"
               >
-                <Input
-                  label="Price"
-                  suffix="USD"
-                  placeholder="100"
-                />
+                <div className="playground-section">
+
+                  <Input
+                    label="Price"
+                    suffix="USD"
+                    placeholder="100"
+                  />
+
+                </div>
               </Collapse>
 
             </CollapseGroup>
@@ -683,5 +655,147 @@ export default function InputDemo({
       </CollapseGroup>
 
     </div>
+  );
+}
+
+
+/* ==========================================================
+   Basic Input Example
+========================================================== */
+
+function BasicInputExample() {
+  return (
+    <Input
+      label="Name"
+      placeholder="Enter your name"
+    />
+  );
+}
+
+
+/* ==========================================================
+   Controlled Input Example
+========================================================== */
+
+function ControlledInputExample() {
+  const [value, setValue] =
+    useState("");
+
+  return (
+    <div className="playground-stack">
+
+      <Input
+        label="Controlled value"
+        value={value}
+        onChange={(event) =>
+          setValue(
+            event.target.value
+          )
+        }
+        placeholder="Type something..."
+      />
+
+      <p className="playground-value">
+        Current value:{" "}
+        <strong>
+          {value || "Empty"}
+        </strong>
+      </p>
+
+    </div>
+  );
+}
+
+
+/* ==========================================================
+   Size Input Example
+========================================================== */
+
+interface SizeInputExampleProps {
+  size: "sm" | "md" | "lg";
+}
+
+function SizeInputExample({
+  size,
+}: SizeInputExampleProps) {
+  return (
+    <Input
+      size={size}
+      label={`${size.toUpperCase()} Input`}
+      placeholder={`${size.toUpperCase()} input`}
+    />
+  );
+}
+
+
+/* ==========================================================
+   State Input Example
+========================================================== */
+
+interface StateInputExampleProps {
+  label: string;
+  placeholder?: string;
+  required?: boolean;
+  disabled?: boolean;
+  loading?: boolean;
+  loadingText?: string;
+  error?: string;
+}
+
+function StateInputExample({
+  label,
+  placeholder,
+  required = false,
+  disabled = false,
+  loading = false,
+  loadingText,
+  error,
+}: StateInputExampleProps) {
+  const [value, setValue] =
+    useState("");
+
+  return (
+    <Input
+      label={label}
+      value={value}
+      onChange={(event) =>
+        setValue(
+          event.target.value
+        )
+      }
+      placeholder={placeholder}
+      required={required}
+      disabled={disabled}
+      loading={loading}
+      loadingText={loadingText}
+      error={error}
+    />
+  );
+}
+
+
+/* ==========================================================
+   Clearable Input Example
+========================================================== */
+
+function ClearableInputExample() {
+  const [value, setValue] =
+    useState("FlowForge");
+
+  return (
+    <Input
+      label="Search"
+      value={value}
+      onChange={(event) =>
+        setValue(
+          event.target.value
+        )
+      }
+      clearable
+      onClear={() =>
+        setValue("")
+      }
+      placeholder="Search..."
+    />
   );
 }

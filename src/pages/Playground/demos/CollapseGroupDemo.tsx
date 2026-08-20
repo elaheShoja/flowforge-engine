@@ -1,9 +1,10 @@
 import { useState } from "react";
 
 import {
+  Button,
+  Checkbox,
   Collapse,
   CollapseGroup,
-  Button,
 } from "@/engine/components";
 
 interface CollapseGroupDemoProps {
@@ -13,9 +14,9 @@ interface CollapseGroupDemoProps {
 export default function CollapseGroupDemo({
   focusId,
 }: CollapseGroupDemoProps) {
-  /* =========================
-     Section Group
-  ========================= */
+  /* ==================================================
+     Section IDs
+  ================================================== */
 
   const sectionIds = [
     "collapse-group-interactive",
@@ -33,9 +34,9 @@ export default function CollapseGroupDemo({
         : "collapse-group-interactive",
     ]);
 
-  /* =========================
+  /* ==================================================
      Interactive Playground
-  ========================= */
+  ================================================== */
 
   const interactiveIds = [
     "collapse-group-interactive-one",
@@ -56,18 +57,18 @@ export default function CollapseGroupDemo({
     setInteractiveMultiple,
   ] = useState(true);
 
-  /* =========================
+  /* ==================================================
      Controlled Group
-  ========================= */
+  ================================================== */
 
   const [controlledIds, setControlledIds] =
     useState<string[]>([
       "collapse-group-controlled-one",
     ]);
 
-  /* =========================
+  /* ==================================================
      Interactive Helpers
-  ========================= */
+  ================================================== */
 
   const handleInteractiveOpenAll = () => {
     setInteractiveActiveIds(
@@ -98,7 +99,6 @@ export default function CollapseGroupDemo({
 
   return (
     <div className="playground-stack">
-
       <CollapseGroup
         activeIds={sectionActiveIds}
         multiple
@@ -110,7 +110,6 @@ export default function CollapseGroupDemo({
             : undefined
         }
       >
-
         {/* ==================================================
             Interactive Playground
         ================================================== */}
@@ -120,36 +119,28 @@ export default function CollapseGroupDemo({
           title="Interactive Playground"
         >
           <div className="playground-section">
-
             <div className="playground-section__header">
               <h2>
                 Interactive Playground
               </h2>
 
               <p>
-                Experiment with CollapseGroup and
-                control how multiple Collapse items
-                behave together.
+                Experiment with CollapseGroup
+                behavior and control how
+                multiple Collapse items work
+                together.
               </p>
             </div>
 
             <div className="playground-controls">
-
               {/* Multiple Open */}
 
-              <label className="playground-checkbox">
-                <input
-                  type="checkbox"
-                  checked={interactiveMultiple}
-                  onChange={(event) =>
-                    handleMultipleChange(
-                      event.target.checked
-                    )
-                  }
-                />
-
-                Multiple Open
-              </label>
+              <Checkbox
+                label="Multiple Open"
+                checked={interactiveMultiple}
+                onChange={handleMultipleChange}
+                withWrapper={false}
+              />
 
               {/* Open All */}
 
@@ -176,11 +167,9 @@ export default function CollapseGroupDemo({
               >
                 Close All
               </Button>
-
             </div>
 
             <div className="playground-preview">
-
               <CollapseGroup
                 activeIds={
                   interactiveActiveIds
@@ -192,7 +181,6 @@ export default function CollapseGroupDemo({
                   setInteractiveActiveIds
                 }
               >
-
                 <Collapse
                   id="collapse-group-interactive-one"
                   title="Interactive Item One"
@@ -222,14 +210,26 @@ export default function CollapseGroupDemo({
                     managed by the group.
                   </p>
                 </Collapse>
-
               </CollapseGroup>
-
             </div>
 
+            <p className="playground-value">
+              Active items:{" "}
+              <strong>
+                {interactiveActiveIds.length > 0
+                  ? interactiveActiveIds
+                      .map((id) =>
+                        id.replace(
+                          "collapse-group-interactive-",
+                          ""
+                        )
+                      )
+                      .join(", ")
+                  : "None"}
+              </strong>
+            </p>
           </div>
         </Collapse>
-
 
         {/* ==================================================
             Default Active Items
@@ -240,7 +240,6 @@ export default function CollapseGroupDemo({
           title="Default Active Items"
         >
           <div className="playground-section">
-
             <div className="playground-section__header">
               <h2>
                 Default Active Items
@@ -254,7 +253,6 @@ export default function CollapseGroupDemo({
             </div>
 
             <div className="playground-preview">
-
               <CollapseGroup
                 defaultActiveIds={[
                   "collapse-group-default-one",
@@ -262,7 +260,6 @@ export default function CollapseGroupDemo({
                 ]}
                 multiple
               >
-
                 <Collapse
                   id="collapse-group-default-one"
                   title="Initially Open One"
@@ -292,14 +289,10 @@ export default function CollapseGroupDemo({
                     This item starts closed.
                   </p>
                 </Collapse>
-
               </CollapseGroup>
-
             </div>
-
           </div>
         </Collapse>
-
 
         {/* ==================================================
             Controlled Group
@@ -310,7 +303,6 @@ export default function CollapseGroupDemo({
           title="Controlled Group"
         >
           <div className="playground-section">
-
             <div className="playground-section__header">
               <h2>
                 Controlled Group
@@ -324,7 +316,6 @@ export default function CollapseGroupDemo({
             </div>
 
             <div className="playground-controls">
-
               <Button
                 type="button"
                 variant="primary"
@@ -374,19 +365,14 @@ export default function CollapseGroupDemo({
               >
                 Close All
               </Button>
-
             </div>
 
             <div className="playground-preview">
-
               <CollapseGroup
                 activeIds={controlledIds}
                 multiple={false}
-                onChange={
-                  setControlledIds
-                }
+                onChange={setControlledIds}
               >
-
                 <Collapse
                   id="collapse-group-controlled-one"
                   title="Controlled Item One"
@@ -419,14 +405,22 @@ export default function CollapseGroupDemo({
                     React state.
                   </p>
                 </Collapse>
-
               </CollapseGroup>
-
             </div>
 
+            <p className="playground-value">
+              Active item:{" "}
+              <strong>
+                {controlledIds.length > 0
+                  ? controlledIds[0].replace(
+                      "collapse-group-controlled-",
+                      ""
+                    )
+                  : "None"}
+              </strong>
+            </p>
           </div>
         </Collapse>
-
 
         {/* ==================================================
             Multiple Open
@@ -437,21 +431,19 @@ export default function CollapseGroupDemo({
           title="Multiple Open"
         >
           <div className="playground-section">
-
             <div className="playground-section__header">
               <h2>
                 Multiple Open
               </h2>
 
               <p>
-                When multiple is enabled, several
-                Collapse items can remain open at
-                the same time.
+                When multiple is enabled,
+                several Collapse items can
+                remain open at the same time.
               </p>
             </div>
 
             <div className="playground-preview">
-
               <CollapseGroup
                 defaultActiveIds={[
                   "collapse-group-multiple-one",
@@ -459,7 +451,6 @@ export default function CollapseGroupDemo({
                 ]}
                 multiple
               >
-
                 <Collapse
                   id="collapse-group-multiple-one"
                   title="First Item"
@@ -489,14 +480,10 @@ export default function CollapseGroupDemo({
                     the others are still open.
                   </p>
                 </Collapse>
-
               </CollapseGroup>
-
             </div>
-
           </div>
         </Collapse>
-
 
         {/* ==================================================
             Single Open
@@ -507,7 +494,6 @@ export default function CollapseGroupDemo({
           title="Single Open"
         >
           <div className="playground-section">
-
             <div className="playground-section__header">
               <h2>
                 Single Open
@@ -521,20 +507,19 @@ export default function CollapseGroupDemo({
             </div>
 
             <div className="playground-preview">
-
               <CollapseGroup
                 defaultActiveIds={[
                   "collapse-group-single-one",
                 ]}
                 multiple={false}
               >
-
                 <Collapse
                   id="collapse-group-single-one"
                   title="First Item"
                 >
                   <p>
-                    Only one item can remain open.
+                    Only one item can remain
+                    open.
                   </p>
                 </Collapse>
 
@@ -557,14 +542,10 @@ export default function CollapseGroupDemo({
                     item open.
                   </p>
                 </Collapse>
-
               </CollapseGroup>
-
             </div>
-
           </div>
         </Collapse>
-
 
         {/* ==================================================
             Empty State
@@ -575,7 +556,6 @@ export default function CollapseGroupDemo({
           title="No Active Items"
         >
           <div className="playground-section">
-
             <div className="playground-section__header">
               <h2>
                 No Active Items
@@ -588,12 +568,10 @@ export default function CollapseGroupDemo({
             </div>
 
             <div className="playground-preview">
-
               <CollapseGroup
                 defaultActiveIds={[]}
                 multiple
               >
-
                 <Collapse
                   id="collapse-group-empty-one"
                   title="First Item"
@@ -621,16 +599,11 @@ export default function CollapseGroupDemo({
                     closed.
                   </p>
                 </Collapse>
-
               </CollapseGroup>
-
             </div>
-
           </div>
         </Collapse>
-
       </CollapseGroup>
-
     </div>
   );
 }

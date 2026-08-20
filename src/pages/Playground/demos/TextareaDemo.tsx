@@ -1,10 +1,14 @@
 import { useState } from "react";
 
 import {
+  Checkbox,
   Collapse,
   CollapseGroup,
+  Select,
   Textarea,
 } from "@/engine/components";
+
+import "../Playground.css";
 
 interface TextareaDemoProps {
   focusId?: string;
@@ -15,13 +19,14 @@ export default function TextareaDemo({
   focusId,
   innerFocusId,
 }: TextareaDemoProps) {
-  /* =========================
-     Section Group
-  ========================= */
+  /* ==================================================
+     Section IDs
+  ================================================== */
 
   const sectionIds = [
     "textarea-interactive",
     "textarea-basic-usage",
+    "textarea-controlled",
     "textarea-rows",
     "textarea-full-width",
     "textarea-auto-resize",
@@ -29,19 +34,19 @@ export default function TextareaDemo({
     "textarea-max-rows",
     "textarea-resize",
     "textarea-states",
-    "textarea-controlled",
   ];
 
   const [sectionActiveIds, setSectionActiveIds] =
     useState<string[]>([
-      focusId && sectionIds.includes(focusId)
+      focusId &&
+      sectionIds.includes(focusId)
         ? focusId
         : "textarea-interactive",
     ]);
 
-  /* =========================
-     States Inner Group
-  ========================= */
+  /* ==================================================
+     State IDs
+  ================================================== */
 
   const stateIds = [
     "textarea-states-default",
@@ -58,14 +63,26 @@ export default function TextareaDemo({
         : "textarea-states-default",
     ]);
 
-  /* =========================
-     Interactive Playground
-  ========================= */
+  /* ==================================================
+     Interactive Playground State
+  ================================================== */
+
+  const [value, setValue] =
+    useState("FlowForge");
 
   const [resize, setResize] =
     useState<
       "none" | "vertical" | "horizontal" | "both"
     >("vertical");
+
+  const [rows, setRows] =
+    useState(3);
+
+  const [minRows, setMinRows] =
+    useState(3);
+
+  const [maxRows, setMaxRows] =
+    useState(8);
 
   const [fullWidth, setFullWidth] =
     useState(true);
@@ -76,23 +93,11 @@ export default function TextareaDemo({
   const [disabled, setDisabled] =
     useState(false);
 
-  const [error, setError] =
-    useState(false);
-
   const [required, setRequired] =
     useState(false);
 
-  const [value, setValue] =
-    useState("FlowForge");
-
-  const [rows, setRows] =
-    useState(3);
-
-  const [minRows, setMinRows] =
-    useState(3);
-
-  const [maxRows, setMaxRows] =
-    useState(8);
+  const [error, setError] =
+    useState(false);
 
   return (
     <div className="playground-stack">
@@ -136,240 +141,183 @@ export default function TextareaDemo({
               {/* Resize */}
 
               <div className="playground-control">
-                <label htmlFor="textarea-resize">
-                  Resize
-                </label>
-
-                <select
-                  id="textarea-resize"
+                <Select
                   value={resize}
-                  onChange={(event) =>
+                  label="Resize"
+                  onChange={(value) => {
                     setResize(
-                      event.target.value as
+                      value as
                         | "none"
                         | "vertical"
                         | "horizontal"
                         | "both"
-                    )
-                  }
-                >
-                  <option value="none">
-                    None
-                  </option>
-
-                  <option value="vertical">
-                    Vertical
-                  </option>
-
-                  <option value="horizontal">
-                    Horizontal
-                  </option>
-
-                  <option value="both">
-                    Both
-                  </option>
-                </select>
+                    );
+                  }}
+                  options={[
+                    {
+                      value: "none",
+                      label: "None",
+                    },
+                    {
+                      value: "vertical",
+                      label: "Vertical",
+                    },
+                    {
+                      value: "horizontal",
+                      label: "Horizontal",
+                    },
+                    {
+                      value: "both",
+                      label: "Both",
+                    },
+                  ]}
+                />
               </div>
 
               {/* Rows */}
 
               <div className="playground-control">
-                <label htmlFor="textarea-rows">
-                  Rows
-                </label>
-
-                <select
-                  id="textarea-rows"
-                  value={rows}
-                  onChange={(event) =>
-                    setRows(
-                      Number(
-                        event.target.value
-                      )
-                    )
-                  }
-                >
-                  <option value={2}>
-                    2
-                  </option>
-
-                  <option value={3}>
-                    3
-                  </option>
-
-                  <option value={4}>
-                    4
-                  </option>
-
-                  <option value={5}>
-                    5
-                  </option>
-
-                  <option value={6}>
-                    6
-                  </option>
-                </select>
+                <Select
+                  value={String(rows)}
+                  label="Rows"
+                  onChange={(value) => {
+                    setRows(Number(value));
+                  }}
+                  options={[
+                    {
+                      value: "2",
+                      label: "2",
+                    },
+                    {
+                      value: "3",
+                      label: "3",
+                    },
+                    {
+                      value: "4",
+                      label: "4",
+                    },
+                    {
+                      value: "5",
+                      label: "5",
+                    },
+                    {
+                      value: "6",
+                      label: "6",
+                    },
+                  ]}
+                />
               </div>
 
               {/* Min Rows */}
 
               <div className="playground-control">
-                <label htmlFor="textarea-min-rows">
-                  Min Rows
-                </label>
-
-                <select
-                  id="textarea-min-rows"
-                  value={minRows}
-                  onChange={(event) =>
-                    setMinRows(
-                      Number(
-                        event.target.value
-                      )
-                    )
-                  }
-                >
-                  <option value={1}>
-                    1
-                  </option>
-
-                  <option value={2}>
-                    2
-                  </option>
-
-                  <option value={3}>
-                    3
-                  </option>
-
-                  <option value={4}>
-                    4
-                  </option>
-
-                  <option value={5}>
-                    5
-                  </option>
-                </select>
+                <Select
+                  value={String(minRows)}
+                  label="Min Rows"
+                  onChange={(value) => {
+                    setMinRows(Number(value));
+                  }}
+                  options={[
+                    {
+                      value: "1",
+                      label: "1",
+                    },
+                    {
+                      value: "2",
+                      label: "2",
+                    },
+                    {
+                      value: "3",
+                      label: "3",
+                    },
+                    {
+                      value: "4",
+                      label: "4",
+                    },
+                    {
+                      value: "5",
+                      label: "5",
+                    },
+                  ]}
+                />
               </div>
 
               {/* Max Rows */}
 
               <div className="playground-control">
-                <label htmlFor="textarea-max-rows">
-                  Max Rows
-                </label>
-
-                <select
-                  id="textarea-max-rows"
-                  value={maxRows}
-                  onChange={(event) =>
-                    setMaxRows(
-                      Number(
-                        event.target.value
-                      )
-                    )
-                  }
-                >
-                  <option value={3}>
-                    3
-                  </option>
-
-                  <option value={5}>
-                    5
-                  </option>
-
-                  <option value={8}>
-                    8
-                  </option>
-
-                  <option value={10}>
-                    10
-                  </option>
-
-                  <option value={15}>
-                    15
-                  </option>
-                </select>
+                <Select
+                  value={String(maxRows)}
+                  label="Max Rows"
+                  onChange={(value) => {
+                    setMaxRows(Number(value));
+                  }}
+                  options={[
+                    {
+                      value: "3",
+                      label: "3",
+                    },
+                    {
+                      value: "5",
+                      label: "5",
+                    },
+                    {
+                      value: "8",
+                      label: "8",
+                    },
+                    {
+                      value: "10",
+                      label: "10",
+                    },
+                    {
+                      value: "15",
+                      label: "15",
+                    },
+                  ]}
+                />
               </div>
 
               {/* Full Width */}
 
-              <label className="playground-checkbox">
-                <input
-                  type="checkbox"
-                  checked={fullWidth}
-                  onChange={(event) =>
-                    setFullWidth(
-                      event.target.checked
-                    )
-                  }
-                />
-
-                Full Width
-              </label>
+              <Checkbox
+                label="Full Width"
+                checked={fullWidth}
+                onChange={setFullWidth}
+              />
 
               {/* Auto Resize */}
 
-              <label className="playground-checkbox">
-                <input
-                  type="checkbox"
-                  checked={autoResize}
-                  onChange={(event) =>
-                    setAutoResize(
-                      event.target.checked
-                    )
-                  }
-                />
-
-                Auto Resize
-              </label>
+              <Checkbox
+                label="Auto Resize"
+                checked={autoResize}
+                onChange={setAutoResize}
+              />
 
               {/* Disabled */}
 
-              <label className="playground-checkbox">
-                <input
-                  type="checkbox"
-                  checked={disabled}
-                  onChange={(event) =>
-                    setDisabled(
-                      event.target.checked
-                    )
-                  }
-                />
-
-                Disabled
-              </label>
-
-              {/* Error */}
-
-              <label className="playground-checkbox">
-                <input
-                  type="checkbox"
-                  checked={error}
-                  onChange={(event) =>
-                    setError(
-                      event.target.checked
-                    )
-                  }
-                />
-
-                Error
-              </label>
+              <Checkbox
+                label="Disabled"
+                checked={disabled}
+                onChange={setDisabled}
+                withWrapper={false}
+              />
 
               {/* Required */}
 
-              <label className="playground-checkbox">
-                <input
-                  type="checkbox"
-                  checked={required}
-                  onChange={(event) =>
-                    setRequired(
-                      event.target.checked
-                    )
-                  }
-                />
+              <Checkbox
+                label="Required"
+                checked={required}
+                onChange={setRequired}
+                withWrapper={false}
+              />
 
-                Required
-              </label>
+              {/* Error */}
+
+              <Checkbox
+                label="Error"
+                checked={error}
+                onChange={setError}
+                withWrapper={false}
+              />
 
             </div>
 
@@ -379,9 +327,7 @@ export default function TextareaDemo({
                 label="Interactive Textarea"
                 value={value}
                 onChange={(event) =>
-                  setValue(
-                    event.target.value
-                  )
+                  setValue(event.target.value)
                 }
                 placeholder="Enter your text..."
                 rows={rows}
@@ -439,6 +385,47 @@ export default function TextareaDemo({
               placeholder="Enter your description..."
               rows={4}
             />
+
+          </div>
+        </Collapse>
+
+
+        {/* ==================================================
+            Controlled Textarea
+        ================================================== */}
+
+        <Collapse
+          id="textarea-controlled"
+          title="Controlled Textarea"
+        >
+          <div className="playground-section">
+
+            <div className="playground-section__header">
+              <h2>
+                Controlled Textarea
+              </h2>
+
+              <p>
+                Textarea can be fully controlled
+                using React state.
+              </p>
+            </div>
+
+            <Textarea
+              label="Controlled value"
+              value={value}
+              onChange={(event) =>
+                setValue(event.target.value)
+              }
+              placeholder="Type something..."
+            />
+
+            <p className="playground-value">
+              Current value:{" "}
+              <strong>
+                {value || "Empty"}
+              </strong>
+            </p>
 
           </div>
         </Collapse>
@@ -711,8 +698,8 @@ export default function TextareaDemo({
               </h2>
 
               <p>
-                Common Textarea states
-                used in FlowForge forms.
+                Common Textarea states used
+                in FlowForge forms.
               </p>
             </div>
 
@@ -800,49 +787,6 @@ export default function TextareaDemo({
               </Collapse>
 
             </CollapseGroup>
-
-          </div>
-        </Collapse>
-
-
-        {/* ==================================================
-            Controlled Textarea
-        ================================================== */}
-
-        <Collapse
-          id="textarea-controlled"
-          title="Controlled Textarea"
-        >
-          <div className="playground-section">
-
-            <div className="playground-section__header">
-              <h2>
-                Controlled Textarea
-              </h2>
-
-              <p>
-                Textarea can be controlled
-                using React state.
-              </p>
-            </div>
-
-            <Textarea
-              label="Controlled value"
-              value={value}
-              onChange={(event) =>
-                setValue(
-                  event.target.value
-                )
-              }
-              placeholder="Type something..."
-            />
-
-            <p className="playground-value">
-              Current value:{" "}
-              <strong>
-                {value || "Empty"}
-              </strong>
-            </p>
 
           </div>
         </Collapse>
