@@ -14,20 +14,11 @@ export default function MarkdownRenderer({
   content,
   className = "",
 }: MarkdownRendererProps) {
-  const baseUrl = import.meta.env.BASE_URL.replace(
-    /\/$/,
-    ""
-  );
-
   const isInternalRoute = (href?: string) => {
     return (
       href?.startsWith("/docs/") ||
       href?.startsWith("/playground/")
     );
-  };
-
-  const getInternalRoute = (href: string) => {
-    return `${baseUrl}${href}`;
   };
 
   return (
@@ -43,16 +34,13 @@ export default function MarkdownRenderer({
             /*
              * Internal FlowForge routes
              *
-             * Examples:
-             * /docs/components/input
-             * /docs/components/select
-             * /playground/input
-             * /playground/select
+             * React Router handles the
+             * /flowforge-engine basename.
              */
             if (isInternalRoute(href)) {
               return (
                 <Link
-                  to={getInternalRoute(href!)}
+                  to={href!}
                   target="_blank"
                   rel="noopener noreferrer"
                   {...props}
