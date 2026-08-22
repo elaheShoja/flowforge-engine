@@ -22,3 +22,6 @@ export type { CheckboxProps } from "./Checkbox";
 
 export { default as Radio } from "./Radio";
 export type { RadioProps } from "./Radio";
+
+export { default as Switch } from "./Switch";
+export type { SwitchProps } from ".//Switch";

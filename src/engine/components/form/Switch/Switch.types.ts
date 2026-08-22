@@ -3,12 +3,12 @@ import type {
   ReactNode,
 } from "react";
 
-export type CheckboxSize =
+export type SwitchSize =
   | "sm"
   | "md"
   | "lg";
 
-export interface CheckboxProps
+export interface SwitchProps
   extends Omit<
     InputHTMLAttributes<HTMLInputElement>,
     | "type"
@@ -18,7 +18,7 @@ export interface CheckboxProps
     | "onChange"
   > {
   /**
-   * Checkbox label.
+   * Switch label.
    */
   label?: ReactNode;
 
@@ -38,7 +38,7 @@ export interface CheckboxProps
   defaultChecked?: boolean;
 
   /**
-   * Called when the checked state changes.
+   * Called when the Switch changes state.
    */
   onChange?: (
     checked: boolean
@@ -55,23 +55,22 @@ export interface CheckboxProps
   error?: string;
 
   /**
-   * Checkbox size.
+   * Switch size.
    */
-  size?: CheckboxSize;
+  size?: SwitchSize;
 
   /**
-   * Makes the checkbox container full width.
+   * Makes the Switch container full width.
    */
   fullWidth?: boolean;
 
   /**
-   * Reserves the FieldWrapper label/header space
-   * so the Checkbox aligns with the control area
-   * of regular form fields.
+   * Aligns the Switch with the
+   * control area of another form field.
    *
-   * This property only affects the FieldWrapper
-   * layout and does not change the Checkbox itself.
-   * Defaults to false.
+   * When enabled, FieldWrapper uses an
+   * empty label slot to preserve the same
+   * vertical structure as regular fields.
    */
   alignWithField?: boolean;
 
@@ -81,18 +80,10 @@ export interface CheckboxProps
   required?: boolean;
 
   /**
-   * Makes the checkbox visually and
+   * Makes the Switch visually and
    * functionally disabled.
    */
   disabled?: boolean;
-
-  /**
-   * Shows the Checkbox in an indeterminate state.
-   *
-   * Indeterminate is a visual DOM state and
-   * does not replace the checked value.
-   */
-  indeterminate?: boolean;
 
   /**
    * Optional tooltip displayed by FieldWrapper.
@@ -102,13 +93,15 @@ export interface CheckboxProps
   /**
    * Removes the FieldWrapper.
    *
-   * Useful when Checkbox is embedded inside
-   * another layout such as an editable table.
+   * Useful when Switch is embedded inside
+   * editable tables or other custom layouts
+   * where the surrounding structure already
+   * manages field layout and validation.
    */
   withWrapper?: boolean;
 
   /**
-   * Optional class name for the Checkbox root.
+   * Optional class name for the Switch root.
    */
   className?: string;
 }

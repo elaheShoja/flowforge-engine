@@ -126,18 +126,6 @@ export default function CollapseDemo({
         >
           <div className="playground-section">
 
-            <div className="playground-section__header">
-              <h2>
-                Interactive Playground
-              </h2>
-
-              <p>
-                Experiment with the main
-                Collapse properties and see
-                the result immediately.
-              </p>
-            </div>
-
             <div className="playground-controls">
 
               <Checkbox
@@ -148,7 +136,6 @@ export default function CollapseDemo({
                 onChange={
                   handleInteractiveOpenChange
                 }
-                withWrapper={false}
               />
 
               <Checkbox
@@ -157,7 +144,6 @@ export default function CollapseDemo({
                 onChange={
                   handleMultipleChange
                 }
-                withWrapper={false}
               />
 
             </div>
@@ -278,7 +264,6 @@ export default function CollapseDemo({
                 label="Open Collapse"
                 checked={controlledOpen}
                 onChange={setControlledOpen}
-                withWrapper={false}
               />
 
             </div>

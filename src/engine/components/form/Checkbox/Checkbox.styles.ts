@@ -25,11 +25,6 @@ export const checkboxVariants = cva(
         false: "",
       },
 
-      alignWithField: {
-        true: "ff-checkbox--align-field",
-        false: "",
-      },
-
       indeterminate: {
         true: "ff-checkbox--indeterminate",
         false: "",
@@ -41,7 +36,6 @@ export const checkboxVariants = cva(
       error: false,
       disabled: false,
       fullWidth: false,
-      alignWithField: false,
       indeterminate: false,
     },
   }

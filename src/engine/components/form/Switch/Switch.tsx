@@ -2,27 +2,25 @@ import clsx from "clsx";
 
 import {
   forwardRef,
-  useEffect,
   useId,
-  useRef,
 } from "react";
 
 import FieldWrapper from "@/engine/components/form/FieldWrapper";
 
 import type {
-  CheckboxProps,
-} from "./Checkbox.types";
+  SwitchProps,
+} from "./Switch.types";
 
 import {
-  checkboxVariants,
-} from "./Checkbox.styles";
+  switchVariants,
+} from "./Switch.styles";
 
-import "./Checkbox.css";
+import "./Switch.css";
 
-const Checkbox = forwardRef<
+const Switch = forwardRef<
   HTMLInputElement,
-  CheckboxProps
->(function Checkbox(
+  SwitchProps
+>(function Switch(
   {
     id,
     label,
@@ -46,8 +44,6 @@ const Checkbox = forwardRef<
 
     disabled = false,
 
-    indeterminate = false,
-
     tooltip,
 
     withWrapper = true,
@@ -60,76 +56,40 @@ const Checkbox = forwardRef<
 ) {
   const generatedId = useId();
 
-  const checkboxId =
+  const switchId =
     id ?? generatedId;
-
-  const internalRef =
-    useRef<HTMLInputElement>(null);
-
-  /**
-   * Keep forwarded ref and internal ref
-   * synchronized.
-   */
-  const setInputRef = (
-    node: HTMLInputElement | null
-  ) => {
-    internalRef.current = node;
-
-    if (typeof forwardedRef === "function") {
-      forwardedRef(node);
-      return;
-    }
-
-    if (forwardedRef) {
-      forwardedRef.current = node;
-    }
-  };
-
-  /**
-   * Native checkbox indeterminate
-   * is a DOM property, not an HTML attribute.
-   */
-  useEffect(() => {
-    if (!internalRef.current) {
-      return;
-    }
-
-    internalRef.current.indeterminate =
-      indeterminate;
-  }, [indeterminate]);
 
   const helperId =
     helperText
-      ? `${checkboxId}-helper`
+      ? `${switchId}-helper`
       : undefined;
 
   const errorId =
     error
-      ? `${checkboxId}-error`
+      ? `${switchId}-error`
       : undefined;
 
   const describedBy =
     errorId ?? helperId;
 
-  const checkboxElement = (
+  const switchElement = (
     <label
       className={clsx(
-        checkboxVariants({
+        switchVariants({
           size,
           error: !!error,
           disabled,
           fullWidth,
-          indeterminate,
         }),
         className
       )}
     >
       <input
         {...inputProps}
-        ref={setInputRef}
-        id={checkboxId}
+        ref={forwardedRef}
+        id={switchId}
         type="checkbox"
-        className="ff-checkbox__input"
+        className="ff-switch__input"
         checked={checked}
         defaultChecked={
           checked === undefined
@@ -138,6 +98,10 @@ const Checkbox = forwardRef<
         }
         disabled={disabled}
         required={required}
+        role="switch"
+        aria-checked={
+          checked
+        }
         aria-invalid={
           error
             ? true
@@ -154,22 +118,20 @@ const Checkbox = forwardRef<
       />
 
       <span
-        className="ff-checkbox__control"
+        className="ff-switch__control"
         aria-hidden="true"
       >
-        <span className="ff-checkbox__mark" />
-
-        <span className="ff-checkbox__indeterminate" />
+        <span className="ff-switch__thumb" />
       </span>
 
       {(label || description) && (
-        <span className="ff-checkbox__content">
+        <span className="ff-switch__content">
           {label && (
-            <span className="ff-checkbox__label">
+            <span className="ff-switch__label">
               {label}
 
               {required && (
-                <span className="ff-checkbox__required">
+                <span className="ff-switch__required">
                   *
                 </span>
               )}
@@ -177,7 +139,7 @@ const Checkbox = forwardRef<
           )}
 
           {description && (
-            <span className="ff-checkbox__description">
+            <span className="ff-switch__description">
               {description}
             </span>
           )}
@@ -187,28 +149,27 @@ const Checkbox = forwardRef<
   );
 
   /*
-   * In embedded layouts such as editable tables,
-   * the Checkbox can be rendered without FieldWrapper.
+   * In special layouts such as editable tables,
+   * the surrounding component manages the field
+   * structure, so FieldWrapper can be removed.
    */
   if (!withWrapper) {
-    return checkboxElement;
+    return switchElement;
   }
 
-  /*
-   * By default Checkbox participates in the
-   * FlowForge field layout.
-   *
-   * alignWithField only controls whether the
-   * FieldWrapper reserves the label/header space.
-   */
   return (
     <FieldWrapper
+      /*
+       * When alignment is requested, an empty label
+       * preserves the vertical space normally occupied
+       * by a regular field label.
+       */
       label={
         alignWithField
           ? "\u00A0"
           : undefined
       }
-      htmlFor={checkboxId}
+      htmlFor={switchId}
       helperText={helperText}
       helperId={helperId}
       error={error}
@@ -218,9 +179,9 @@ const Checkbox = forwardRef<
       fullWidth={fullWidth}
       disabled={disabled}
     >
-      {checkboxElement}
+      {switchElement}
     </FieldWrapper>
   );
 });
 
-export default Checkbox;
+export default Switch;

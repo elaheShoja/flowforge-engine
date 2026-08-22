@@ -151,18 +151,6 @@ export default function InputDemo({
         >
           <div className="playground-section">
 
-            <div className="playground-section__header">
-              <h2>
-                Interactive Playground
-              </h2>
-
-              <p>
-                Experiment with the main Input
-                properties and see the result
-                immediately.
-              </p>
-            </div>
-
             <div className="playground-controls">
 
               {/* Size */}
@@ -200,6 +188,7 @@ export default function InputDemo({
                 label="Disabled"
                 checked={disabled}
                 onChange={setDisabled}
+                alignWithField
               />
 
               {/* Loading */}
@@ -208,6 +197,7 @@ export default function InputDemo({
                 label="Loading"
                 checked={loading}
                 onChange={setLoading}
+                alignWithField
               />
 
               {/* Clearable */}
@@ -216,7 +206,6 @@ export default function InputDemo({
                 label="Clearable"
                 checked={clearable}
                 onChange={setClearable}
-                withWrapper={false}
               />
 
               {/* Full Width */}
@@ -225,7 +214,6 @@ export default function InputDemo({
                 label="Full Width"
                 checked={fullWidth}
                 onChange={setFullWidth}
-                withWrapper={false}
               />
 
               {/* Required */}
@@ -234,7 +222,6 @@ export default function InputDemo({
                 label="Required"
                 checked={required}
                 onChange={setRequired}
-                withWrapper={false}
               />
 
               {/* Error */}
@@ -243,7 +230,6 @@ export default function InputDemo({
                 label="Error"
                 checked={showError}
                 onChange={setShowError}
-                withWrapper={false}
               />
 
             </div>

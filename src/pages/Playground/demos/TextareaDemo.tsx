@@ -124,18 +124,6 @@ export default function TextareaDemo({
         >
           <div className="playground-section">
 
-            <div className="playground-section__header">
-              <h2>
-                Interactive Playground
-              </h2>
-
-              <p>
-                Experiment with the main
-                Textarea properties and see
-                the result immediately.
-              </p>
-            </div>
-
             <div className="playground-controls">
 
               {/* Resize */}
@@ -282,6 +270,7 @@ export default function TextareaDemo({
                 label="Full Width"
                 checked={fullWidth}
                 onChange={setFullWidth}
+                alignWithField
               />
 
               {/* Auto Resize */}
@@ -290,6 +279,7 @@ export default function TextareaDemo({
                 label="Auto Resize"
                 checked={autoResize}
                 onChange={setAutoResize}
+                alignWithField
               />
 
               {/* Disabled */}
@@ -298,7 +288,6 @@ export default function TextareaDemo({
                 label="Disabled"
                 checked={disabled}
                 onChange={setDisabled}
-                withWrapper={false}
               />
 
               {/* Required */}
@@ -307,7 +296,6 @@ export default function TextareaDemo({
                 label="Required"
                 checked={required}
                 onChange={setRequired}
-                withWrapper={false}
               />
 
               {/* Error */}
@@ -316,7 +304,6 @@ export default function TextareaDemo({
                 label="Error"
                 checked={error}
                 onChange={setError}
-                withWrapper={false}
               />
 
             </div>

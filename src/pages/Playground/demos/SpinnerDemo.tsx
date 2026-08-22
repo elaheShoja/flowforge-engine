@@ -151,18 +151,6 @@ export default function SpinnerDemo({
           title="Interactive Playground"
         >
           <div className="playground-section">
-            <div className="playground-section__header">
-              <h2>
-                Interactive Playground
-              </h2>
-
-              <p>
-                Experiment with the main Spinner
-                properties and preview the result
-                immediately.
-              </p>
-            </div>
-
             <div className="playground-controls">
               {/* Size */}
 
@@ -238,6 +226,7 @@ export default function SpinnerDemo({
                 label="Show Label"
                 checked={showLabel}
                 onChange={setShowLabel}
+                alignWithField
               />
             </div>
 

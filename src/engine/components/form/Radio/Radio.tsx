@@ -38,7 +38,7 @@ const Radio = forwardRef<
 
     fullWidth = false,
 
-    alignWithField = true,
+    alignWithField = false,
 
     required = false,
 
@@ -80,7 +80,6 @@ const Radio = forwardRef<
           error: !!error,
           disabled,
           fullWidth,
-          alignWithField,
         }),
         className
       )}

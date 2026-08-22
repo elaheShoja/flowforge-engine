@@ -119,19 +119,6 @@ export default function CollapseGroupDemo({
           title="Interactive Playground"
         >
           <div className="playground-section">
-            <div className="playground-section__header">
-              <h2>
-                Interactive Playground
-              </h2>
-
-              <p>
-                Experiment with CollapseGroup
-                behavior and control how
-                multiple Collapse items work
-                together.
-              </p>
-            </div>
-
             <div className="playground-controls">
               {/* Multiple Open */}
 
@@ -139,7 +126,6 @@ export default function CollapseGroupDemo({
                 label="Multiple Open"
                 checked={interactiveMultiple}
                 onChange={handleMultipleChange}
-                withWrapper={false}
               />
 
               {/* Open All */}

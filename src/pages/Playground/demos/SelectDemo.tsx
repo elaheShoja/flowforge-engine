@@ -194,18 +194,6 @@ export default function SelectDemo({
         >
           <div className="playground-section">
 
-            <div className="playground-section__header">
-              <h2>
-                Interactive Playground
-              </h2>
-
-              <p>
-                Experiment with the main Select
-                properties and see the result
-                immediately.
-              </p>
-            </div>
-
             <div className="playground-controls">
 
               {/* Multi */}
@@ -244,7 +232,6 @@ export default function SelectDemo({
                 label="Disabled"
                 checked={interactiveDisabled}
                 onChange={setInteractiveDisabled}
-                withWrapper={false}
               />
 
             </div>

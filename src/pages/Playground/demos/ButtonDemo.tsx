@@ -160,18 +160,6 @@ export default function ButtonDemo({
         >
           <div className="playground-section">
 
-            <div className="playground-section__header">
-              <h2>
-                Interactive Playground
-              </h2>
-
-              <p>
-                Experiment with the main Button
-                properties and see the result
-                immediately.
-              </p>
-            </div>
-
             <div className="playground-controls">
 
               {/* Variant */}
@@ -268,6 +256,7 @@ export default function ButtonDemo({
                 label="Disabled"
                 checked={disabled}
                 onChange={setDisabled}
+                alignWithField
               />
 
               {/* Loading */}
@@ -276,7 +265,6 @@ export default function ButtonDemo({
                 label="Loading"
                 checked={loading}
                 onChange={setLoading}
-                withWrapper={false}
               />
 
               {/* Full Width */}
@@ -285,7 +273,6 @@ export default function ButtonDemo({
                 label="Full Width"
                 checked={fullWidth}
                 onChange={setFullWidth}
-                withWrapper={false}
               />
 
             </div>

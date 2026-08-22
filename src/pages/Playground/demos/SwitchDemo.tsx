@@ -2,36 +2,35 @@ import { useState } from "react";
 
 import {
   Checkbox,
-  Collapse,
-  CollapseGroup,
   Input,
   Select,
+  Switch,
+  Collapse,
+  CollapseGroup,
 } from "@/engine/components";
 
 import "../Playground.css";
 
-interface CheckboxDemoProps {
+interface SwitchDemoProps {
   focusId?: string;
   innerFocusId?: string;
 }
 
-export default function CheckboxDemo({
+export default function SwitchDemo({
   focusId,
   innerFocusId,
-}: CheckboxDemoProps) {
+}: SwitchDemoProps) {
   /* ==================================================
      Section IDs
   ================================================== */
 
   const sectionIds = [
-    "checkbox-interactive",
-    "checkbox-basic-usage",
-    "checkbox-sizes",
-    "checkbox-states",
-    "checkbox-indeterminate",
-    "checkbox-controlled",
-    "checkbox-form-alignment",
-    "checkbox-dynamic-label",
+    "switch-interactive",
+    "switch-basic-usage",
+    "switch-controlled",
+    "switch-sizes",
+    "switch-states",
+    "switch-form-alignment",
   ];
 
   const [sectionActiveIds, setSectionActiveIds] =
@@ -39,7 +38,7 @@ export default function CheckboxDemo({
       focusId &&
       sectionIds.includes(focusId)
         ? focusId
-        : "checkbox-interactive",
+        : "switch-interactive",
     ]);
 
   /* ==================================================
@@ -47,10 +46,10 @@ export default function CheckboxDemo({
   ================================================== */
 
   const stateIds = [
-    "checkbox-states-default",
-    "checkbox-states-required",
-    "checkbox-states-disabled",
-    "checkbox-states-error",
+    "switch-states-default",
+    "switch-states-required",
+    "switch-states-disabled",
+    "switch-states-error",
   ];
 
   const [stateActiveIds, setStateActiveIds] =
@@ -58,7 +57,7 @@ export default function CheckboxDemo({
       innerFocusId &&
       stateIds.includes(innerFocusId)
         ? innerFocusId
-        : "checkbox-states-default",
+        : "switch-states-default",
     ]);
 
   /* ==================================================
@@ -66,7 +65,7 @@ export default function CheckboxDemo({
   ================================================== */
 
   const [checked, setChecked] =
-    useState(false);
+    useState(true);
 
   const [size, setSize] =
     useState<"sm" | "md" | "lg">("md");
@@ -80,9 +79,6 @@ export default function CheckboxDemo({
   const [error, setError] =
     useState(false);
 
-  const [indeterminate, setIndeterminate] =
-    useState(false);
-
   const [fullWidth, setFullWidth] =
     useState(false);
 
@@ -92,6 +88,9 @@ export default function CheckboxDemo({
 
   const [alignWithField, setAlignWithField] =
     useState(false);
+
+  const [notificationsEnabled, setNotificationsEnabled] =
+    useState(true);
 
   return (
     <div className="playground-stack">
@@ -113,7 +112,7 @@ export default function CheckboxDemo({
         ================================================== */}
 
         <Collapse
-          id="checkbox-interactive"
+          id="switch-interactive"
           title="Interactive Playground"
         >
           <div className="playground-section">
@@ -160,17 +159,7 @@ export default function CheckboxDemo({
                 label="Checked"
                 checked={checked}
                 onChange={setChecked}
-                alignWithField={true}
-              />
-
-
-              {/* Indeterminate */}
-
-              <Checkbox
-                label="Indeterminate"
-                checked={indeterminate}
-                onChange={setIndeterminate}
-                alignWithField={true}
+                alignWithField
               />
 
 
@@ -180,6 +169,7 @@ export default function CheckboxDemo({
                 label="Required"
                 checked={required}
                 onChange={setRequired}
+                alignWithField
               />
 
 
@@ -214,26 +204,18 @@ export default function CheckboxDemo({
 
             <div className="playground-preview">
 
-              <Checkbox
-                id="interactive-checkbox"
-                label="Enable FlowForge feature"
-                description="This option controls whether the feature is enabled."
+              <Switch
+                label="Enable notifications"
+                description="Receive notifications about account activity."
                 checked={checked}
-                onChange={(value) => {
-                  setChecked(value);
-
-                  if (indeterminate) {
-                    setIndeterminate(false);
-                  }
-                }}
+                onChange={setChecked}
                 size={size}
-                disabled={disabled}
                 required={required}
-                indeterminate={indeterminate}
+                disabled={disabled}
                 fullWidth={fullWidth}
                 error={
                   error
-                    ? "Please review this option."
+                    ? "Please review this setting."
                     : undefined
                 }
               />
@@ -245,17 +227,8 @@ export default function CheckboxDemo({
               Current value:{" "}
               <strong>
                 {checked
-                  ? "Checked"
-                  : "Unchecked"}
-              </strong>
-            </p>
-
-            <p className="playground-value">
-              Indeterminate:{" "}
-              <strong>
-                {indeterminate
-                  ? "Yes"
-                  : "No"}
+                  ? "true"
+                  : "false"}
               </strong>
             </p>
 
@@ -268,7 +241,7 @@ export default function CheckboxDemo({
         ================================================== */}
 
         <Collapse
-          id="checkbox-basic-usage"
+          id="switch-basic-usage"
           title="Basic Usage"
         >
           <div className="playground-section">
@@ -279,12 +252,39 @@ export default function CheckboxDemo({
               </h2>
 
               <p>
-                A basic controlled Checkbox
-                with a label and description.
+                A basic Switch with a label
+                and description.
               </p>
             </div>
 
-            <BasicCheckboxExample />
+            <BasicSwitchExample />
+
+          </div>
+        </Collapse>
+
+
+        {/* ==================================================
+            Controlled Switch
+        ================================================== */}
+
+        <Collapse
+          id="switch-controlled"
+          title="Controlled Switch"
+        >
+          <div className="playground-section">
+
+            <div className="playground-section__header">
+              <h2>
+                Controlled Switch
+              </h2>
+
+              <p>
+                Switch state can be fully
+                controlled using React state.
+              </p>
+            </div>
+
+            <ControlledSwitchExample />
 
           </div>
         </Collapse>
@@ -295,7 +295,7 @@ export default function CheckboxDemo({
         ================================================== */}
 
         <Collapse
-          id="checkbox-sizes"
+          id="switch-sizes"
           title="Sizes"
         >
           <div className="playground-section">
@@ -306,22 +306,22 @@ export default function CheckboxDemo({
               </h2>
 
               <p>
-                Checkbox supports small,
-                medium and large sizes.
+                Switch supports small, medium
+                and large sizes.
               </p>
             </div>
 
             <div className="playground-stack">
 
-              <SizeCheckboxExample
+              <SizeSwitchExample
                 size="sm"
               />
 
-              <SizeCheckboxExample
+              <SizeSwitchExample
                 size="md"
               />
 
-              <SizeCheckboxExample
+              <SizeSwitchExample
                 size="lg"
               />
 
@@ -336,7 +336,7 @@ export default function CheckboxDemo({
         ================================================== */}
 
         <Collapse
-          id="checkbox-states"
+          id="switch-states"
           title="States"
         >
           <div className="playground-section">
@@ -347,7 +347,7 @@ export default function CheckboxDemo({
               </h2>
 
               <p>
-                Common Checkbox states used
+                Common Switch states used
                 in FlowForge forms.
               </p>
             </div>
@@ -367,12 +367,12 @@ export default function CheckboxDemo({
               {/* Default */}
 
               <Collapse
-                id="checkbox-states-default"
+                id="switch-states-default"
                 title="Default"
               >
                 <div className="playground-section">
 
-                  <StateCheckboxExample
+                  <StateSwitchExample
                     label="Default"
                   />
 
@@ -383,12 +383,12 @@ export default function CheckboxDemo({
               {/* Required */}
 
               <Collapse
-                id="checkbox-states-required"
+                id="switch-states-required"
                 title="Required"
               >
                 <div className="playground-section">
 
-                  <StateCheckboxExample
+                  <StateSwitchExample
                     label="Required"
                     required
                   />
@@ -400,12 +400,12 @@ export default function CheckboxDemo({
               {/* Disabled */}
 
               <Collapse
-                id="checkbox-states-disabled"
+                id="switch-states-disabled"
                 title="Disabled"
               >
                 <div className="playground-section">
 
-                  <StateCheckboxExample
+                  <StateSwitchExample
                     label="Disabled"
                     disabled
                     checked
@@ -418,14 +418,14 @@ export default function CheckboxDemo({
               {/* Error */}
 
               <Collapse
-                id="checkbox-states-error"
+                id="switch-states-error"
                 title="Error"
               >
                 <div className="playground-section">
 
-                  <StateCheckboxExample
+                  <StateSwitchExample
                     label="Error"
-                    error="Please select this option."
+                    error="Please review this setting."
                   />
 
                 </div>
@@ -438,66 +438,11 @@ export default function CheckboxDemo({
 
 
         {/* ==================================================
-            Indeterminate
-        ================================================== */}
-
-        <Collapse
-          id="checkbox-indeterminate"
-          title="Indeterminate"
-        >
-          <div className="playground-section">
-
-            <div className="playground-section__header">
-              <h2>
-                Indeterminate
-              </h2>
-
-              <p>
-                The indeterminate state is useful
-                when a Checkbox represents a
-                partially selected group.
-              </p>
-            </div>
-
-            <IndeterminateExample />
-
-          </div>
-        </Collapse>
-
-
-        {/* ==================================================
-            Controlled Checkbox
-        ================================================== */}
-
-        <Collapse
-          id="checkbox-controlled"
-          title="Controlled Checkbox"
-        >
-          <div className="playground-section">
-
-            <div className="playground-section__header">
-              <h2>
-                Controlled Checkbox
-              </h2>
-
-              <p>
-                Checkbox can be fully controlled
-                using React state.
-              </p>
-            </div>
-
-            <ControlledCheckboxExample />
-
-          </div>
-        </Collapse>
-
-
-        {/* ==================================================
             Form Alignment
         ================================================== */}
 
         <Collapse
-          id="checkbox-form-alignment"
+          id="switch-form-alignment"
           title="Form Alignment"
         >
           <div className="playground-section">
@@ -508,9 +453,9 @@ export default function CheckboxDemo({
               </h2>
 
               <p>
-                Use alignWithField to align a Checkbox
-                with the control area of other form
-                fields in a multi-column form layout.
+                Use alignWithField to align Switch
+                controls with the field controls
+                in a multi-column form layout.
               </p>
             </div>
 
@@ -523,7 +468,7 @@ export default function CheckboxDemo({
 
               <Checkbox
                 label="Align With Field"
-                description="Align the Checkbox with the input control in the opposite column."
+                description="Align the Switch controls with the input controls."
                 checked={alignWithField}
                 onChange={setAlignWithField}
               />
@@ -562,34 +507,45 @@ export default function CheckboxDemo({
 
 
               {/* ==================================================
-                  Column 2 — Checkboxes
+                  Column 2 — Switches
               ================================================== */}
 
               <div className="playground-stack">
 
-                <AlignedCheckboxExample
-                  label="Active"
-                  description="User can access the application."
+                <Switch
+                  label="Email Notifications"
+                  description="Receive notifications by email."
+                  checked={notificationsEnabled}
+                  onChange={setNotificationsEnabled}
+                  alignWithField={alignWithField}
+                />
+
+                <Switch
+                  label="Push Notifications"
+                  description="Receive notifications on your device."
                   alignWithField={alignWithField}
                   defaultChecked
                 />
 
-                <AlignedCheckboxExample
-                  label="Verified"
-                  description="The user's email address has been verified."
-                  alignWithField={alignWithField}
-                  defaultChecked
-                />
-
-                <AlignedCheckboxExample
-                  label="Notifications"
-                  description="User can receive application notifications."
+                <Switch
+                  label="Marketing Updates"
+                  description="Receive product and marketing updates."
                   alignWithField={alignWithField}
                 />
 
               </div>
 
             </div>
+
+
+            <p className="playground-value">
+              Email notifications:{" "}
+              <strong>
+                {notificationsEnabled
+                  ? "enabled"
+                  : "disabled"}
+              </strong>
+            </p>
 
           </div>
         </Collapse>
@@ -602,17 +558,17 @@ export default function CheckboxDemo({
 
 
 /* ==========================================================
-   Basic Checkbox Example
+   Basic Switch Example
 ========================================================== */
 
-function BasicCheckboxExample() {
+function BasicSwitchExample() {
   const [checked, setChecked] =
     useState(false);
 
   return (
-    <Checkbox
-      label="Accept terms and conditions"
-      description="You must accept the terms before continuing."
+    <Switch
+      label="Enable notifications"
+      description="Receive notifications about account activity."
       checked={checked}
       onChange={setChecked}
     />
@@ -621,22 +577,54 @@ function BasicCheckboxExample() {
 
 
 /* ==========================================================
+   Controlled Example
+========================================================== */
+
+function ControlledSwitchExample() {
+  const [enabled, setEnabled] =
+    useState(true);
+
+  return (
+    <div className="playground-stack">
+
+      <Switch
+        label="Enable automatic updates"
+        description="Automatically install available updates."
+        checked={enabled}
+        onChange={setEnabled}
+      />
+
+      <p className="playground-value">
+        Current value:{" "}
+        <strong>
+          {enabled
+            ? "enabled"
+            : "disabled"}
+        </strong>
+      </p>
+
+    </div>
+  );
+}
+
+
+/* ==========================================================
    Size Example
 ========================================================== */
 
-interface SizeCheckboxExampleProps {
+interface SizeSwitchExampleProps {
   size: "sm" | "md" | "lg";
 }
 
-function SizeCheckboxExample({
+function SizeSwitchExample({
   size,
-}: SizeCheckboxExampleProps) {
+}: SizeSwitchExampleProps) {
   const [checked, setChecked] =
     useState(false);
 
   return (
-    <Checkbox
-      label={`${size.toUpperCase()} Checkbox`}
+    <Switch
+      label={`${size.toUpperCase()} Switch`}
       size={size}
       checked={checked}
       onChange={setChecked}
@@ -649,7 +637,7 @@ function SizeCheckboxExample({
    State Example
 ========================================================== */
 
-interface StateCheckboxExampleProps {
+interface StateSwitchExampleProps {
   label: string;
   checked?: boolean;
   required?: boolean;
@@ -657,142 +645,24 @@ interface StateCheckboxExampleProps {
   error?: string;
 }
 
-function StateCheckboxExample({
+function StateSwitchExample({
   label,
   checked = false,
   required = false,
   disabled = false,
   error,
-}: StateCheckboxExampleProps) {
+}: StateSwitchExampleProps) {
   const [value, setValue] =
     useState(checked);
 
   return (
-    <Checkbox
+    <Switch
       label={label}
       checked={value}
       onChange={setValue}
       required={required}
       disabled={disabled}
       error={error}
-    />
-  );
-}
-
-
-/* ==========================================================
-   Indeterminate Example
-========================================================== */
-
-function IndeterminateExample() {
-  const [checked, setChecked] =
-    useState(false);
-
-  const [indeterminate, setIndeterminate] =
-    useState(true);
-
-  const handleChange = (
-    value: boolean
-  ) => {
-    setChecked(value);
-    setIndeterminate(false);
-  };
-
-  return (
-    <div className="playground-stack">
-
-      <Checkbox
-        label="Select all"
-        description="Clicking the Checkbox resolves the indeterminate state."
-        checked={checked}
-        indeterminate={indeterminate}
-        onChange={handleChange}
-      />
-
-      <p className="playground-value">
-        State:{" "}
-        <strong>
-          {indeterminate
-            ? "Indeterminate"
-            : checked
-              ? "Checked"
-              : "Unchecked"}
-        </strong>
-      </p>
-
-      <button
-        type="button"
-        onClick={() => {
-          setChecked(false);
-          setIndeterminate(true);
-        }}
-      >
-        Reset to Indeterminate
-      </button>
-
-    </div>
-  );
-}
-
-
-/* ==========================================================
-   Controlled Example
-========================================================== */
-
-function ControlledCheckboxExample() {
-  const [checked, setChecked] =
-    useState(false);
-
-  return (
-    <div className="playground-stack">
-
-      <Checkbox
-        label="Controlled value"
-        checked={checked}
-        onChange={setChecked}
-      />
-
-      <p className="playground-value">
-        Current value:{" "}
-        <strong>
-          {checked
-            ? "true"
-            : "false"}
-        </strong>
-      </p>
-
-    </div>
-  );
-}
-
-
-/* ==========================================================
-   Aligned Checkbox Example
-========================================================== */
-
-interface AlignedCheckboxExampleProps {
-  label: string;
-  description: string;
-  alignWithField: boolean;
-  defaultChecked?: boolean;
-}
-
-function AlignedCheckboxExample({
-  label,
-  description,
-  alignWithField,
-  defaultChecked = false,
-}: AlignedCheckboxExampleProps) {
-  const [checked, setChecked] =
-    useState(defaultChecked);
-
-  return (
-    <Checkbox
-      label={label}
-      description={description}
-      alignWithField={alignWithField}
-      checked={checked}
-      onChange={setChecked}
     />
   );
 }

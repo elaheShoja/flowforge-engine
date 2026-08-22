@@ -1,30 +1,29 @@
 import { cva } from "class-variance-authority";
 
-export const radioVariants = cva(
-  "ff-radio",
+export const switchVariants = cva(
+  "ff-switch",
   {
     variants: {
       size: {
-        sm: "ff-radio--sm",
-        md: "ff-radio--md",
-        lg: "ff-radio--lg",
+        sm: "ff-switch--sm",
+        md: "ff-switch--md",
+        lg: "ff-switch--lg",
       },
 
       error: {
-        true: "ff-radio--error",
+        true: "ff-switch--error",
         false: "",
       },
 
       disabled: {
-        true: "ff-radio--disabled",
+        true: "ff-switch--disabled",
         false: "",
       },
 
       fullWidth: {
-        true: "ff-radio--full",
+        true: "ff-switch--full",
         false: "",
       },
-
     },
 
     defaultVariants: {

@@ -105,18 +105,6 @@ export default function PasswordInputDemo({
         >
           <div className="playground-section">
 
-            <div className="playground-section__header">
-              <h2>
-                Interactive Playground
-              </h2>
-
-              <p>
-                Experiment with the main
-                PasswordInput properties and
-                the password visibility control.
-              </p>
-            </div>
-
             <div className="playground-controls">
 
               {/* Size */}
@@ -154,6 +142,7 @@ export default function PasswordInputDemo({
                 label="Disabled"
                 checked={disabled}
                 onChange={setDisabled}
+                alignWithField
               />
 
               {/* Required */}
@@ -162,6 +151,7 @@ export default function PasswordInputDemo({
                 label="Required"
                 checked={required}
                 onChange={setRequired}
+                alignWithField
               />
 
               {/* Full Width */}
@@ -170,7 +160,6 @@ export default function PasswordInputDemo({
                 label="Full Width"
                 checked={fullWidth}
                 onChange={setFullWidth}
-                withWrapper={false}
               />
 
               {/* Error */}
@@ -179,7 +168,6 @@ export default function PasswordInputDemo({
                 label="Error"
                 checked={showError}
                 onChange={setShowError}
-                withWrapper={false}
               />
 
             </div>

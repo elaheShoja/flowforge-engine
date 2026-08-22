@@ -105,17 +105,6 @@ export default function SearchInputDemo({
         >
           <div className="playground-section">
 
-            <div className="playground-section__header">
-              <h2>
-                Interactive Playground
-              </h2>
-
-              <p>
-                Experiment with the main
-                SearchInput properties.
-              </p>
-            </div>
-
             <div className="playground-controls">
 
               <Select
@@ -149,26 +138,26 @@ export default function SearchInputDemo({
                 label="Disabled"
                 checked={disabled}
                 onChange={setDisabled}
+                alignWithField
               />
 
               <Checkbox
                 label="Clearable"
                 checked={clearable}
                 onChange={setClearable}
+                alignWithField
               />
 
               <Checkbox
                 label="Full Width"
                 checked={fullWidth}
                 onChange={setFullWidth}
-                withWrapper={false}
               />
 
               <Checkbox
                 label="Error"
                 checked={showError}
                 onChange={setShowError}
-                withWrapper={false}
               />
 
             </div>
