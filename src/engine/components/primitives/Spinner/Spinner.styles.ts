@@ -15,16 +15,10 @@ export const spinnerVariants = cva("ff-spinner", {
       secondary: "ff-spinner--secondary",
       light: "ff-spinner--light",
     },
-
-    fullscreen: {
-      true: "ff-spinner-fullscreen",
-      false: ""
-    }
   },
 
   defaultVariants: {
     size: "md",
     variant: "primary",
-    fullscreen: false,
   },
 });

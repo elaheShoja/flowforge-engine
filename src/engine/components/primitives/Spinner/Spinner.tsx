@@ -16,10 +16,9 @@ export default function Spinner({
 }: SpinnerProps) {
   const { t } = useTranslation();
 
-  const spinnerLabel =
-    label ?? t("loading");
+  const spinnerLabel = label ?? t("loading");
 
-  return (
+  const spinner = (
     <span
       role="status"
       aria-live="polite"
@@ -28,7 +27,6 @@ export default function Spinner({
         spinnerVariants({
           size,
           variant,
-          fullscreen,
         }),
         className
       )}
@@ -39,4 +37,17 @@ export default function Spinner({
       </span>
     </span>
   );
+
+  if (fullscreen) {
+    return (
+      <div
+        className="ff-spinner-fullscreen"
+        role="presentation"
+      >
+        {spinner}
+      </div>
+    );
+  }
+
+  return spinner;
 }

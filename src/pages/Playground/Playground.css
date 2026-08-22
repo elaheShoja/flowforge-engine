@@ -916,6 +916,29 @@
   text-decoration: underline;
 }
 
+.button-icons-demo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+
+.spinner-demo-dark {
+  display: flex;
+  align-items: center;
+  min-height: 100px;
+  padding: 24px;
+  background: #1f2937;
+  border-radius: 8px;
+}
+
+.playground-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 16px;
+}
 
 /* =========================================================
    Responsive
@@ -976,6 +999,13 @@
  
   .playground-grid--two-columns {
     grid-template-columns: 1fr;
+  }
+
+  @media (max-width: 640px) {
+    .button-icons-demo {
+      flex-direction: column;
+      align-items: stretch;
+    }
   }
 }
 

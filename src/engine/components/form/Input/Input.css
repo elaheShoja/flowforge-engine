@@ -245,3 +245,9 @@
 .ff-input__clear .ff-icon {
   pointer-events: none;
 }
+
+.ff-input__element[type="search"]::-webkit-search-cancel-button,
+.ff-input__element[type="search"]::-webkit-search-decoration {
+  -webkit-appearance: none;
+  appearance: none;
+}

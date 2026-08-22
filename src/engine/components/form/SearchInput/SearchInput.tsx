@@ -8,9 +8,8 @@ import type { SearchInputProps } from "./SearchInput.types";
 const SearchInput = forwardRef<HTMLInputElement, SearchInputProps>(
   function SearchInput(
     {
-      clearable = false,
+      clearable = true,
       startAdornment,
-      type,
       ...props
     },
     ref

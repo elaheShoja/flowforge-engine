@@ -67,6 +67,54 @@ export const componentRegistry: ComponentMeta[] = [
   },
 
   {
+    id: "search-input",
+    name: "Search Input",
+    category: "form",
+    description:
+      "A specialized input component for search interactions with optional clear functionality.",
+    docsPath: "/docs/components/search-input",
+    playgroundPath: "/playground/search-input",
+    status: "stable",
+    showInPlayground: true,
+  },
+
+  {
+    id: "password-input",
+    name: "Password Input",
+    category: "form",
+    description:
+      "A specialized input component for entering and managing password values.",
+    docsPath: "/docs/components/password-input",
+    playgroundPath: "/playground/password-input",
+    status: "stable",
+    showInPlayground: true,
+  },
+
+  {
+    id: "button",
+    name: "Button",
+    category: "general",
+    description:
+      "A flexible button component with multiple variants, sizes, states, and icon support.",
+    docsPath: "/docs/components/button",
+    playgroundPath: "/playground/button",
+    status: "stable",
+    showInPlayground: true,
+  },
+
+  {
+    id: "spinner",
+    name: "Spinner",
+    category: "feedback",
+    description:
+      "A reusable loading indicator for displaying asynchronous progress and loading states.",
+    docsPath: "/docs/components/spinner",
+    playgroundPath: "/playground/spinner",
+    status: "stable",
+    showInPlayground: true,
+  },
+
+  {
     id: "collapse",
     name: "Collapse",
     category: "general",
@@ -93,7 +141,7 @@ export const componentRegistry: ComponentMeta[] = [
 
 export function getComponentById(
   componentId: string
-) {
+): ComponentMeta | undefined {
   return componentRegistry.find(
     (component) =>
       component.id === componentId

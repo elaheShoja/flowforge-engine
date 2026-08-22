@@ -1,0 +1,17 @@
+.ff-footer {
+  border-top: 1px solid #e5e7eb;
+  background-color: #ffffff;
+}
+
+.ff-footer__content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 3.5rem;
+  max-width: 80rem;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  font-size: 0.875rem;
+  color: #6b7280;
+  text-align: center;
+}
