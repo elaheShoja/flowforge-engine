@@ -80,32 +80,6 @@ export const documentationGroups: DocumentationGroup[] = [
       },
 
       {
-        id: "select",
-        title: "Select",
-        description:
-          "A flexible single and multi-value selection component.",
-        section: "components",
-        path: "/docs/components/select",
-        contentPath: "components/select.md",
-        order: 3,
-        componentId: "select",
-        playgroundPath: "/playground/select",
-      },
-
-      {
-        id: "checkbox",
-        title: "Checkbox",
-        description:
-          "A flexible checkbox component for selecting boolean values.",
-        section: "components",
-        path: "/docs/components/checkbox",
-        contentPath: "components/checkbox.md",
-        order: 4,
-        componentId: "checkbox",
-        playgroundPath: "/playground/checkbox",
-      },
-
-      {
         id: "search-input",
         title: "Search Input",
         description:
@@ -113,7 +87,7 @@ export const documentationGroups: DocumentationGroup[] = [
         section: "components",
         path: "/docs/components/search-input",
         contentPath: "components/search-input.md",
-        order: 5,
+        order: 3,
         componentId: "search-input",
         playgroundPath: "/playground/search-input",
       },
@@ -126,9 +100,61 @@ export const documentationGroups: DocumentationGroup[] = [
         section: "components",
         path: "/docs/components/password-input",
         contentPath: "components/password-input.md",
-        order: 6,
+        order: 4,
         componentId: "password-input",
         playgroundPath: "/playground/password-input",
+      },
+
+      {
+        id: "select",
+        title: "Select",
+        description:
+          "A flexible single and multi-value selection component.",
+        section: "components",
+        path: "/docs/components/select",
+        contentPath: "components/select.md",
+        order: 5,
+        componentId: "select",
+        playgroundPath: "/playground/select",
+      },
+
+      {
+        id: "checkbox",
+        title: "Checkbox",
+        description:
+          "A flexible checkbox component for selecting boolean values.",
+        section: "components",
+        path: "/docs/components/checkbox",
+        contentPath: "components/checkbox.md",
+        order: 6,
+        componentId: "checkbox",
+        playgroundPath: "/playground/checkbox",
+      },
+
+      {
+        id: "radio",
+        title: "Radio",
+        description:
+          "A flexible radio component for selecting one option from a group of mutually exclusive values.",
+        section: "components",
+        path: "/docs/components/radio",
+        contentPath: "components/radio.md",
+        order: 7,
+        componentId: "radio",
+        playgroundPath: "/playground/radio",
+      },
+
+      {
+        id: "switch",
+        title: "Switch",
+        description:
+          "A flexible switch component for toggling boolean values.",
+        section: "components",
+        path: "/docs/components/switch",
+        contentPath: "components/switch.md",
+        order: 8,
+        componentId: "switch",
+        playgroundPath: "/playground/switch",
       },
 
       {
@@ -139,7 +165,7 @@ export const documentationGroups: DocumentationGroup[] = [
         section: "components",
         path: "/docs/components/button",
         contentPath: "components/button.md",
-        order: 7,
+        order: 9,
         componentId: "button",
         playgroundPath: "/playground/button",
       },
@@ -152,7 +178,7 @@ export const documentationGroups: DocumentationGroup[] = [
         section: "components",
         path: "/docs/components/spinner",
         contentPath: "components/spinner.md",
-        order: 8,
+        order: 10,
         componentId: "spinner",
         playgroundPath: "/playground/spinner",
       },
@@ -165,7 +191,7 @@ export const documentationGroups: DocumentationGroup[] = [
         section: "components",
         path: "/docs/components/collapse",
         contentPath: "components/collapse.md",
-        order: 9,
+        order: 11,
         componentId: "collapse",
         playgroundPath: "/playground/collapse",
       },
@@ -178,7 +204,7 @@ export const documentationGroups: DocumentationGroup[] = [
         section: "components",
         path: "/docs/components/collapse-group",
         contentPath: "components/collapse-group.md",
-        order: 10,
+        order: 12,
         componentId: "collapse-group",
         playgroundPath: "/playground/collapse-group",
       },

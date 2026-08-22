@@ -10,6 +10,7 @@ import PasswordInputDemo from "./demos/PasswordInputDemo";
 import SearchInputDemo from "./demos/SearchInputDemo";
 import ButtonDemo from "./demos/ButtonDemo";
 import SpinnerDemo from "./demos/SpinnerDemo";
+import RadioDemo from "./demos/RadioDemo";
 
 export type PlaygroundDemo = ComponentType<{
   focusId?: string;
@@ -23,10 +24,11 @@ export const playgroundRegistry: Record<
 > = { 
   input: InputDemo,
   textarea: TextareaDemo,
-  select: SelectDemo,
-  checkbox: CheckboxDemo,
   "search-input" : SearchInputDemo,
   "password-input": PasswordInputDemo,
+  select: SelectDemo,
+  checkbox: CheckboxDemo,
+  radio: RadioDemo,
   button: ButtonDemo,
   spinner: SpinnerDemo,
   collapse: CollapseDemo,

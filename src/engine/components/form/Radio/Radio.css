@@ -1,8 +1,8 @@
 /* ==========================================================
-   FlowForge Checkbox
+   FlowForge Radio
    ========================================================== */
 
-.ff-checkbox {
+.ff-radio {
   display: inline-flex;
 
   align-items: flex-start;
@@ -22,8 +22,8 @@
   user-select: none;
 }
 
-.ff-checkbox,
-.ff-checkbox * {
+.ff-radio,
+.ff-radio * {
   box-sizing: border-box;
 }
 
@@ -32,16 +32,16 @@
    Full Width
    ========================================================== */
 
-.ff-checkbox--full {
+.ff-radio--full {
   width: 100%;
 }
 
 
 /* ==========================================================
-   Checkbox Control
+   Radio Control
    ========================================================== */
 
-.ff-checkbox__control {
+.ff-radio__control {
   position: relative;
 
   display: inline-flex;
@@ -54,7 +54,7 @@
 
   border: var(--border-width) solid var(--color-border);
 
-  border-radius: var(--radius-sm);
+  border-radius: 50%;
 
   background: var(--color-background);
 
@@ -69,20 +69,20 @@
    Sizes
    ========================================================== */
 
-.ff-checkbox--sm
-  .ff-checkbox__control {
+.ff-radio--sm
+  .ff-radio__control {
   width: 16px;
   height: 16px;
 }
 
-.ff-checkbox--md
-  .ff-checkbox__control {
+.ff-radio--md
+  .ff-radio__control {
   width: 18px;
   height: 18px;
 }
 
-.ff-checkbox--lg
-  .ff-checkbox__control {
+.ff-radio--lg
+  .ff-radio__control {
   width: 22px;
   height: 22px;
 }
@@ -92,7 +92,7 @@
    Native Input
    ========================================================== */
 
-.ff-checkbox__input {
+.ff-radio__input {
   position: absolute;
 
   inset: 0;
@@ -111,37 +111,32 @@
 
 
 /* ==========================================================
-   Check Icon
+   Radio Dot
    ========================================================== */
 
-.ff-checkbox__mark {
+.ff-radio__dot {
   display: none;
 
-  position: absolute;
+  width: 8px;
+  height: 8px;
 
-  inset: 0;
+  border-radius: 50%;
 
-  align-items: center;
-
-  justify-content: center;
-
-  color: var(--color-background);
+  background: var(--color-background);
 
   pointer-events: none;
 }
 
-.ff-checkbox__mark::after {
-  content: "";
+.ff-radio--sm
+  .ff-radio__dot {
+  width: 6px;
+  height: 6px;
+}
 
-  width: 5px;
-  height: 9px;
-
-  border-right: 2px solid currentColor;
-  border-bottom: 2px solid currentColor;
-
-  transform:
-    rotate(45deg)
-    translate(-1px, -1px);
+.ff-radio--lg
+  .ff-radio__dot {
+  width: 10px;
+  height: 10px;
 }
 
 
@@ -149,48 +144,17 @@
    Checked
    ========================================================== */
 
-.ff-checkbox__input:checked
-  + .ff-checkbox__control {
+.ff-radio__input:checked
+  + .ff-radio__control {
   border-color: var(--color-primary);
 
   background: var(--color-primary);
 }
 
-.ff-checkbox__input:checked
-  + .ff-checkbox__control
-  .ff-checkbox__mark {
-  display: flex;
-}
-
-
-/* ==========================================================
-   Indeterminate
-   ========================================================== */
-
-.ff-checkbox--indeterminate
-  .ff-checkbox__control {
-  border-color: var(--color-primary);
-
-  background: var(--color-primary);
-}
-
-.ff-checkbox--indeterminate
-  .ff-checkbox__control
-  .ff-checkbox__indeterminate {
+.ff-radio__input:checked
+  + .ff-radio__control
+  .ff-radio__dot {
   display: block;
-}
-
-.ff-checkbox__indeterminate {
-  display: none;
-
-  width: 9px;
-  height: 2px;
-
-  border-radius: 2px;
-
-  background: var(--color-background);
-
-  pointer-events: none;
 }
 
 
@@ -198,9 +162,9 @@
    Hover
    ========================================================== */
 
-.ff-checkbox:hover:not(
-  .ff-checkbox--disabled
-) .ff-checkbox__control {
+.ff-radio:hover:not(
+  .ff-radio--disabled
+) .ff-radio__control {
   border-color: var(--color-primary);
 }
 
@@ -209,8 +173,8 @@
    Focus
    ========================================================== */
 
-.ff-checkbox__input:focus-visible
-  + .ff-checkbox__control {
+.ff-radio__input:focus-visible
+  + .ff-radio__control {
   border-color: var(--color-border-focus);
 
   box-shadow: var(--focus-ring);
@@ -221,19 +185,19 @@
    Error
    ========================================================== */
 
-.ff-checkbox--error
-  .ff-checkbox__control {
+.ff-radio--error
+  .ff-radio__control {
   border-color: var(--color-danger);
 }
 
-.ff-checkbox--error:hover
-  .ff-checkbox__control {
+.ff-radio--error:hover
+  .ff-radio__control {
   border-color: var(--color-danger);
 }
 
-.ff-checkbox--error
-  .ff-checkbox__input:checked
-  + .ff-checkbox__control {
+.ff-radio--error
+  .ff-radio__input:checked
+  + .ff-radio__control {
   border-color: var(--color-danger);
 
   background: var(--color-danger);
@@ -244,7 +208,7 @@
    Label & Description
    ========================================================== */
 
-.ff-checkbox__content {
+.ff-radio__content {
   display: flex;
 
   flex-direction: column;
@@ -258,7 +222,7 @@
   line-height: 1.4;
 }
 
-.ff-checkbox__label {
+.ff-radio__label {
   color: var(--color-text);
 
   font-size: var(--font-size-md);
@@ -268,7 +232,7 @@
   line-height: 1.4;
 }
 
-.ff-checkbox__description {
+.ff-radio__description {
   color: var(--color-text-secondary);
 
   font-size: var(--font-size-sm);
@@ -281,18 +245,18 @@
    Size-specific label alignment
    ========================================================== */
 
-.ff-checkbox--sm
-  .ff-checkbox__label {
+.ff-radio--sm
+  .ff-radio__label {
   line-height: 16px;
 }
 
-.ff-checkbox--md
-  .ff-checkbox__label {
+.ff-radio--md
+  .ff-radio__label {
   line-height: 18px;
 }
 
-.ff-checkbox--lg
-  .ff-checkbox__label {
+.ff-radio--lg
+  .ff-radio__label {
   line-height: 22px;
 }
 
@@ -301,28 +265,28 @@
    Disabled
    ========================================================== */
 
-.ff-checkbox--disabled {
+.ff-radio--disabled {
   cursor: not-allowed;
 
   opacity: 0.6;
 }
 
-.ff-checkbox--disabled
-  .ff-checkbox__input {
+.ff-radio--disabled
+  .ff-radio__input {
   cursor: not-allowed;
 }
 
-.ff-checkbox--disabled
-  .ff-checkbox__control {
+.ff-radio--disabled
+  .ff-radio__control {
   background: var(--color-surface-disabled);
 
   cursor: not-allowed;
 }
 
-.ff-checkbox--disabled
-  .ff-checkbox__label,
-.ff-checkbox--disabled
-  .ff-checkbox__description {
+.ff-radio--disabled
+  .ff-radio__label,
+.ff-radio--disabled
+  .ff-radio__description {
   color: var(--color-text-disabled);
 }
 
@@ -331,14 +295,14 @@
    Alignment With Field
    ========================================================== */
 
-.ff-checkbox--align-field {
+.ff-radio--align-field {
   width: 100%;
 
   align-items: flex-start;
 }
 
-.ff-checkbox--align-field
-  .ff-checkbox__content {
+.ff-radio--align-field
+  .ff-radio__content {
   margin-top: 0;
 }
 
@@ -347,7 +311,7 @@
    Required
    ========================================================== */
 
-.ff-checkbox__required {
+.ff-radio__required {
   margin-inline-start: 4px;
 
   color: var(--color-danger);

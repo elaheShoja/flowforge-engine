@@ -42,6 +42,30 @@ export const componentRegistry: ComponentMeta[] = [
     showInPlayground: true,
   },
 
+   {
+    id: "search-input",
+    name: "Search Input",
+    category: "form",
+    description:
+      "A specialized input component for search interactions with optional clear functionality.",
+    docsPath: "/docs/components/search-input",
+    playgroundPath: "/playground/search-input",
+    status: "stable",
+    showInPlayground: true,
+  },
+
+  {
+    id: "password-input",
+    name: "Password Input",
+    category: "form",
+    description:
+      "A specialized input component for entering and managing password values.",
+    docsPath: "/docs/components/password-input",
+    playgroundPath: "/playground/password-input",
+    status: "stable",
+    showInPlayground: true,
+  },
+
   {
     id: "select",
     name: "Select",
@@ -67,25 +91,25 @@ export const componentRegistry: ComponentMeta[] = [
   },
 
   {
-    id: "search-input",
-    name: "Search Input",
+    id: "radio",
+    name: "Radio",
     category: "form",
     description:
-      "A specialized input component for search interactions with optional clear functionality.",
-    docsPath: "/docs/components/search-input",
-    playgroundPath: "/playground/search-input",
+      "A flexible radio component for selecting one option from a group of mutually exclusive values.",
+    docsPath: "/docs/components/radio",
+    playgroundPath: "/playground/radio",
     status: "stable",
     showInPlayground: true,
   },
 
   {
-    id: "password-input",
-    name: "Password Input",
+    id: "switch",
+    name: "Switch",
     category: "form",
     description:
-      "A specialized input component for entering and managing password values.",
-    docsPath: "/docs/components/password-input",
-    playgroundPath: "/playground/password-input",
+      "A flexible switch component for toggling boolean values in FlowForge forms.",
+    docsPath: "/docs/components/switch",
+    playgroundPath: "/playground/switch",
     status: "stable",
     showInPlayground: true,
   },

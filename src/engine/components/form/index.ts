@@ -19,3 +19,6 @@ export type { SelectProps } from "./Select";
 
 export { default as Checkbox } from "./Checkbox";
 export type { CheckboxProps } from "./Checkbox";
+
+export { default as Radio } from "./Radio";
+export type { RadioProps } from "./Radio";

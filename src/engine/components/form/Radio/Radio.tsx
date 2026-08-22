@@ -2,27 +2,25 @@ import clsx from "clsx";
 
 import {
   forwardRef,
-  useEffect,
   useId,
-  useRef,
 } from "react";
 
 import FieldWrapper from "@/engine/components/form/FieldWrapper";
 
 import type {
-  CheckboxProps,
-} from "./Checkbox.types";
+  RadioProps,
+} from "./Radio.types";
 
 import {
-  checkboxVariants,
-} from "./Checkbox.styles";
+  radioVariants,
+} from "./Radio.styles";
 
-import "./Checkbox.css";
+import "./Radio.css";
 
-const Checkbox = forwardRef<
+const Radio = forwardRef<
   HTMLInputElement,
-  CheckboxProps
->(function Checkbox(
+  RadioProps
+>(function Radio(
   {
     id,
     label,
@@ -46,8 +44,6 @@ const Checkbox = forwardRef<
 
     disabled = false,
 
-    indeterminate = false,
-
     tooltip,
 
     withWrapper = true,
@@ -60,68 +56,30 @@ const Checkbox = forwardRef<
 ) {
   const generatedId = useId();
 
-  const checkboxId =
+  const radioId =
     id ?? generatedId;
-
-  const internalRef =
-    useRef<HTMLInputElement>(
-      null
-    );
-
-  /**
-   * Keep forwarded ref and internal ref
-   * synchronized.
-   */
-  const setInputRef = (
-    node: HTMLInputElement | null
-  ) => {
-    internalRef.current = node;
-
-    if (typeof forwardedRef === "function") {
-      forwardedRef(node);
-      return;
-    }
-
-    if (forwardedRef) {
-      forwardedRef.current = node;
-    }
-  };
-
-  /**
-   * Native checkbox indeterminate
-   * is a DOM property, not an HTML attribute.
-   */
-  useEffect(() => {
-    if (!internalRef.current) {
-      return;
-    }
-
-    internalRef.current.indeterminate =
-      indeterminate;
-  }, [indeterminate]);
 
   const helperId =
     helperText
-      ? `${checkboxId}-helper`
+      ? `${radioId}-helper`
       : undefined;
 
   const errorId =
     error
-      ? `${checkboxId}-error`
+      ? `${radioId}-error`
       : undefined;
 
   const describedBy =
     errorId ?? helperId;
 
-  const checkboxElement = (
+  const radioElement = (
     <label
       className={clsx(
-        checkboxVariants({
+        radioVariants({
           size,
           error: !!error,
           disabled,
           fullWidth,
-          indeterminate,
           alignWithField,
         }),
         className
@@ -129,10 +87,10 @@ const Checkbox = forwardRef<
     >
       <input
         {...inputProps}
-        ref={setInputRef}
-        id={checkboxId}
-        type="checkbox"
-        className="ff-checkbox__input"
+        ref={forwardedRef}
+        id={radioId}
+        type="radio"
+        className="ff-radio__input"
         checked={checked}
         defaultChecked={
           checked === undefined
@@ -157,22 +115,20 @@ const Checkbox = forwardRef<
       />
 
       <span
-        className="ff-checkbox__control"
+        className="ff-radio__control"
         aria-hidden="true"
       >
-        <span className="ff-checkbox__mark" />
-
-        <span className="ff-checkbox__indeterminate" />
+        <span className="ff-radio__dot" />
       </span>
 
       {(label || description) && (
-        <span className="ff-checkbox__content">
+        <span className="ff-radio__content">
           {label && (
-            <span className="ff-checkbox__label">
+            <span className="ff-radio__label">
               {label}
 
               {required && (
-                <span className="ff-checkbox__required">
+                <span className="ff-radio__required">
                   *
                 </span>
               )}
@@ -180,7 +136,7 @@ const Checkbox = forwardRef<
           )}
 
           {description && (
-            <span className="ff-checkbox__description">
+            <span className="ff-radio__description">
               {description}
             </span>
           )}
@@ -190,22 +146,17 @@ const Checkbox = forwardRef<
   );
 
   if (!withWrapper) {
-    return checkboxElement;
+    return radioElement;
   }
 
   return (
     <FieldWrapper
-      /*
-       * When Checkbox participates in a multi-column
-       * form, an empty label keeps its content aligned
-       * with the control area of regular fields.
-       */
       label={
         alignWithField
           ? "\u00A0"
           : undefined
       }
-      htmlFor={checkboxId}
+      htmlFor={radioId}
       helperText={helperText}
       helperId={helperId}
       error={error}
@@ -215,9 +166,9 @@ const Checkbox = forwardRef<
       fullWidth={fullWidth}
       disabled={disabled}
     >
-      {checkboxElement}
+      {radioElement}
     </FieldWrapper>
   );
 });
 
-export default Checkbox;
+export default Radio;
