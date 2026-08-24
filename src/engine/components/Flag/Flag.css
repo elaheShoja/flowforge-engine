@@ -1,0 +1,15 @@
+.ff-flag-wrapper {
+  display: inline-flex;
+  flex-shrink: 0;
+
+  vertical-align: middle;
+}
+
+.ff-flag {
+  display: inline-block;
+  flex-shrink: 0;
+
+  vertical-align: middle;
+
+  object-fit: cover;
+}

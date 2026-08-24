@@ -30,6 +30,18 @@ export const componentRegistry: ComponentMeta[] = [
     showInPlayground: true,
   },
 
+  /*{
+    id: "input-type",
+    name: "Input Type",
+    category: "form",
+    description:
+      "A configurable input component that provides specialized behavior and defaults for different input types.",
+    docsPath: "/docs/components/input-type",
+    playgroundPath: "/playground/input-type",
+    status: "stable",
+    showInPlayground: true,
+  },*/
+
   {
     id: "textarea",
     name: "Textarea",
@@ -42,7 +54,7 @@ export const componentRegistry: ComponentMeta[] = [
     showInPlayground: true,
   },
 
-   {
+  {
     id: "search-input",
     name: "Search Input",
     category: "form",
@@ -62,6 +74,18 @@ export const componentRegistry: ComponentMeta[] = [
       "A specialized input component for entering and managing password values.",
     docsPath: "/docs/components/password-input",
     playgroundPath: "/playground/password-input",
+    status: "stable",
+    showInPlayground: true,
+  },
+
+  {
+    id: "flag",
+    name: "Flag",
+    category: "general",
+    description:
+      "A reusable component for displaying registered flags through the FlowForge flag asset system.",
+    docsPath: "/docs/components/flag",
+    playgroundPath: "/playground/flag",
     status: "stable",
     showInPlayground: true,
   },

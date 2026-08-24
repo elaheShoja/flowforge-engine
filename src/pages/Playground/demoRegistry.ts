@@ -12,6 +12,8 @@ import ButtonDemo from "./demos/ButtonDemo";
 import SpinnerDemo from "./demos/SpinnerDemo";
 import RadioDemo from "./demos/RadioDemo";
 import SwitchDemo from "./demos/SwitchDemo";
+import FlagDemo from "./demos/FlagDemo";
+//import InputTypeDemo from "./demos/InputTypeDemo";
 
 export type PlaygroundDemo = ComponentType<{
   focusId?: string;
@@ -24,9 +26,11 @@ export const playgroundRegistry: Record<
   PlaygroundDemo
 > = { 
   input: InputDemo,
+  //"input-type": InputTypeDemo,
   textarea: TextareaDemo,
   "search-input" : SearchInputDemo,
   "password-input": PasswordInputDemo,
+  flag: FlagDemo,
   select: SelectDemo,
   checkbox: CheckboxDemo,
   radio: RadioDemo,
