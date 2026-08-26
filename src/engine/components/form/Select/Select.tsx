@@ -47,6 +47,7 @@ export default function Select(
     required,
     fullWidth = true,
     disabled = false,
+    withWrapper= true,
 
     searchable = false,
     options,
@@ -667,15 +668,8 @@ export default function Select(
     setSelectedValue("");
   };
 
-  return (
-    <FieldWrapper
-      label={label}
-      required={required}
-      error={error}
-      helperText={helperText}
-      fullWidth={fullWidth}
-      disabled={disabled}
-    >
+  const selectElement = (
+    <>
       <div
         ref={refs.setReference}
         tabIndex={
@@ -761,7 +755,6 @@ export default function Select(
             name="expand"
             size={16}
           />
-
         </div>
       </div>
 
@@ -774,7 +767,9 @@ export default function Select(
             selectedValue
           }
           multi={multi}
-          isPositioned={isPositioned}
+          isPositioned={
+            isPositioned
+          }
           floatingRef={
             refs.setFloating
           }
@@ -838,6 +833,23 @@ export default function Select(
           }
         />
       )}
+    </>
+  );
+
+  if (!withWrapper) {
+    return selectElement;
+  }
+
+  return (
+    <FieldWrapper
+      label={label}
+      required={required}
+      error={error}
+      helperText={helperText}
+      fullWidth={fullWidth}
+      disabled={disabled}
+    >
+      {selectElement}
     </FieldWrapper>
   );
 }

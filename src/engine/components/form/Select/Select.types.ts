@@ -55,6 +55,8 @@ interface SelectBaseProps {
 
   placeholder?: string;
 
+  withWrapper?: boolean;
+
   options: Array<
     SelectOption | SelectGroup
   >;

@@ -25,6 +25,8 @@ export default function Textarea({
 
   disabled,
 
+  withWrapper = true,
+
   rows = 3,
 
   minRows,
@@ -134,6 +136,44 @@ export default function Textarea({
     maxRows,
   ]);
 
+  const textareaElement = (
+    <textarea
+      {...props}
+      id={textareaId}
+      ref={textareaRef}
+      rows={rows}
+      disabled={disabled}
+      className={clsx(
+        textareaVariants({
+          error: !!error,
+          disabled,
+          fullWidth,
+        }),
+        className
+      )}
+      style={{
+        resize: autoResize
+          ? "none"
+          : resize,
+      }}
+      aria-invalid={
+        error ? true : undefined
+      }
+      aria-describedby={
+        describedBy
+      }
+      onChange={(event) => {
+        resizeTextarea();
+
+        props.onChange?.(event);
+      }}
+    />
+  );
+
+  if (!withWrapper) {
+    return textareaElement;
+  }
+
   return (
     <FieldWrapper
       label={label}
@@ -146,37 +186,7 @@ export default function Textarea({
       fullWidth={fullWidth}
       disabled={disabled}
     >
-      <textarea
-        {...props}
-        id={textareaId}
-        ref={textareaRef}
-        rows={rows}
-        disabled={disabled}
-        className={clsx(
-          textareaVariants({
-            error: !!error,
-            disabled,
-            fullWidth,
-          }),
-          className
-        )}
-        style={{
-          resize: autoResize
-            ? "none"
-            : resize,
-        }}
-        aria-invalid={
-          error ? true : undefined
-        }
-        aria-describedby={
-          describedBy
-        }
-        onChange={(event) => {
-          resizeTextarea();
-
-          props.onChange?.(event);
-        }}
-      />
+      {textareaElement}
     </FieldWrapper>
   );
 }
