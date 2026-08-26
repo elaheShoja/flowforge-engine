@@ -7,14 +7,7 @@ import type {
   CountryFlagCode,
 } from "@/engine/assets/flags/country";
 
-export type FlagType =
-  | "country";
-
-export interface FlagProps {
-  type: FlagType;
-
-  code: CountryFlagCode;
-
+export interface BaseFlagProps {
   size?: number;
 
   className?: string;
@@ -27,3 +20,9 @@ export interface FlagProps {
 
   children?: ReactNode;
 }
+
+export type FlagProps =
+  | (BaseFlagProps & {
+      type: "country";
+      code: CountryFlagCode;
+    });

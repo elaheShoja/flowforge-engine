@@ -4,5 +4,4 @@ export {
 
 export type {
   FlagProps,
-  FlagType,
 } from "./Flag.types";

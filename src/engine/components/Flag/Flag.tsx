@@ -1,8 +1,8 @@
 import clsx from "clsx";
 
 import {
-  countryFlags,
-} from "@/engine/assets/flags";
+  flagRegistries,
+} from "./flagRegistry";
 
 import type {
   FlagProps,
@@ -19,11 +19,11 @@ export default function Flag({
   ariaLabel,
   style,
 }: FlagProps) {
-  if (type !== "country") {
-    return null;
-  }
+  const registry =
+    flagRegistries[type];
 
-  const FlagComponent = countryFlags[code];
+  const FlagComponent =
+    registry[code];
 
   if (!FlagComponent) {
     return null;
@@ -42,7 +42,9 @@ export default function Flag({
           className
         )}
         role="img"
-        aria-label={ariaLabel ?? title}
+        aria-label={
+          ariaLabel ?? title
+        }
         style={style}
       />
     </span>
