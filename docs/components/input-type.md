@@ -1,0 +1,356 @@
+# InputType
+
+`InputType` is a semantic layer built on top of the FlowForge `Input` component.
+
+It provides convenient defaults and type-specific behavior for common input types while keeping the underlying `Input` component reusable and independent.
+
+Supported types include:
+
+- `text`
+- `email`
+- `password`
+- `search`
+- `number`
+- `tel`
+- `url`
+
+---
+
+## Overview
+
+`InputType` is designed for cases where the consumer needs a specific semantic input type without manually configuring common properties such as labels, placeholders, icons, or type-specific behavior.
+
+```tsx
+<InputType type="email" />
+```
+
+The component automatically provides appropriate defaults.
+
+Consumer-provided values always take precedence over defaults.
+
+[Open Interactive Playground](/playground/input-type?focusId=input-type-interactive)
+
+---
+
+## Import
+
+```tsx
+import { InputType } from "@/engine/components";
+```
+
+---
+
+## Basic Usage
+
+```tsx
+<InputType type="text" />
+```
+
+The component resolves the default label and placeholder using the active translation.
+
+[Open Basic Usage in Playground](/playground/input-type?focusId=input-type-basic)
+
+---
+
+## Input Types
+
+### Text
+
+```tsx
+<InputType type="text" />
+```
+
+### Email
+
+```tsx
+<InputType type="email" />
+```
+
+### Number
+
+```tsx
+<InputType type="number" />
+```
+
+### Telephone
+
+```tsx
+<InputType type="tel" />
+```
+
+### URL
+
+```tsx
+<InputType type="url" />
+```
+
+[Open Input Types in Playground](/playground/input-type?focusId=input-type-types)
+
+---
+
+## Email
+
+The `email` type uses the native HTML email input type.
+
+```tsx
+<InputType
+  type="email"
+/>
+```
+
+InputType provides translated defaults for the label and placeholder.
+
+Validation remains the responsibility of the consumer or the FlowForge Form Engine.
+
+---
+
+## Password
+
+The `password` type provides built-in password visibility control.
+
+```tsx
+<InputType
+  type="password"
+/>
+```
+
+The visibility state is managed internally by `InputType`.
+
+The consumer does not need to implement the show/hide logic manually.
+
+[Open Password in Playground](/playground/input-type?focusId=input-type-password&innerFocusId=input-type-password-state)
+
+---
+
+## Search
+
+The `search` type provides search-specific defaults.
+
+```tsx
+<InputType
+  type="search"
+/>
+```
+
+By default, a search icon is displayed and the input is clearable.
+
+The defaults can be overridden:
+
+```tsx
+<InputType
+  type="search"
+  clearable={false}
+/>
+```
+
+[Open Search in Playground](/playground/input-type?focusId=input-type-search)
+
+---
+
+## Custom Overrides
+
+InputType provides defaults, but consumers can override them.
+
+For example:
+
+```tsx
+<InputType
+  type="email"
+  label="Work Email"
+  placeholder="name@company.com"
+/>
+```
+
+Consumer-provided values have priority over the type defaults.
+
+Icons can also be customized:
+
+```tsx
+<InputType
+  type="search"
+  startAdornment={<MySearchIcon />}
+/>
+```
+
+Similarly, search behavior can be customized:
+
+```tsx
+<InputType
+  type="search"
+  clearable={false}
+/>
+```
+
+[Open Custom Overrides in Playground](/playground/input-type?focusId=input-type-overrides)
+
+---
+
+## Default Behavior
+
+The defaults are resolved according to the selected type.
+
+| Type | Native Type | Default Label | Default Placeholder | Special Behavior |
+| --- | --- | --- | --- | --- |
+| `text` | `text` | Text | Enter text | — |
+| `email` | `email` | Email | Enter email | — |
+| `password` | `password` | Password | Enter password | Visibility toggle |
+| `search` | `search` | Search | Search... | Search icon, clearable |
+| `number` | `number` | Number | Enter number | Native number input |
+| `tel` | `tel` | Phone | Enter phone number | — |
+| `url` | `url` | URL | Enter URL | — |
+
+Default labels and placeholders are translated through the FlowForge i18n system.
+
+---
+
+## Controlled Usage
+
+`InputType` follows the same controlled input pattern as `Input`.
+
+```tsx
+import { useState } from "react";
+import { InputType } from "@/engine/components";
+
+export default function Example() {
+  const [email, setEmail] = useState("");
+
+  return (
+    <InputType
+      type="email"
+      value={email}
+      onChange={(event) =>
+        setEmail(event.target.value)
+      }
+    />
+  );
+}
+```
+
+---
+
+## Validation
+
+`InputType` does not own business validation.
+
+It provides the input type and UI behavior, while validation can be handled by the consumer or the FlowForge Form Engine.
+
+For example:
+
+```tsx
+<InputType
+  type="email"
+  error="Please enter a valid email address."
+/>
+```
+
+The component displays the supplied validation error through the underlying `Input`.
+
+The Form Engine can independently determine when and how validation should be performed.
+
+---
+
+## Form Engine Integration
+
+`InputType` can be used as the presentation layer for semantic input fields generated by the FlowForge Form Engine.
+
+For example:
+
+```ts
+{
+  type: "email",
+  name: "email",
+  label: "Email",
+  required: true
+}
+```
+
+The Form Engine can resolve the field definition to:
+
+```tsx
+<InputType
+  type="email"
+  label="Email"
+  required
+/>
+```
+
+This keeps:
+
+- input rendering
+- type-specific behavior
+- validation
+- form state
+- business rules
+
+as separate responsibilities.
+
+---
+
+## API
+
+### InputTypeProps
+
+`InputTypeProps` extends the `InputProps` API while replacing the native `type` property with the supported FlowForge input types.
+
+| Property | Type | Default | Description |
+| --- | --- | --- | --- |
+| `type` | `"text" \| "email" \| "password" \| "search" \| "number" \| "tel" \| "url"` | `"text"` | Semantic input type |
+| `label` | `string` | Type default | Custom label |
+| `placeholder` | `string` | Type default | Custom placeholder |
+| `startAdornment` | `ReactNode` | Type default | Custom leading content |
+| `endAdornment` | `ReactNode` | Type default | Custom trailing content |
+| `clearable` | `boolean` | Type default | Enables or disables the clear action |
+| `value` | `string` | — | Controlled value |
+| `onChange` | `(event) => void` | — | Input change callback |
+| `disabled` | `boolean` | `false` | Disables the input |
+| `required` | `boolean` | `false` | Marks the input as required |
+| `error` | `string` | — | Validation error |
+| `size` | `"sm" \| "md" \| "lg"` | `"md"` | Input size |
+| `fullWidth` | `boolean` | `true` | Makes the input full width |
+| `withWrapper` | `boolean` | `true` | Enables or disables the field wrapper |
+
+All other supported `InputProps` are inherited from the base `Input` component.
+
+---
+
+## Accessibility
+
+`InputType` uses the native HTML input element through the FlowForge `Input` component.
+
+Semantic input types such as `email`, `number`, `search`, `tel`, and `url` are passed to the underlying native input.
+
+Labels, descriptions, validation errors, required states, and disabled states are handled by the underlying field infrastructure.
+
+---
+
+## Architecture
+
+`InputType` is intentionally a thin semantic layer over `Input`.
+
+```text
+InputType
+    ↓
+Type Configuration
+    ↓
+Defaults / Type-specific Behavior
+    ↓
+Input
+    ↓
+FieldWrapper
+```
+
+The base `Input` component remains responsible for the common input UI and field infrastructure.
+
+`InputType` is responsible for semantic defaults and behavior specific to an input type.
+
+This allows the same component to be used both independently and inside the FlowForge Form Engine.
+
+---
+
+## Related Components
+
+- [Input](/docs/components/input)
+- [FieldWrapper](/docs/components/field-wrapper)
+- [Select](/docs/components/select)
+- [Checkbox](/docs/components/checkbox)
+- [Textarea](/docs/components/textarea)

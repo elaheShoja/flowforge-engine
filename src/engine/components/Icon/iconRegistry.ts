@@ -9,6 +9,7 @@ import {
   EyeOff,
   Info,
   LoaderCircle,
+  Mail,
   Minus,
   Plus,
   Search,
@@ -33,6 +34,12 @@ export const iconRegistry = {
   close: X,
   search: Search,
   check: Check,
+
+  /* =========================
+     Input Types
+  ========================= */
+
+  email: Mail,
 
   /* =========================
      Password

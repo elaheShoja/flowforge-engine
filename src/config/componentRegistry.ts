@@ -139,6 +139,18 @@ export const componentRegistry: ComponentMeta[] = [
   },
 
   {
+    id: "group-input",
+    name: "Group Input",
+    category: "form",
+    description:
+      "A composite form component for grouping multiple FlowForge components into a single field layout.",
+    docsPath: "/docs/components/group-input",
+    playgroundPath: "/playground/group-input",
+    status: "experimental",
+    showInPlayground: true,
+  },
+
+  {
     id: "button",
     name: "Button",
     category: "general",

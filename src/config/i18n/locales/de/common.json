@@ -5,5 +5,35 @@
   "search": "Suchen...",
   "selectAll": "Alle auswählen",
   "loading": "Wird geladen...",
-  "noResults": "Keine Ergebnisse gefunden"
+  "noResults": "Keine Ergebnisse gefunden",
+  "input": {
+    "text": {
+      "label": "Text",
+      "placeholder": "Text eingeben"
+    },
+    "email": {
+      "label": "E-Mail",
+      "placeholder": "E-Mail eingeben"
+    },
+    "password": {
+      "label": "Passwort",
+      "placeholder": "Passwort eingeben"
+    },
+    "search": {
+      "label": "Suche",
+      "placeholder": "Suchen..."
+    },
+    "number": {
+      "label": "Zahl",
+      "placeholder": "Zahl eingeben"
+    },
+    "tel": {
+      "label": "Telefon",
+      "placeholder": "Telefonnummer eingeben"
+    },
+    "url": {
+      "label": "URL",
+      "placeholder": "URL eingeben"
+    }
+  }
 }

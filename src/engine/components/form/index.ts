@@ -24,4 +24,15 @@ export { default as Radio } from "./Radio";
 export type { RadioProps } from "./Radio";
 
 export { default as Switch } from "./Switch";
-export type { SwitchProps } from ".//Switch";
+export type { SwitchProps } from "./Switch";
+
+export { default as InputType } from "./InputType";
+export type { InputTypeProps, InputTypeName } from "./InputType";
+
+export { default as GroupInput } from "./GroupInput";
+export type {
+  GroupInputProps,
+  GroupInputItem,
+  GroupInputValue,
+  GroupInputDirection,
+} from "./GroupInput";

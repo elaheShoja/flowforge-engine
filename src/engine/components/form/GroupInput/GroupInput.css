@@ -1,0 +1,74 @@
+.ff-group-input {
+  display: flex;
+  width: 100%;
+  min-width: 0;
+  align-items: stretch;
+
+  border: 1px solid
+    var(--ff-border-color, #d9d9d9);
+
+  border-radius: 6px;
+
+  overflow: hidden;
+}
+
+/* ==========================================================
+   Direction
+========================================================== */
+
+.ff-group-input--horizontal {
+  flex-direction: row;
+}
+
+.ff-group-input--vertical {
+  flex-direction: column;
+}
+
+/* ==========================================================
+   Items
+========================================================== */
+
+.ff-group-input__item {
+  flex: 1 1 0;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+}
+
+/*
+ * Every child component receives the
+ * full space assigned to its item.
+ *
+ * Child components do not render their
+ * own FieldWrapper.
+ */
+.ff-group-input__item > * {
+  width: 100%;
+  margin: 0;
+}
+
+/* ==========================================================
+   Divider
+========================================================== */
+
+.ff-group-input--divider.ff-group-input--horizontal
+  .ff-group-input__item
+  + .ff-group-input__item {
+  border-left: 1px solid
+    var(--ff-border-color, #d9d9d9);
+}
+
+.ff-group-input--divider.ff-group-input--vertical
+  .ff-group-input__item
+  + .ff-group-input__item {
+  border-top: 1px solid
+    var(--ff-border-color, #d9d9d9);
+}
+
+/* ==========================================================
+   Disabled
+========================================================== */
+
+.ff-group-input--disabled {
+  cursor: not-allowed;
+}

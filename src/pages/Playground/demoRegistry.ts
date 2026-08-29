@@ -13,6 +13,7 @@ import SpinnerDemo from "./demos/SpinnerDemo";
 import RadioDemo from "./demos/RadioDemo";
 import SwitchDemo from "./demos/SwitchDemo";
 import FlagDemo from "./demos/FlagDemo";
+import GroupInputDemo from "./demos/GroupInputDemo";
 //import InputTypeDemo from "./demos/InputTypeDemo";
 
 export type PlaygroundDemo = ComponentType<{
@@ -35,6 +36,7 @@ export const playgroundRegistry: Record<
   checkbox: CheckboxDemo,
   radio: RadioDemo,
   switch: SwitchDemo,
+  "group-input": GroupInputDemo,
   button: ButtonDemo,
   spinner: SpinnerDemo,
   collapse: CollapseDemo,

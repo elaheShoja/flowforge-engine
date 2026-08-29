@@ -184,6 +184,19 @@ export const documentationGroups: DocumentationGroup[] = [
       },
 
       {
+        id: "group-input",
+        title: "Group Input",
+        description:
+          "A composite form component for grouping multiple FlowForge components into a single field layout.",
+        section: "components",
+        path: "/docs/components/group-input",
+        contentPath: "components/group-input.md",
+        order: 11,
+        componentId: "group-input",
+        playgroundPath: "/playground/group-input",
+      },
+
+      {
         id: "button",
         title: "Button",
         description:
@@ -191,7 +204,7 @@ export const documentationGroups: DocumentationGroup[] = [
         section: "components",
         path: "/docs/components/button",
         contentPath: "components/button.md",
-        order: 11,
+        order: 12,
         componentId: "button",
         playgroundPath: "/playground/button",
       },
@@ -204,7 +217,7 @@ export const documentationGroups: DocumentationGroup[] = [
         section: "components",
         path: "/docs/components/spinner",
         contentPath: "components/spinner.md",
-        order: 12,
+        order: 13,
         componentId: "spinner",
         playgroundPath: "/playground/spinner",
       },
@@ -217,7 +230,7 @@ export const documentationGroups: DocumentationGroup[] = [
         section: "components",
         path: "/docs/components/collapse",
         contentPath: "components/collapse.md",
-        order: 13,
+        order: 14,
         componentId: "collapse",
         playgroundPath: "/playground/collapse",
       },
@@ -230,7 +243,7 @@ export const documentationGroups: DocumentationGroup[] = [
         section: "components",
         path: "/docs/components/collapse-group",
         contentPath: "components/collapse-group.md",
-        order: 14,
+        order: 15,
         componentId: "collapse-group",
         playgroundPath: "/playground/collapse-group",
       },
