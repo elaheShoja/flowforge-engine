@@ -1,32 +1,44 @@
-import clsx from "clsx";
+import { cva } from "class-variance-authority";
 
-export type GroupInputDirection =
-  | "horizontal"
-  | "vertical";
+export const groupInputVariants = cva(
+  "ff-group-input",
+  {
+    variants: {
+      direction: {
+        horizontal:
+          "ff-group-input--horizontal",
 
-interface GroupInputStyleOptions {
-  direction: GroupInputDirection;
+        vertical:
+          "ff-group-input--vertical",
+      },
 
-  divider?: boolean;
+      divider: {
+        true: "ff-group-input--divider",
+        false: "",
+      },
 
-  disabled?: boolean;
+      disabled: {
+        true: "ff-group-input--disabled",
+        false: "",
+      },
 
-  className?: string;
-}
+      fullWidth: {
+        true: "ff-group-input--full",
+        false: "",
+      },
 
-export function groupInputVariants({
-  direction,
-  divider = false,
-  disabled = false,
-  className,
-}: GroupInputStyleOptions) {
-  return clsx(
-    "ff-group-input",
-    `ff-group-input--${direction}`,
-    divider &&
-      "ff-group-input--divider",
-    disabled &&
-      "ff-group-input--disabled",
-    className
-  );
-}
+      noBorder: {
+        true: "ff-group-input--no-border",
+        false: "",
+      },
+    },
+
+    defaultVariants: {
+      direction: "horizontal",
+      divider: true,
+      disabled: false,
+      fullWidth: true,
+      noBorder: false,
+    },
+  }
+);

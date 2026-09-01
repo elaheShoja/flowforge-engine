@@ -29,6 +29,8 @@ export interface ButtonProps
 
   fullWidth?: boolean;
 
+  noBorder?: boolean;
+
   leftIcon?: ReactNode;
 
   rightIcon?: ReactNode;

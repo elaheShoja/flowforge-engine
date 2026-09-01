@@ -14,6 +14,7 @@ export default function Button({
   loading = false,
   disabled = false,
   fullWidth = false,
+  noBorder = false,
   leftIcon,
   rightIcon,
   className,
@@ -27,6 +28,7 @@ export default function Button({
       variant,
       size,
       fullWidth,
+      noBorder: !!noBorder,
     }),
     className
   );

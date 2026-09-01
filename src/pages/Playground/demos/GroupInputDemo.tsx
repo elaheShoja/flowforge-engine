@@ -1,9 +1,13 @@
-import { useState } from "react";
+import {
+  useRef,
+  useState,
+} from "react";
 
 import {
   Checkbox,
   Collapse,
   CollapseGroup,
+  Flag,
   GroupInput,
   Select,
 } from "@/engine/components";
@@ -26,12 +30,11 @@ export default function GroupInputDemo({
   const sectionIds = [
     "group-input-interactive",
     "group-input-basic",
-    "group-input-horizontal",
-    "group-input-vertical",
-    "group-input-divider",
-    "group-input-wrappers",
-    "group-input-mixed",
+    "group-input-controlled",
     "group-input-states",
+    "group-input-layouts",
+    "group-input-action",
+    "group-input-flex",
   ];
 
   const [sectionActiveIds, setSectionActiveIds] =
@@ -62,7 +65,7 @@ export default function GroupInputDemo({
     ]);
 
   /* ==================================================
-     Interactive State
+     Interactive Playground
   ================================================== */
 
   const [direction, setDirection] =
@@ -71,7 +74,7 @@ export default function GroupInputDemo({
     );
 
   const [divider, setDivider] =
-    useState(false);
+    useState(true);
 
   const [fullWidth, setFullWidth] =
     useState(true);
@@ -82,16 +85,48 @@ export default function GroupInputDemo({
   const [withWrapper, setWithWrapper] =
     useState(true);
 
-  const [itemWithWrapper, setItemWithWrapper] =
-    useState(false);
+  const [interactiveValue, setInteractiveValue] =
+    useState<Record<string, unknown>>({
+      firstName: "Elahe",
+      lastName: "Shoja",
+      country: "ir",
+    });
 
-  const [value, setValue] = useState<
-    Record<string, unknown>
-  >({
-    firstName: "Elahe",
-    lastName: "Shoja",
-    country: "ir",
-  });
+  /* ==================================================
+     Controlled Select
+  ================================================== */
+
+  const [controlledCountry, setControlledCountry] =
+    useState("de");
+
+  const [controlledValue, setControlledValue] =
+    useState<Record<string, unknown>>({
+      country: "de",
+      language: "de",
+    });
+
+  /* ==================================================
+     Action Group
+  ================================================== */
+
+  const phoneInputRef =
+    useRef<HTMLInputElement>(null);
+
+  const countryCodes: Record<string, string> = {
+    ir: "+98",
+    de: "+49",
+    az: "+994",
+    tr: "+90",
+  };
+
+  const [actionCountry, setActionCountry] =
+    useState("ir");
+
+  const [actionValue, setActionValue] =
+    useState<Record<string, unknown>>({
+      country: "ir",
+      phone: "",
+    });
 
   /* ==================================================
      Options
@@ -110,26 +145,141 @@ export default function GroupInputDemo({
       value: "az",
       label: "Azerbaijan",
     },
+    {
+      value: "tr",
+      label: "Turkey",
+    },
+  ];
+
+  const languageOptions = [
+    {
+      value: "fa",
+      label: "Persian",
+    },
+    {
+      value: "de",
+      label: "German",
+    },
+    {
+      value: "en",
+      label: "English",
+    },
   ];
 
   /* ==================================================
-     Shared Example
+     Action Country Options
   ================================================== */
 
-  const basicItems = [
+  const actionCountryOptions = [
     {
-      componentName: "Input",
-      name: "firstName",
-      label: "First Name",
-      placeholder: "First name",
+      value: "ir",
+      label: (
+        <span
+          style={{
+            display: "inline-flex",
+            alignItems: "center",
+            gap: "var(--space-xs)",
+          }}
+        >
+          <Flag
+            type="country"
+            code="IR"
+            size={16}
+          />
+
+          <span>Iran</span>
+        </span>
+      ),
     },
     {
-      componentName: "Input",
-      name: "lastName",
-      label: "Last Name",
-      placeholder: "Last name",
+      value: "de",
+      label: (
+        <span
+          style={{
+            display: "inline-flex",
+            alignItems: "center",
+            gap: "var(--space-xs)",
+          }}
+        >
+          <Flag
+            type="country"
+            code="DE"
+            size={16}
+          />
+
+          <span>Germany</span>
+        </span>
+      ),
+    },
+    {
+      value: "az",
+      label: (
+        <span
+          style={{
+            display: "inline-flex",
+            alignItems: "center",
+            gap: "var(--space-xs)",
+          }}
+        >
+          <Flag
+            type="country"
+            code="AZ"
+            size={16}
+          />
+
+          <span>Azerbaijan</span>
+        </span>
+      ),
+    },
+    {
+      value: "tr",
+      label: (
+        <span
+          style={{
+            display: "inline-flex",
+            alignItems: "center",
+            gap: "var(--space-xs)",
+          }}
+        >
+          <Flag
+            type="country"
+            code="TR"
+            size={16}
+          />
+
+          <span>Turkey</span>
+        </span>
+      ),
     },
   ];
+
+  /* ==================================================
+     Action Country Change
+  ================================================== */
+
+  const handleActionCountryChange = (
+    value: unknown
+  ) => {
+    const nextCountry =
+      value as string;
+
+    setActionCountry(nextCountry);
+
+    setActionValue(
+      (previous) => ({
+        ...previous,
+        country: nextCountry,
+      })
+    );
+
+    /*
+     * Focus the phone input after
+     * selecting a country.
+     */
+    requestAnimationFrame(() => {
+      phoneInputRef.current?.focus();
+    });
+  };
 
   return (
     <div className="playground-stack">
@@ -153,6 +303,16 @@ export default function GroupInputDemo({
           title="Interactive Playground"
         >
           <div className="playground-section">
+            <div className="playground-section__header">
+              <h2>Interactive Playground</h2>
+
+              <p>
+                Experiment with GroupInput layout,
+                divider, width, wrapper, and disabled
+                states.
+              </p>
+            </div>
+
             <div className="playground-controls">
               {/* Direction */}
 
@@ -201,19 +361,9 @@ export default function GroupInputDemo({
               {/* Group Wrapper */}
 
               <Checkbox
-                label="Group Wrapper"
+                label="With Wrapper"
                 checked={withWrapper}
                 onChange={setWithWrapper}
-                alignWithField
-              />
-
-              {/* Item Wrappers */}
-
-              <Checkbox
-                label="Item Wrappers"
-                checked={itemWithWrapper}
-                onChange={setItemWithWrapper}
-                alignWithField
               />
 
               {/* Disabled */}
@@ -222,7 +372,6 @@ export default function GroupInputDemo({
                 label="Disabled"
                 checked={disabled}
                 onChange={setDisabled}
-                alignWithField
               />
             </div>
 
@@ -236,33 +385,24 @@ export default function GroupInputDemo({
                 fullWidth={fullWidth}
                 disabled={disabled}
                 withWrapper={withWrapper}
-                value={value}
-                onChange={setValue}
+                value={interactiveValue}
+                onChange={setInteractiveValue}
                 items={[
                   {
                     componentName: "Input",
                     name: "firstName",
-                    label: "First Name",
                     placeholder: "First name",
-                    withWrapper:
-                      itemWithWrapper,
                   },
                   {
                     componentName: "Input",
                     name: "lastName",
-                    label: "Last Name",
                     placeholder: "Last name",
-                    withWrapper:
-                      itemWithWrapper,
                   },
                   {
                     componentName: "Select",
                     name: "country",
-                    label: "Country",
                     options:
                       countryOptions,
-                    withWrapper:
-                      itemWithWrapper,
                   },
                 ]}
               />
@@ -271,7 +411,9 @@ export default function GroupInputDemo({
             <p className="playground-value">
               Current value:{" "}
               <strong>
-                {JSON.stringify(value)}
+                {JSON.stringify(
+                  interactiveValue
+                )}
               </strong>
             </p>
           </div>
@@ -290,289 +432,100 @@ export default function GroupInputDemo({
               <h2>Basic Usage</h2>
 
               <p>
-                Group multiple FlowForge form
-                components into a single logical
-                field group.
+                Group multiple form components
+                into a single logical value.
               </p>
             </div>
 
             <GroupInput
               name="person"
-              label="Person"
-              items={basicItems}
-            />
-          </div>
-        </Collapse>
-
-        {/* ==================================================
-            Horizontal Layout
-        ================================================== */}
-
-        <Collapse
-          id="group-input-horizontal"
-          title="Horizontal Layout"
-        >
-          <div className="playground-section">
-            <div className="playground-section__header">
-              <h2>Horizontal Layout</h2>
-
-              <p>
-                GroupInput uses horizontal layout
-                by default.
-              </p>
-            </div>
-
-            <GroupInput
-              name="horizontal"
-              label="Contact"
-              direction="horizontal"
+              label="Personal Information"
               items={[
                 {
                   componentName: "Input",
                   name: "firstName",
-                  label: "First Name",
                   placeholder: "First name",
-                  withWrapper: false,
                 },
                 {
                   componentName: "Input",
                   name: "lastName",
-                  label: "Last Name",
                   placeholder: "Last name",
-                  withWrapper: false,
-                },
-              ]}
-            />
-          </div>
-        </Collapse>
-
-        {/* ==================================================
-            Vertical Layout
-        ================================================== */}
-
-        <Collapse
-          id="group-input-vertical"
-          title="Vertical Layout"
-        >
-          <div className="playground-section">
-            <div className="playground-section__header">
-              <h2>Vertical Layout</h2>
-
-              <p>
-                Set direction to vertical when
-                grouped fields should be stacked.
-              </p>
-            </div>
-
-            <GroupInput
-              name="vertical"
-              label="Address"
-              direction="vertical"
-              items={[
-                {
-                  componentName: "Input",
-                  name: "street",
-                  label: "Street",
-                  placeholder: "Street",
-                  withWrapper: false,
-                },
-                {
-                  componentName: "Input",
-                  name: "city",
-                  label: "City",
-                  placeholder: "City",
-                  withWrapper: false,
-                },
-                {
-                  componentName: "Input",
-                  name: "postalCode",
-                  label: "Postal Code",
-                  placeholder: "Postal code",
-                  withWrapper: false,
-                },
-              ]}
-            />
-          </div>
-        </Collapse>
-
-        {/* ==================================================
-            Divider
-        ================================================== */}
-
-        <Collapse
-          id="group-input-divider"
-          title="Divider"
-        >
-          <div className="playground-section">
-            <div className="playground-section__header">
-              <h2>Divider</h2>
-
-              <p>
-                Use the divider property to
-                visually separate grouped items.
-              </p>
-            </div>
-
-            <div className="ff-playground-demo__grid">
-              <GroupInput
-                name="withoutDivider"
-                label="Without Divider"
-                divider={false}
-                items={[
-                  {
-                    componentName: "Input",
-                    name: "first",
-                    label: "First",
-                    withWrapper: false,
-                  },
-                  {
-                    componentName: "Input",
-                    name: "second",
-                    label: "Second",
-                    withWrapper: false,
-                  },
-                ]}
-              />
-
-              <GroupInput
-                name="withDivider"
-                label="With Divider"
-                divider
-                items={[
-                  {
-                    componentName: "Input",
-                    name: "first",
-                    label: "First",
-                    withWrapper: false,
-                  },
-                  {
-                    componentName: "Input",
-                    name: "second",
-                    label: "Second",
-                    withWrapper: false,
-                  },
-                ]}
-              />
-            </div>
-          </div>
-        </Collapse>
-
-        {/* ==================================================
-            Wrappers
-        ================================================== */}
-
-        <Collapse
-          id="group-input-wrappers"
-          title="Field Wrappers"
-        >
-          <div className="playground-section">
-            <div className="playground-section__header">
-              <h2>Field Wrappers</h2>
-
-              <p>
-                GroupInput can render its own
-                FieldWrapper independently from
-                the wrappers of its child
-                components.
-              </p>
-            </div>
-
-            <div className="ff-playground-demo__grid">
-              <GroupInput
-                name="groupWrapper"
-                label="Group Wrapper"
-                withWrapper
-                items={[
-                  {
-                    componentName: "Input",
-                    name: "first",
-                    label: "First",
-                    withWrapper: false,
-                  },
-                  {
-                    componentName: "Input",
-                    name: "second",
-                    label: "Second",
-                    withWrapper: false,
-                  },
-                ]}
-              />
-
-              <GroupInput
-                name="noGroupWrapper"
-                withWrapper={false}
-                items={[
-                  {
-                    componentName: "Input",
-                    name: "first",
-                    label: "First",
-                    withWrapper: false,
-                  },
-                  {
-                    componentName: "Input",
-                    name: "second",
-                    label: "Second",
-                    withWrapper: false,
-                  },
-                ]}
-              />
-            </div>
-          </div>
-        </Collapse>
-
-        {/* ==================================================
-            Mixed Components
-        ================================================== */}
-
-        <Collapse
-          id="group-input-mixed"
-          title="Mixed Components"
-        >
-          <div className="playground-section">
-            <div className="playground-section__header">
-              <h2>Mixed Components</h2>
-
-              <p>
-                GroupInput can combine different
-                FlowForge components without
-                defining component-specific logic.
-              </p>
-            </div>
-
-            <GroupInput
-              name="mixed"
-              label="User Preferences"
-              direction="vertical"
-              items={[
-                {
-                  componentName: "Input",
-                  name: "username",
-                  label: "Username",
-                  placeholder: "Username",
-                  withWrapper: false,
                 },
                 {
                   componentName: "Select",
                   name: "country",
-                  label: "Country",
                   options:
                     countryOptions,
-                  withWrapper: false,
-                },
-                {
-                  componentName: "Checkbox",
-                  name: "newsletter",
-                  label: "Subscribe to newsletter",
-                  withWrapper: false,
-                },
-                {
-                  componentName: "Switch",
-                  name: "notifications",
-                  label: "Enable notifications",
-                  withWrapper: false,
                 },
               ]}
             />
+          </div>
+        </Collapse>
+
+        {/* ==================================================
+            Controlled Select
+        ================================================== */}
+
+        <Collapse
+          id="group-input-controlled"
+          title="Controlled Select"
+        >
+          <div className="playground-section">
+            <div className="playground-section__header">
+              <h2>Controlled Select</h2>
+
+              <p>
+                GroupInput can control values of
+                different child components while
+                exposing a single value object.
+              </p>
+            </div>
+
+            <GroupInput
+              name="preferences"
+              label="Preferences"
+              value={controlledValue}
+              onChange={setControlledValue}
+              items={[
+                {
+                  componentName: "Select",
+                  name: "country",
+                  value: controlledCountry,
+                  options:
+                    countryOptions,
+                  onChange: (
+                    value: unknown
+                  ) => {
+                    const nextCountry =
+                      value as string;
+
+                    setControlledCountry(
+                      nextCountry
+                    );
+                  },
+                },
+                {
+                  componentName: "Select",
+                  name: "language",
+                  options:
+                    languageOptions,
+                },
+              ]}
+            />
+
+            <p className="playground-value">
+              Selected country:{" "}
+              <strong>
+                {controlledCountry}
+              </strong>
+              {" — "}
+              Value:{" "}
+              <strong>
+                {JSON.stringify(
+                  controlledValue
+                )}
+              </strong>
+            </p>
           </div>
         </Collapse>
 
@@ -589,8 +542,8 @@ export default function GroupInputDemo({
               <h2>States</h2>
 
               <p>
-                Common GroupInput states used in
-                FlowForge forms.
+                Common GroupInput states used
+                in FlowForge forms.
               </p>
             </div>
 
@@ -600,7 +553,9 @@ export default function GroupInputDemo({
               onChange={setStateActiveIds}
               focusId={
                 innerFocusId &&
-                stateIds.includes(innerFocusId)
+                stateIds.includes(
+                  innerFocusId
+                )
                   ? innerFocusId
                   : undefined
               }
@@ -619,14 +574,20 @@ export default function GroupInputDemo({
                       {
                         componentName: "Input",
                         name: "first",
-                        label: "First Name",
-                        withWrapper: false,
+                        placeholder:
+                          "First name",
                       },
                       {
                         componentName: "Input",
                         name: "last",
-                        label: "Last Name",
-                        withWrapper: false,
+                        placeholder:
+                          "Last name",
+                      },
+                      {
+                        componentName: "Select",
+                        name: "country",
+                        options:
+                          countryOptions,
                       },
                     ]}
                   />
@@ -648,16 +609,19 @@ export default function GroupInputDemo({
                       {
                         componentName: "Input",
                         name: "first",
-                        label: "First Name",
                         value: "Elahe",
-                        withWrapper: false,
                       },
                       {
                         componentName: "Input",
                         name: "last",
-                        label: "Last Name",
                         value: "Shoja",
-                        withWrapper: false,
+                      },
+                      {
+                        componentName: "Select",
+                        name: "country",
+                        value: "de",
+                        options:
+                          countryOptions,
                       },
                     ]}
                   />
@@ -673,20 +637,26 @@ export default function GroupInputDemo({
                 <div className="playground-section">
                   <GroupInput
                     name="required"
-                    label="Required"
+                    label="Required Information"
                     required
                     items={[
                       {
                         componentName: "Input",
                         name: "first",
-                        label: "First Name",
-                        withWrapper: false,
+                        placeholder:
+                          "First name",
                       },
                       {
                         componentName: "Input",
                         name: "last",
-                        label: "Last Name",
-                        withWrapper: false,
+                        placeholder:
+                          "Last name",
+                      },
+                      {
+                        componentName: "Select",
+                        name: "country",
+                        options:
+                          countryOptions,
                       },
                     ]}
                   />
@@ -708,20 +678,404 @@ export default function GroupInputDemo({
                       {
                         componentName: "Input",
                         name: "first",
-                        label: "First Name",
-                        withWrapper: false,
+                        placeholder:
+                          "First name",
                       },
                       {
                         componentName: "Input",
                         name: "last",
-                        label: "Last Name",
-                        withWrapper: false,
+                        placeholder:
+                          "Last name",
+                      },
+                      {
+                        componentName: "Select",
+                        name: "country",
+                        options:
+                          countryOptions,
                       },
                     ]}
                   />
                 </div>
               </Collapse>
             </CollapseGroup>
+          </div>
+        </Collapse>
+
+        {/* ==================================================
+            Flex
+        ================================================== */}
+
+        <Collapse
+          id="group-input-flex"
+          title="Flex"
+        >
+          <div className="playground-section">
+            <div className="playground-section__header">
+              <h2>Flex</h2>
+
+              <p>
+                Control the relative width of GroupInput
+                items using the flex property.
+              </p>
+            </div>
+
+            <div className="playground-stack--spaced " >
+              <GroupInput
+                name="flex"
+                label="Flex Layout 1.2.1"
+                direction="horizontal"
+                items={[
+                  {
+                    componentName: "Input",
+                    name: "firstName",
+                    placeholder: "First name",
+                    flex: 1,
+                  },
+                  {
+                    componentName: "Input",
+                    name: "lastName",
+                    placeholder: "Last name",
+                    flex: 2,
+                  },
+                  {
+                    componentName: "Select",
+                    name: "country",
+                    options: countryOptions,
+                    flex: 1,
+                  },
+                ]}
+              />
+
+              <GroupInput
+                name="flex"
+                label="Flex Layout 1.1.2 "
+                direction="horizontal"
+                items={[
+                  {
+                    componentName: "Input",
+                    name: "firstName",
+                    placeholder: "First name",
+                    flex: 1,
+                  },
+                  {
+                    componentName: "Input",
+                    name: "lastName",
+                    placeholder: "Last name",
+                    flex: 1,
+                  },
+                  {
+                    componentName: "Select",
+                    name: "country",
+                    options: countryOptions,
+                    flex: 2,
+                  },
+                ]}
+              />
+            </div>
+          </div>
+        </Collapse>
+
+        {/* ==================================================
+            Vertical & Horizontal
+        ================================================== */}
+
+        <Collapse
+          id="group-input-layouts"
+          title="Vertical & Horizontal"
+        >
+          <div className="playground-section">
+            <div className="playground-section__header">
+              <h2>Vertical & Horizontal</h2>
+
+              <p>
+                GroupInput supports both compact
+                horizontal groups and stacked
+                vertical groups.
+              </p>
+            </div>
+
+            <div className="playground-stack--spaced " >
+              {/* Horizontal */}
+
+              <GroupInput
+                name="contact"
+                label="Contact"
+                direction="horizontal"
+                items={[
+                  {
+                    componentName: "Input",
+                    name: "firstName",
+                    placeholder: "First name",
+                  },
+                  {
+                    componentName: "Input",
+                    name: "lastName",
+                    placeholder: "Last name",
+                  },
+                  {
+                    componentName: "Select",
+                    name: "country",
+                    options: countryOptions,
+                  },
+                  {
+                    componentName: "Radio",
+                    name: "visibility",
+                    label: "Public Profile",
+                  },
+                ]}
+              />
+
+              {/* Vertical */}
+
+              <GroupInput
+                name="address"
+                label="Address"
+                direction="vertical"
+                items={[
+                  {
+                    componentName: "Input",
+                    name: "street",
+                    placeholder:
+                      "Street address",
+                  },
+                  {
+                    componentName: "Input",
+                    name: "city",
+                    placeholder: "City",
+                  },
+                  {
+                    componentName: "Input",
+                    name: "postalCode",
+                    placeholder:
+                      "Postal code",
+                  },
+                  {
+                    componentName: "Radio",
+                    name: "visibility",
+                    label: "Public Profile",
+                  },
+                ]}
+              />
+            </div>
+          </div>
+        </Collapse>
+
+        {/* ==================================================
+            Action Group
+        ================================================== */}
+
+        <Collapse
+          id="group-input-action"
+          title="Action Group"
+        >
+          <div className="playground-section">
+            <div className="playground-section__header">
+              <h2>Action Group</h2>
+
+              <p>
+                Combine a compact country selector
+                with a phone input. Selecting a
+                country updates the phone prefix and
+                automatically focuses the input.
+              </p>
+            </div>
+
+            <div className="playground-preview">
+              <GroupInput
+                name="phone"
+                direction="horizontal"
+                fullWidth={false}
+                value={actionValue}
+                onChange={setActionValue}
+                items={[
+                  {
+                    componentName: "Select",
+                    name: "country",
+                    value:
+                      actionCountry,
+                    options:
+                      actionCountryOptions,
+                    onChange:
+                      handleActionCountryChange,
+                  },
+                  {
+                    componentName: "Input",
+                    name: "phone",
+                    placeholder:
+                      "Phone number",
+                    prefix:
+                      countryCodes[
+                        actionCountry
+                      ],
+                    ref:
+                      phoneInputRef,
+                    flex: 2
+                  },
+                ]}
+              />
+            </div>
+
+            <p className="playground-value">
+              Current value:{" "}
+              <strong>
+                {JSON.stringify(
+                  actionValue
+                )}
+              </strong>
+            </p>
+          </div>
+        </Collapse>
+
+        {/* ==================================================
+            Examples
+        ================================================== */}
+
+        <Collapse
+          id="group-input-examples"
+          title="Examples"
+        >
+          <div className="playground-section">
+            <div className="playground-section__header">
+              <h2>Examples</h2>
+
+              <p>
+                GroupInput can combine many different
+                FlowForge components in the same
+                logical field.
+              </p>
+            </div>
+
+            <div className="playground-stack--spaced " >
+
+              {/* User Profile */}
+
+              <GroupInput
+                name="profile"
+                label="User Profile"
+                items={[
+                  {
+                    componentName: "Input",
+                    name: "name",
+                    placeholder: "Full name",
+                  },
+                  {
+                    componentName: "Select",
+                    name: "country",
+                    options:
+                      countryOptions,
+                  },
+                  {
+                    componentName: "Switch",
+                    name: "active",
+                  },
+                ]}
+              />
+
+              {/* Notifications */}
+
+              <GroupInput
+                name="notifications"
+                label="Notifications"
+                items={[
+                  {
+                    componentName: "Checkbox",
+                    name: "email",
+                    label: "Email",
+                  },
+                  {
+                    componentName: "Checkbox",
+                    name: "sms",
+                    label: "SMS",
+                  },
+                  {
+                    componentName: "Switch",
+                    name: "push",
+                    label: "Push",
+                  },
+                ]}
+              />
+
+              {/* Shipping */}
+
+              <GroupInput
+                name="shipping"
+                label="Shipping Address"
+                direction="vertical"
+                items={[
+                  {
+                    componentName: "Input",
+                    name: "street",
+                    placeholder: "Street address",
+                  },
+                  {
+                    componentName: "Input",
+                    name: "city",
+                    placeholder: "City",
+                  },
+                  {
+                    componentName: "Select",
+                    name: "country",
+                    options:
+                      countryOptions,
+                  },
+                  {
+                    componentName: "Input",
+                    name: "postalCode",
+                    placeholder:
+                      "Postal code",
+                  },
+                ]}
+              />
+
+              {/* Account Settings */}
+
+              <GroupInput
+                name="account"
+                label="Account Settings"
+                items={[
+                  {
+                    componentName: "Input",
+                    name: "username",
+                    placeholder: "Username",
+                  },
+                  {
+                    componentName: "Select",
+                    name: "language",
+                    options:
+                      languageOptions,
+                  },
+                  {
+                    componentName: "Radio",
+                    name: "visibility",
+                    label: "Public Profile",
+                  },
+                ]}
+              />
+
+              {/* Contact Preference */}
+
+              <GroupInput
+                name="contactPreference"
+                label="Contact Preference"
+                items={[
+                  {
+                    componentName: "Radio",
+                    name: "preferred",
+                    label: "Email",
+                  },
+                  {
+                    componentName: "Radio",
+                    name: "secondary",
+                    label: "Phone",
+                  },
+                  {
+                    componentName: "Switch",
+                    name: "allowContact",
+                    label: "Active",
+                  },
+                ]}
+              />
+              </div>
           </div>
         </Collapse>
       </CollapseGroup>

@@ -32,6 +32,18 @@ export interface GroupInputItem {
   value?: unknown;
 
   /**
+   * Controls the item's share of the available
+   * space inside the GroupInput.
+   *
+   * Items without a flex value use the default
+   * equal distribution.
+   *
+   * Examples:
+   * 1, 2, 3
+   */
+  flex?: number;
+
+  /**
    * Component-specific props.
    *
    * GroupInput controls the internal
@@ -102,6 +114,16 @@ export interface GroupInputProps {
    * Default: true.
    */
   fullWidth?: boolean;
+
+  /**
+   * Removes the outer border.
+   *
+   * Dividers between items remain
+   * available when enabled.
+   *
+   * Default: false.
+   */
+  noBorder?: boolean;
 
   /**
    * GroupInput items.

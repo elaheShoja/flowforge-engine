@@ -53,6 +53,25 @@
 
 
 /* ==========================================================
+   No Border
+   ========================================================== */
+
+.ff-textarea--no-border {
+  border: none;
+  border-radius: 0;
+}
+
+.ff-textarea--no-border:hover:not(:disabled) {
+  border-color: transparent;
+}
+
+.ff-textarea--no-border:focus-visible {
+  border-color: transparent;
+  box-shadow: none;
+}
+
+
+/* ==========================================================
    Error
    ========================================================== */
 
@@ -66,6 +85,12 @@
   box-shadow:
     0 0 0 3px
     rgba(220, 38, 38, 0.16);
+}
+
+.ff-textarea--no-border.ff-textarea--error,
+.ff-textarea--no-border.ff-textarea--error:focus-visible {
+  border-color: transparent;
+  box-shadow: none;
 }
 
 
@@ -90,6 +115,13 @@
 .ff-textarea--disabled:focus,
 .ff-textarea:disabled:focus {
   outline: none;
+  box-shadow: none;
+}
+
+.ff-textarea--no-border.ff-textarea--disabled,
+.ff-textarea--no-border.ff-textarea--disabled:hover,
+.ff-textarea--no-border.ff-textarea--disabled:focus {
+  border-color: transparent;
   box-shadow: none;
 }
 

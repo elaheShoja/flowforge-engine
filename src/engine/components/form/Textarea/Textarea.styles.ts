@@ -18,12 +18,18 @@ export const textareaVariants = cva(
         true: "ff-textarea--full",
         false: "",
       },
+
+      noBorder: {
+        true: "ff-textarea--no-border",
+        false: "",
+      },
     },
 
     defaultVariants: {
       error: false,
       disabled: false,
       fullWidth: true,
+      noBorder: false,
     },
   }
 );

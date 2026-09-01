@@ -24,6 +24,8 @@ export interface InputProps
 
   fullWidth?: boolean;
 
+  noBorder?: boolean;
+
   startAdornment?: ReactNode;
 
   endAdornment?: ReactNode;

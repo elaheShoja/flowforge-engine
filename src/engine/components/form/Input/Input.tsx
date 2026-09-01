@@ -24,6 +24,8 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
 
       fullWidth = true,
 
+      noBorder = false,
+
       loading = false,
       loadingText,
 
@@ -93,6 +95,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
             error: !!error,
             disabled: disabled || loading,
             fullWidth,
+            noBorder: !!noBorder,
           }),
           className
         )}

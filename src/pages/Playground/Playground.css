@@ -830,6 +830,8 @@
 .playground-value {
   margin: 0;
 
+  margin-top: var(--space-xl);
+
   text-align: center;
 
   color:
@@ -938,6 +940,18 @@
   justify-content: center;
   gap: 12px;
   margin-top: 16px;
+}
+
+/* =========================================================
+   Playground Vertical Stack
+========================================================= */
+
+.playground-stack--spaced {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: var(--space-xl);
 }
 
 /* =========================================================

@@ -15,6 +15,8 @@ export default function Textarea({
 
   fullWidth = true,
 
+  noBorder = false,
+
   autoResize = false,
 
   resize = "vertical",
@@ -148,6 +150,7 @@ export default function Textarea({
           error: !!error,
           disabled,
           fullWidth,
+          noBorder: !!noBorder,
         }),
         className
       )}

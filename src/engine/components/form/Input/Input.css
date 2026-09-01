@@ -68,6 +68,22 @@
 
 
 /* ==========================================================
+   No Border
+   ========================================================== */
+
+.ff-input--no-border {
+  border: none;
+  border-radius: 0;
+}
+
+.ff-input--no-border:hover:not(.ff-input--disabled),
+.ff-input--no-border:focus-within {
+  border-color: transparent;
+  box-shadow: none;
+}
+
+
+/* ==========================================================
    Error
    ========================================================== */
 
@@ -81,6 +97,12 @@
   box-shadow:
     0 0 0 3px
     rgba(220, 38, 38, 0.16);
+}
+
+.ff-input--no-border.ff-input--error,
+.ff-input--no-border.ff-input--error:focus-within {
+  border-color: transparent;
+  box-shadow: none;
 }
 
 
@@ -103,6 +125,13 @@
 .ff-input--disabled:focus-within {
   border-color: var(--color-border);
 
+  box-shadow: none;
+}
+
+.ff-input--no-border.ff-input--disabled,
+.ff-input--no-border.ff-input--disabled:hover,
+.ff-input--no-border.ff-input--disabled:focus-within {
+  border-color: transparent;
   box-shadow: none;
 }
 

@@ -19,6 +19,8 @@ export interface TextareaProps
 
   fullWidth?: boolean;
 
+  noBorder?: boolean;
+
   withWrapper?: boolean;
 
   rows?: number;

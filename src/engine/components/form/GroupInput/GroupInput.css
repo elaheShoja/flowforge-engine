@@ -1,16 +1,31 @@
+/* ==========================================================
+   FlowForge GroupInput
+========================================================== */
+
 .ff-group-input {
   display: flex;
-  width: 100%;
+
+  width: fit-content;
+  max-width: 100%;
+
   min-width: 0;
+
   align-items: stretch;
 
-  border: 1px solid
-    var(--ff-border-color, #d9d9d9);
+  border:
+    var(--border-width)
+    solid
+    var(--color-border);
 
-  border-radius: 6px;
+  border-radius: var(--radius-md);
+
+  background: var(--color-background);
 
   overflow: hidden;
+
+  box-sizing: border-box;
 }
+
 
 /* ==========================================================
    Direction
@@ -24,46 +39,223 @@
   flex-direction: column;
 }
 
+
+/* ==========================================================
+   Full Width
+========================================================== */
+
+.ff-group-input--full {
+  width: 100%;
+}
+
+
 /* ==========================================================
    Items
 ========================================================== */
 
 .ff-group-input__item {
   flex: 1 1 0;
+
   min-width: 0;
+
   margin: 0;
   padding: 0;
+
+  box-sizing: border-box;
 }
+
 
 /*
  * Every child component receives the
  * full space assigned to its item.
- *
- * Child components do not render their
- * own FieldWrapper.
  */
+
 .ff-group-input__item > * {
   width: 100%;
+
   margin: 0;
 }
+
+
+/* ==========================================================
+   Checkbox / Radio / Switch Items
+========================================================== */
+
+/*
+ * These components have their own intrinsic height.
+ *
+ * GroupInput gives their item the same minimum
+ * height as a regular input field.
+ *
+ * The values correspond to the standard
+ * FlowForge control sizes.
+ */
+
+/* Small */
+
+.ff-group-input__item:has(
+  .ff-checkbox--sm,
+  .ff-radio--sm,
+  .ff-switch--sm
+) {
+  min-height: 2rem;
+  padding: 0 var(--space-sm);
+}
+
+/* Medium */
+
+.ff-group-input__item:has(
+  .ff-checkbox--md,
+  .ff-radio--md,
+  .ff-switch--md
+) {
+  min-height: 2.5rem;
+  padding: 0 var(--space-sm);
+}
+
+/* Large */
+
+.ff-group-input__item:has(
+  .ff-checkbox--lg,
+  .ff-radio--lg,
+  .ff-switch--lg
+) {
+  min-height: 3rem;
+  padding: 0 var(--space-sm);
+}
+
+
+/*
+ * In vertical groups the item itself becomes
+ * the layout area.
+ *
+ * Center Checkbox / Radio / Switch vertically
+ * without stretching the actual control.
+ */
+
+.ff-group-input--vertical
+  .ff-group-input__item:has(
+    .ff-checkbox,
+    .ff-radio,
+    .ff-switch
+  ) {
+  display: flex;
+
+  align-items: center;
+}
+
+
+/*
+ * In horizontal groups, keep the same height
+ * behavior as the other form controls.
+ */
+
+.ff-group-input--horizontal
+  .ff-group-input__item:has(
+    .ff-checkbox,
+    .ff-radio,
+    .ff-switch
+  ) {
+  display: flex;
+
+  align-items: center;
+}
+
+
+/*
+ * The child itself must not be stretched
+ * vertically by the GroupInput item.
+ */
+
+.ff-group-input__item:has(
+  .ff-checkbox,
+  .ff-radio,
+  .ff-switch
+) > * {
+  height: auto;
+}
+
 
 /* ==========================================================
    Divider
 ========================================================== */
 
+/*
+ * Horizontal divider
+ *
+ * The divider is intentionally shorter
+ * than the full GroupInput height.
+ */
+
 .ff-group-input--divider.ff-group-input--horizontal
   .ff-group-input__item
   + .ff-group-input__item {
-  border-left: 1px solid
-    var(--ff-border-color, #d9d9d9);
+  position: relative;
+
+  padding-left: var(--space-sm);
 }
+
+.ff-group-input--divider.ff-group-input--horizontal
+  .ff-group-input__item
+  + .ff-group-input__item::before {
+  content: "";
+
+  position: absolute;
+
+  top: var(--space-xs);
+  bottom: var(--space-xs);
+
+  left: 0;
+
+  width: var(--border-width);
+
+  background: var(--color-border);
+
+  pointer-events: none;
+}
+
+
+/*
+ * Vertical divider
+ *
+ * The divider is intentionally shorter
+ * than the full GroupInput width.
+ */
 
 .ff-group-input--divider.ff-group-input--vertical
   .ff-group-input__item
   + .ff-group-input__item {
-  border-top: 1px solid
-    var(--ff-border-color, #d9d9d9);
+  position: relative;
 }
+
+.ff-group-input--divider.ff-group-input--vertical
+  .ff-group-input__item
+  + .ff-group-input__item::before {
+  content: "";
+
+  position: absolute;
+
+  left: var(--space-xs);
+  right: var(--space-xs);
+
+  top: 0;
+
+  height: var(--border-width);
+
+  background: var(--color-border);
+
+  pointer-events: none;
+}
+
+
+/* ==========================================================
+   No Border
+========================================================== */
+
+.ff-group-input--no-border {
+  border-color: transparent;
+}
+
 
 /* ==========================================================
    Disabled
@@ -71,4 +263,15 @@
 
 .ff-group-input--disabled {
   cursor: not-allowed;
+
+  opacity: 0.6;
+}
+
+
+/* ==========================================================
+   No Border + Disabled
+========================================================== */
+
+.ff-group-input--no-border.ff-group-input--disabled {
+  border-color: transparent;
 }

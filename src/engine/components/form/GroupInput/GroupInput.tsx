@@ -3,13 +3,17 @@ import {
   useState,
 } from "react";
 
-import clsx from "clsx";
+import { groupInputVariants } from "./GroupInput.styles";
 
 import FieldWrapper from "@/engine/components/form/FieldWrapper";
 
 import {
   groupInputRegistry,
-} from "./groupInputRegistry";
+} from "./config/groupInputRegistry";
+
+import {
+  groupInputValueConfig,
+} from "./config/GroupInputValueConfig";
 
 import type {
   GroupInputProps,
@@ -23,18 +27,35 @@ export default function GroupInput({
   helperText,
   error,
   required,
+
   disabled = false,
+
   fullWidth = true,
+
   withWrapper = true,
+
   direction = "horizontal",
-  divider = false,
+
+  divider = true,
+
+  noBorder = false,
+
   items,
+
   value,
+
   defaultValue = {},
+
   onChange,
+
   className,
+
   style,
 }: GroupInputProps) {
+  /* ========================================================
+     Internal Value
+  ======================================================== */
+
   const [
     internalValue,
     setInternalValue,
@@ -42,10 +63,10 @@ export default function GroupInput({
     value ?? defaultValue
   );
 
-  /**
-   * Keep internal state synchronized
-   * when GroupInput is controlled.
-   */
+  /* ========================================================
+     Controlled Synchronization
+  ======================================================== */
+
   useEffect(() => {
     if (value !== undefined) {
       setInternalValue(value);
@@ -55,9 +76,10 @@ export default function GroupInput({
   const currentValue =
     value ?? internalValue;
 
-  /**
-   * Update one named item.
-   */
+  /* ========================================================
+     Update Item Value
+  ======================================================== */
+
   const handleItemChange = (
     itemName: string,
     nextValue: unknown
@@ -74,65 +96,47 @@ export default function GroupInput({
     onChange?.(nextValues);
   };
 
-  /**
-   * Normalize different onChange signatures.
-   *
-   * Input / Textarea:
-   *   event.target.value
-   *
-   * Select:
-   *   value
-   *
-   * Checkbox / Radio / Switch:
-   *   event.target.checked
-   *   or direct value
-   */
-  const resolveChangeValue = (
-    eventOrValue: unknown
+  /* ========================================================
+     Resolve Event Value
+  ======================================================== */
+
+  const resolveEventValue = (
+    event: unknown
   ): unknown => {
     if (
-      eventOrValue &&
-      typeof eventOrValue === "object"
+      event &&
+      typeof event === "object" &&
+      "target" in event
     ) {
-      const event =
-        eventOrValue as {
-          target?: {
-            value?: unknown;
-            checked?: unknown;
-          };
-        };
+      const target =
+        (
+          event as {
+            target?: {
+              value?: unknown;
+            };
+          }
+        ).target;
 
-      if (
-        event.target &&
-        "checked" in event.target &&
-        typeof event.target.checked ===
-          "boolean"
-      ) {
-        return event.target.checked;
-      }
-
-      if (
-        event.target &&
-        "value" in event.target
-      ) {
-        return event.target.value;
-      }
+      return target?.value;
     }
 
-    return eventOrValue;
+    return event;
   };
+
+  /* ========================================================
+     Render
+  ======================================================== */
 
   const content = (
     <div
-      className={clsx(
-        "ff-group-input",
-        `ff-group-input--${direction}`,
-        divider &&
-          "ff-group-input--divider",
-        disabled &&
-          "ff-group-input--disabled",
-        className
-      )}
+      className={groupInputVariants({
+        direction,
+        divider,
+        disabled,
+        fullWidth,
+        noBorder,
+        className,
+      })}
       style={style}
     >
       {items.map(
@@ -154,8 +158,14 @@ export default function GroupInput({
           const {
             componentName,
             name: itemName,
+            flex = 1,
             ...componentProps
           } = item;
+
+          const config =
+            groupInputValueConfig[
+              componentName as keyof typeof groupInputValueConfig
+            ];
 
           const hasValueName =
             Boolean(itemName);
@@ -165,19 +175,9 @@ export default function GroupInput({
               ? currentValue[itemName!]
               : undefined;
 
-          const itemOnChange =
-            hasValueName
-              ? (
-                  nextValue: unknown
-                ) => {
-                  handleItemChange(
-                    itemName!,
-                    resolveChangeValue(
-                      nextValue
-                    )
-                  );
-                }
-              : undefined;
+          /* ==================================================
+             Child Props
+          ================================================== */
 
           const props: Record<
             string,
@@ -186,25 +186,80 @@ export default function GroupInput({
             ...componentProps,
 
             /*
-             * GroupInput owns the wrapper.
-             * Child components must never
-             * render their own FieldWrapper.
+             * GroupInput always owns
+             * the FieldWrapper.
              */
             withWrapper: false,
 
+            /*
+             * GroupInput owns the disabled state.
+             */
             disabled:
               disabled ||
               Boolean(
                 componentProps.disabled
               ),
-
-            ...(hasValueName && {
-              name: itemName,
-              value: itemValue,
-              onChange:
-                itemOnChange,
-            }),
           };
+
+          /* ==================================================
+             Value Prop
+          ================================================== */
+
+          if (
+            hasValueName &&
+            config
+          ) {
+            props[
+              config.valueProp
+            ] = itemValue;
+          }
+
+          /* ==================================================
+             Change Handler
+          ================================================== */
+
+          if (
+            hasValueName &&
+            config
+          ) {
+            props.onChange = (
+              nextValue: unknown
+            ) => {
+              const resolvedValue =
+                config.changeMode ===
+                "event"
+                  ? resolveEventValue(
+                      nextValue
+                    )
+                  : nextValue;
+
+              handleItemChange(
+                itemName!,
+                resolvedValue
+              );
+            };
+          }
+
+          /* ==================================================
+             Forced noBorder
+          ================================================== */
+
+          /*
+           * noBorder is an internal GroupInput
+           * concern. When configured for a child,
+           * it is always forced to true.
+           *
+           * It is intentionally assigned AFTER
+           * componentProps so the consumer cannot
+           * override it through item props.
+           */
+          if (config?.noBorder) {
+            props.noBorder = true;
+          }
+
+          /* ==================================================
+             Render Item
+          ================================================== */
 
           return (
             <div
@@ -213,6 +268,9 @@ export default function GroupInput({
                 `${componentName}-${index}`
               }
               className="ff-group-input__item"
+              style={{
+                flex: `${flex} 1 0` 
+              }}
             >
               <Component
                 {...props}
@@ -224,9 +282,17 @@ export default function GroupInput({
     </div>
   );
 
+  /* ========================================================
+     Without Wrapper
+  ======================================================== */
+
   if (!withWrapper) {
     return content;
   }
+
+  /* ========================================================
+     With Wrapper
+  ======================================================== */
 
   return (
     <FieldWrapper

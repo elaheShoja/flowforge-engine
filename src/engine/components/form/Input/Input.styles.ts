@@ -24,6 +24,11 @@ export const inputVariants = cva(
         true: "ff-input--full",
         false: "",
       },
+
+      noBorder: {
+        true: "ff-input--no-border",
+        false: ""
+      }
     },
 
     defaultVariants: {
@@ -31,6 +36,7 @@ export const inputVariants = cva(
       error: false,
       disabled: false,
       fullWidth: true,
+      noBorder: false,
     },
   }
 );

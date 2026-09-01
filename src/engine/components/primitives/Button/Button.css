@@ -322,3 +322,20 @@
 .ff-button[aria-busy="true"] .ff-button__label {
   opacity: 0.85;
 }
+
+/* ==========================================================
+   No Border
+========================================================== */
+
+.ff-button--no-border {
+  border-color: transparent;
+}
+
+.ff-button--no-border:hover:not(:disabled),
+.ff-button--no-border:active:not(:disabled) {
+  border-color: transparent;
+}
+
+.ff-button--no-border:focus-visible {
+  border-color: transparent;
+}

@@ -53,6 +53,8 @@ interface SelectBaseProps {
 
   fullWidth?: boolean;
 
+  noBorder?: boolean;
+
   placeholder?: string;
 
   withWrapper?: boolean;

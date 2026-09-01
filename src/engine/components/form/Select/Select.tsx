@@ -8,7 +8,6 @@ import {
 import { Icon } from "@/engine/components";
 
 import { useTranslation } from "react-i18next";
-import clsx from "clsx";
 
 import useSelect from "./hooks/useSelect";
 import useSelectSearch from "./hooks/useSelectSearch";
@@ -29,6 +28,8 @@ import SelectValue from "./components/SelectValue";
 
 import FieldWrapper from "@/engine/components/form/FieldWrapper";
 
+import { selectVariants } from "./Select.styles";
+
 import "./Select.css";
 
 const DEFAULT_LIMIT = 5;
@@ -46,8 +47,9 @@ export default function Select(
     error,
     required,
     fullWidth = true,
+    noBorder = false,
     disabled = false,
-    withWrapper= true,
+    withWrapper = true,
 
     searchable = false,
     options,
@@ -508,14 +510,15 @@ export default function Select(
       );
 
   const selectableValues =
-    flatOptions.filter(
-      (option)=>
-        !option.disabled
-    )
-    .map(
-      (option) =>
-        option.value
-    );
+    flatOptions
+      .filter(
+        (option) =>
+          !option.disabled
+      )
+      .map(
+        (option) =>
+          option.value
+      );
 
   const {
     isAllSelected,
@@ -700,13 +703,13 @@ export default function Select(
             }
           },
         })}
-        className={clsx(
-          "ff-select",
-          open &&
-            "ff-select--open",
-          disabled &&
-            "ff-select--disabled"
-        )}
+        className={selectVariants({
+          error: !!error,
+          disabled,
+          fullWidth,
+          noBorder,
+          open,
+        })}
       >
         <div className="ff-select__content">
           <SelectValue

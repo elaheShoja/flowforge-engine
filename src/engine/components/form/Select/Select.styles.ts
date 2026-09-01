@@ -20,6 +20,11 @@ export const selectVariants = cva(
         false: "",
       },
 
+      noBorder: {
+        true: "ff-select--no-border",
+        false: "",
+      },
+
       open: {
         true: "ff-select--open",
         false: "",
@@ -34,6 +39,8 @@ export const selectVariants = cva(
       disabled: false,
 
       fullWidth: false,
+
+      noBorder: false,
 
       open: false,
 
