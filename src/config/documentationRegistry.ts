@@ -66,7 +66,7 @@ export const documentationGroups: DocumentationGroup[] = [
         playgroundPath: "/playground/input",
       },
 
-      /*{
+      {
         id: "input-type",
         title: "Input Type",
         description:
@@ -77,7 +77,7 @@ export const documentationGroups: DocumentationGroup[] = [
         order: 2,
         componentId: "input-type",
         playgroundPath: "/playground/input-type",
-      },*/
+      },
 
       {
         id: "textarea",

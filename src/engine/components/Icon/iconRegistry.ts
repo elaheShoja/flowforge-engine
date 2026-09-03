@@ -8,8 +8,10 @@ import {
   Eye,
   EyeOff,
   Info,
+  Link,
   LoaderCircle,
   Mail,
+  Phone,
   Minus,
   Plus,
   Search,
@@ -32,7 +34,6 @@ export const iconRegistry = {
   remove: Minus,
   clear: X,
   close: X,
-  search: Search,
   check: Check,
 
   /* =========================
@@ -40,6 +41,9 @@ export const iconRegistry = {
   ========================= */
 
   email: Mail,
+  url: Link,
+  phone: Phone,
+  search: Search,
 
   /* =========================
      Password

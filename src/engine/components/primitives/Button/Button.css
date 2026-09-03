@@ -339,3 +339,53 @@
 .ff-button--no-border:focus-visible {
   border-color: transparent;
 }
+
+/* ==========================================================
+   Icon Only
+========================================================== */
+
+.ff-button--icon-only {
+  width: 2.5rem;
+
+  padding:
+    0;
+}
+
+.ff-button--icon-only.ff-button--xs {
+  width: 2rem;
+}
+
+.ff-button--icon-only.ff-button--sm {
+  width: 2.25rem;
+}
+
+.ff-button--icon-only.ff-button--md {
+  width: 2.5rem;
+}
+
+.ff-button--icon-only.ff-button--lg {
+  width: 2.75rem;
+}
+
+.ff-button--icon-only.ff-button--xl {
+  width: 3.25rem;
+}
+
+.ff-button--icon-only .ff-button__label {
+  display: none;
+}
+
+/* ==========================================================
+   Icon Only + No Border
+========================================================== */
+
+.ff-button--icon-only.ff-button--no-border:hover:not(:disabled),
+.ff-button--icon-only.ff-button--no-border:active:not(:disabled) {
+  background: transparent;
+  border-color: transparent;
+}
+
+.ff-button--icon-only.ff-button--no-border:focus-visible {
+  background: transparent;
+  border-color: transparent;
+}

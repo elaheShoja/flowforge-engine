@@ -29,6 +29,11 @@ export const buttonVariants = cva("ff-button", {
       true: "ff-button--no-border",
       false: "",
     },
+
+    iconOnly: {
+      true: "ff-button--icon-only",
+      false: "",
+    }
   },
 
   defaultVariants: {
@@ -36,5 +41,6 @@ export const buttonVariants = cva("ff-button", {
     size: "md",
     fullWidth: false,
     noBorder: false,
+    iconOnly: false,
   },
 });

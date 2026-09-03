@@ -26,6 +26,11 @@ export default function InputTypeDemo({
   const sectionIds = [
     "input-type-interactive",
     "input-type-basic-usage",
+    "input-type-controlled",
+    "input-type-sizes",
+    "input-type-clearable",
+    "input-type-full-width",
+    "input-type-states",
   ];
 
   const [sectionActiveIds, setSectionActiveIds] =
@@ -59,6 +64,25 @@ export default function InputTypeDemo({
     ]);
 
   /* ==================================================
+     State IDs
+  ================================================== */
+
+  const stateIds = [
+    "input-type-states-default",
+    "input-type-states-required",
+    "input-type-states-disabled",
+    "input-type-states-error",
+  ];
+
+  const [stateActiveIds, setStateActiveIds] =
+    useState<string[]>([
+      innerFocusId &&
+      stateIds.includes(innerFocusId)
+        ? innerFocusId
+        : "input-type-states-default",
+    ]);
+
+  /* ==================================================
      Interactive Playground State
   ================================================== */
 
@@ -76,6 +100,9 @@ export default function InputTypeDemo({
   const [value, setValue] =
     useState("FlowForge");
 
+  const [clearableValue, setClearableValue] =
+    useState("FlowF"); 
+
   const [size, setSize] =
     useState<"sm" | "md" | "lg">("md");
 
@@ -89,7 +116,7 @@ export default function InputTypeDemo({
     useState(false);
 
   const [fullWidth, setFullWidth] =
-    useState(false);
+    useState(true);
 
   const [required, setRequired] =
     useState(false);
@@ -126,81 +153,85 @@ export default function InputTypeDemo({
 
               {/* Type */}
 
-              <Select
-                label="Type"
-                value={type}
-                onChange={(value) => {
-                  setType(
-                    value as
-                      | "text"
-                      | "email"
-                      | "password"
-                      | "search"
-                      | "number"
-                      | "phone"
-                      | "url"
-                  );
-                }}
-                options={[
-                  {
-                    value: "text",
-                    label: "Text",
-                  },
-                  {
-                    value: "email",
-                    label: "Email",
-                  },
-                  {
-                    value: "password",
-                    label: "Password",
-                  },
-                  {
-                    value: "search",
-                    label: "Search",
-                  },
-                  {
-                    value: "number",
-                    label: "Number",
-                  },
-                  {
-                    value: "phone",
-                    label: "Phone",
-                  },
-                  {
-                    value: "url",
-                    label: "URL",
-                  },
-                ]}
-              />
+              <div className="playground-control">
+                <Select
+                  label="Type"
+                  value={type}
+                  onChange={(value) => {
+                    setType(
+                      value as
+                        | "text"
+                        | "email"
+                        | "password"
+                        | "search"
+                        | "number"
+                        | "phone"
+                        | "url"
+                    );
+                  }}
+                  options={[
+                    {
+                      value: "text",
+                      label: "Text",
+                    },
+                    {
+                      value: "email",
+                      label: "Email",
+                    },
+                    {
+                      value: "password",
+                      label: "Password",
+                    },
+                    {
+                      value: "search",
+                      label: "Search",
+                    },
+                    {
+                      value: "number",
+                      label: "Number",
+                    },
+                    {
+                      value: "phone",
+                      label: "Phone",
+                    },
+                    {
+                      value: "url",
+                      label: "URL",
+                    },
+                  ]}
+                />
+              </div>
 
               {/* Size */}
 
-              <Select
-                label="Size"
-                value={size}
-                onChange={(value) => {
-                  setSize(
-                    value as
-                      | "sm"
-                      | "md"
-                      | "lg"
-                  );
-                }}
-                options={[
-                  {
-                    value: "sm",
-                    label: "Small",
-                  },
-                  {
-                    value: "md",
-                    label: "Medium",
-                  },
-                  {
-                    value: "lg",
-                    label: "Large",
-                  },
-                ]}
-              />
+              <div className="playground-control">
+                <Select
+                  label="Size"
+                  value={size}
+                  onChange={(value) => {
+                    setSize(
+                      value as
+                        | "sm"
+                        | "md"
+                        | "lg"
+                    );
+                  }}
+                  options={[
+                    {
+                      value: "sm",
+                      label: "Small",
+                    },
+                    {
+                      value: "md",
+                      label: "Medium",
+                    },
+                    {
+                      value: "lg",
+                      label: "Large",
+                    },
+                  ]}
+                />
+              </div>
 
               {/* Disabled */}
 
@@ -217,7 +248,6 @@ export default function InputTypeDemo({
                 label="Loading"
                 checked={loading}
                 onChange={setLoading}
-                alignWithField
               />
 
               {/* Clearable */}
@@ -315,7 +345,8 @@ export default function InputTypeDemo({
 
               <p>
                 InputType provides predefined
-                behaviors for common input types.
+                behaviors and configurations
+                for common input types.
               </p>
             </div>
 
@@ -331,9 +362,7 @@ export default function InputTypeDemo({
               }
             >
 
-              {/* ==================================================
-                  Text
-              ================================================== */}
+              {/* Text */}
 
               <Collapse
                 id="input-type-text"
@@ -361,9 +390,7 @@ export default function InputTypeDemo({
               </Collapse>
 
 
-              {/* ==================================================
-                  Email
-              ================================================== */}
+              {/* Email */}
 
               <Collapse
                 id="input-type-email"
@@ -377,8 +404,8 @@ export default function InputTypeDemo({
                     </h2>
 
                     <p>
-                      Email input with its
-                      predefined icon and behavior.
+                      Email input with a
+                      predefined email icon.
                     </p>
                   </div>
 
@@ -390,9 +417,7 @@ export default function InputTypeDemo({
               </Collapse>
 
 
-              {/* ==================================================
-                  Password
-              ================================================== */}
+              {/* Password */}
 
               <Collapse
                 id="input-type-password"
@@ -406,8 +431,8 @@ export default function InputTypeDemo({
                     </h2>
 
                     <p>
-                      Password input with built-in
-                      visibility toggle.
+                      Password input with a
+                      built-in visibility toggle.
                     </p>
                   </div>
 
@@ -419,9 +444,7 @@ export default function InputTypeDemo({
               </Collapse>
 
 
-              {/* ==================================================
-                  Search
-              ================================================== */}
+              {/* Search */}
 
               <Collapse
                 id="input-type-search"
@@ -435,8 +458,9 @@ export default function InputTypeDemo({
                     </h2>
 
                     <p>
-                      Search input with its
-                      predefined search icon.
+                      Search input with a
+                      predefined search icon
+                      and clear functionality.
                     </p>
                   </div>
 
@@ -448,9 +472,7 @@ export default function InputTypeDemo({
               </Collapse>
 
 
-              {/* ==================================================
-                  Number
-              ================================================== */}
+              {/* Number */}
 
               <Collapse
                 id="input-type-number"
@@ -477,9 +499,7 @@ export default function InputTypeDemo({
               </Collapse>
 
 
-              {/* ==================================================
-                  Phone
-              ================================================== */}
+              {/* Phone */}
 
               <Collapse
                 id="input-type-phone"
@@ -494,7 +514,8 @@ export default function InputTypeDemo({
 
                     <p>
                       Input configured for
-                      phone numbers.
+                      phone numbers with a
+                      predefined phone icon.
                     </p>
                   </div>
 
@@ -506,9 +527,7 @@ export default function InputTypeDemo({
               </Collapse>
 
 
-              {/* ==================================================
-                  URL
-              ================================================== */}
+              {/* URL */}
 
               <Collapse
                 id="input-type-url"
@@ -523,12 +542,293 @@ export default function InputTypeDemo({
 
                     <p>
                       Input configured for
-                      web addresses.
+                      web addresses with a
+                      predefined URL icon.
                     </p>
                   </div>
 
                   <InputType
                     type="url"
+                  />
+
+                </div>
+              </Collapse>
+
+            </CollapseGroup>
+
+          </div>
+        </Collapse>
+
+
+        {/* ==================================================
+            Controlled Input
+        ================================================== */}
+
+        <Collapse
+          id="input-type-controlled"
+          title="Controlled Input"
+        >
+          <div className="playground-section">
+
+            <div className="playground-section__header">
+              <h2>
+                Controlled Input
+              </h2>
+
+              <p>
+                InputType can be fully controlled
+                using React state.
+              </p>
+            </div>
+
+            <InputType
+              type="email"
+              label="Controlled email"
+              value={value}
+              onChange={(event) =>
+                setValue(event.target.value)
+              }
+              placeholder="Enter email..."
+            />
+
+            <p className="playground-value">
+              Current value:{" "}
+              <strong>
+                {value || "Empty"}
+              </strong>
+            </p>
+
+          </div>
+        </Collapse>
+
+
+        {/* ==================================================
+            Sizes
+        ================================================== */}
+
+        <Collapse
+          id="input-type-sizes"
+          title="Sizes"
+        >
+          <div className="playground-section">
+
+            <div className="playground-section__header">
+              <h2>
+                Sizes
+              </h2>
+
+              <p>
+                InputType supports small,
+                medium, and large sizes.
+              </p>
+            </div>
+
+            <div className="playground-stack--spaced">
+
+              <InputType
+                type="search"
+                label="Small"
+                size="sm"
+                placeholder="Small email"
+              />
+
+              <InputType
+                type="search"
+                label="Medium"
+                size="md"
+                placeholder="Medium password"
+              />
+
+              <InputType
+                type="search"
+                label="Large"
+                size="lg"
+                placeholder="Search..."
+              />
+
+            </div>
+
+          </div>
+        </Collapse>
+
+
+        {/* ==================================================
+            Clearable
+        ================================================== */}
+
+        <Collapse
+          id="input-type-clearable"
+          title="Clearable"
+        >
+          <div className="playground-section">
+
+            <div className="playground-section__header">
+              <h2>
+                Clearable
+              </h2>
+
+              <p>
+                Enable clear functionality
+                for inputs that support it.
+              </p>
+            </div>
+
+            <InputType
+              type="search"
+              label="Clearable Search"
+              value={clearableValue}
+              onChange={(event) =>
+                  setClearableValue(
+                    event.target.value
+                  )
+                }
+              clearable
+              placeholder="Search..."
+            />
+
+          </div>
+        </Collapse>
+
+
+        {/* ==================================================
+            Full Width
+        ================================================== */}
+
+        <Collapse
+          id="input-type-full-width"
+          title="Full Width"
+        >
+          <div className="playground-section">
+
+            <div className="playground-section__header">
+              <h2>
+                Full Width
+              </h2>
+
+              <p>
+                Compare content-width and
+                full-width input layouts.
+              </p>
+            </div>
+
+            <div className="playground-stack--spaced">
+
+              <InputType
+                type="phone"
+                label="Content Width"
+                fullWidth={false}
+                placeholder="Phone number"
+              />
+
+              <InputType
+                type="url"
+                label="Full Width"
+                fullWidth
+                placeholder="Enter URL"
+              />
+
+            </div>
+
+          </div>
+        </Collapse>
+
+
+        {/* ==================================================
+            States
+        ================================================== */}
+
+        <Collapse
+          id="input-type-states"
+          title="States"
+        >
+          <div className="playground-section">
+
+            <div className="playground-section__header">
+              <h2>
+                States
+              </h2>
+
+              <p>
+                Common InputType states used
+                in FlowForge forms.
+              </p>
+            </div>
+
+            <CollapseGroup
+              activeIds={stateActiveIds}
+              multiple
+              onChange={setStateActiveIds}
+              focusId={
+                innerFocusId &&
+                stateIds.includes(innerFocusId)
+                  ? innerFocusId
+                  : undefined
+              }
+            >
+
+              {/* Default */}
+
+              <Collapse
+                id="input-type-states-default"
+                title="Default"
+              >
+                <div className="playground-section">
+
+                  <InputType
+                    type="email"
+                  />
+
+                </div>
+              </Collapse>
+
+
+              {/* Required */}
+
+              <Collapse
+                id="input-type-states-required"
+                title="Required"
+              >
+                <div className="playground-section">
+
+                  <InputType
+                    type="email"
+                    required
+                  />
+
+                </div>
+              </Collapse>
+
+
+              {/* Disabled */}
+
+              <Collapse
+                id="input-type-states-disabled"
+                title="Disabled"
+              >
+                <div className="playground-section">
+
+                  <InputType
+                    type="email"
+                    disabled
+                    value="FlowForge@gmail.com"
+                    readOnly
+                  />
+
+                </div>
+              </Collapse>
+
+
+              {/* Error */}
+
+              <Collapse
+                id="input-type-states-error"
+                title="Error"
+              >
+                <div className="playground-section">
+
+                  <InputType
+                    type="email"
+                    error="Please enter a valid email address."
                   />
 
                 </div>

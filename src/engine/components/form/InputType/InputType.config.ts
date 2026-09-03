@@ -10,6 +10,7 @@ export type InputAdornmentType =
   | "email"
   | "search"
   | "phone"
+  | "url"
   | "passwordToggle";
 
 /* =========================================================
@@ -145,7 +146,7 @@ export const inputTypeConfig: Record<
   ------------------------------------------------------- */
 
   phone: {
-    inputType: "tel",
+    inputType: "phone",
 
     labelKey:
       "input.phone.label",
@@ -168,5 +169,7 @@ export const inputTypeConfig: Record<
 
     placeholderKey:
       "input.url.placeholder",
+
+    startAdornment: "url",
   },
 };

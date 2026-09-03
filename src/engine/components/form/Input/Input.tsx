@@ -59,6 +59,11 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
       inputProps.value !== null &&
       String(inputProps.value).length > 0;
 
+    const hasStartAdornment = !!startAdornment;
+    const hasEndAdornment = !!endAdornment;
+
+    const isNumberInput = inputProps.type == "number";
+
     const generatedId = useId();
 
     const inputId = inputProps.id ?? generatedId;
@@ -97,6 +102,12 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
             fullWidth,
             noBorder: !!noBorder,
           }),
+          hasStartAdornment &&
+            "ff-input--has-start-adornment",
+          hasEndAdornment &&
+            "ff-input--has-end-adornment",
+          isNumberInput &&
+            "ff-input--number",  
           className
         )}
       >
@@ -123,7 +134,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
               ? loadingText
               : placeholder
           }
-          aria-invalid={error ? true : undefined }
+          aria-invalid={error ? true : undefined}
           aria-describedby={describedBy}
         />
 

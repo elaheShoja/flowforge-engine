@@ -7,10 +7,6 @@
   "loading": "Wird geladen...",
   "noResults": "Keine Ergebnisse gefunden",
   "input": {
-    "text": {
-      "label": "Text",
-      "placeholder": "Text eingeben"
-    },
     "email": {
       "label": "E-Mail",
       "placeholder": "E-Mail eingeben"
@@ -27,7 +23,7 @@
       "label": "Zahl",
       "placeholder": "Zahl eingeben"
     },
-    "tel": {
+    "phone": {
       "label": "Telefon",
       "placeholder": "Telefonnummer eingeben"
     },

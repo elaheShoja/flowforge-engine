@@ -31,6 +31,8 @@ export interface ButtonProps
 
   noBorder?: boolean;
 
+  iconOnly?: boolean;
+
   leftIcon?: ReactNode;
 
   rightIcon?: ReactNode;

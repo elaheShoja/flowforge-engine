@@ -5,11 +5,11 @@ import {
 } from "react";
 
 import { useTranslation } from "react-i18next";
-import { Search, Phone } from "lucide-react";
 
 import {
   Icon,
   Input,
+  Button,
 } from "@/engine/components";
 
 import {
@@ -85,34 +85,50 @@ const InputType = forwardRef<
       ),
 
       search: (
-        <Search size={18} />
+        <Icon
+          name="search"
+          size={18}
+        />
       ),
 
       phone: (
-        <Phone size={18} />
+        <Icon
+          name="phone"
+          size={18}
+        />
+      ),
+
+      url: (
+        <Icon
+          name="url"
+          size={18}
+        />
       ),
 
       passwordToggle: (
-        <button
+        <Button
           type="button"
-          onClick={
-            togglePasswordVisibility
-          }
+          variant="ghost"
+          size="sm"
+          iconOnly
+          noBorder
+          onClick={togglePasswordVisibility}
           aria-label={
             passwordVisible
               ? t("hidePassword")
               : t("showPassword")
           }
-        >
-          <Icon
-            name={
-              passwordVisible
-                ? "hidePassword"
-                : "showPassword"
-            }
-            size={18}
-          />
-        </button>
+          rightIcon={
+            <Icon
+              name={
+                passwordVisible
+                  ? "hidePassword"
+                  : "showPassword"
+              }
+              size={18}
+            />
+          }
+        />
       ),
     };
 

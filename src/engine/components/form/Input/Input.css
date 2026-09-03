@@ -196,6 +196,14 @@
   font-size: var(--font-size-sm);
 }
 
+.ff-input--has-start-adornment {
+  padding-left: 0;
+}
+
+.ff-input--has-end-adornment {
+  padding-right: 0;
+}
+
 
 /* ==========================================================
    Prefix & Suffix
@@ -279,4 +287,12 @@
 .ff-input__element[type="search"]::-webkit-search-decoration {
   -webkit-appearance: none;
   appearance: none;
+}
+
+/* ==========================================================
+   Number Input
+   ========================================================== */
+
+.ff-input--number {
+  padding-right: 0;
 }

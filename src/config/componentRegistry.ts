@@ -30,7 +30,7 @@ export const componentRegistry: ComponentMeta[] = [
     showInPlayground: true,
   },
 
-  /*{
+  {
     id: "input-type",
     name: "Input Type",
     category: "form",
@@ -40,7 +40,7 @@ export const componentRegistry: ComponentMeta[] = [
     playgroundPath: "/playground/input-type",
     status: "stable",
     showInPlayground: true,
-  },*/
+  },
 
   {
     id: "textarea",

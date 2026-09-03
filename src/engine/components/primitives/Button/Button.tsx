@@ -15,6 +15,7 @@ export default function Button({
   disabled = false,
   fullWidth = false,
   noBorder = false,
+  iconOnly = false,
   leftIcon,
   rightIcon,
   className,
@@ -29,6 +30,7 @@ export default function Button({
       size,
       fullWidth,
       noBorder: !!noBorder,
+      iconOnly: !!iconOnly,
     }),
     className
   );
