@@ -93,32 +93,6 @@ export const documentationGroups: DocumentationGroup[] = [
       },
 
       {
-        id: "search-input",
-        title: "Search Input",
-        description:
-          "A specialized input component for search interactions with optional clear functionality.",
-        section: "components",
-        path: "/docs/components/search-input",
-        contentPath: "components/search-input.md",
-        order: 4,
-        componentId: "search-input",
-        playgroundPath: "/playground/search-input",
-      },
-
-      {
-        id: "password-input",
-        title: "Password Input",
-        description:
-          "A specialized input component for entering and managing password values.",
-        section: "components",
-        path: "/docs/components/password-input",
-        contentPath: "components/password-input.md",
-        order: 5,
-        componentId: "password-input",
-        playgroundPath: "/playground/password-input",
-      },
-
-      {
         id: "flag",
         title: "Flag",
         description:

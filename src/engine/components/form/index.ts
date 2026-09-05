@@ -4,13 +4,6 @@ export type { FieldWrapperProps } from "./FieldWrapper";
 export { default as Input } from "./Input";
 export type { InputProps } from "./Input";
 
-export { default as PasswordInput } from "./PasswordInput";
-export type { PasswordInputProps } from "./PasswordInput";
-
-export { default as SearchInput } from "./SearchInput";
-export type { SearchInputProps } from "./SearchInput";
-
-
 export { default as Textarea } from "./Textarea";
 export type { TextareaProps } from "./Textarea";
 

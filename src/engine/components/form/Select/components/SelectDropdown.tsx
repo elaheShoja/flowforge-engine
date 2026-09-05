@@ -10,7 +10,7 @@ import { FloatingPortal } from "@floating-ui/react";
 import { useTranslation } from "react-i18next";
 
 import Dropdown from "@/engine/components/form/Dropdown";
-import SearchInput from "@/engine/components/form/SearchInput";
+import InputType from "@/engine/components/form/InputType";
 
 import SelectGroup from "./SelectGroup";
 import SelectOption from "./SelectOption";
@@ -115,7 +115,8 @@ const SelectSearch = memo(
 
     return (
       <div className="ff-select__search">
-        <SearchInput
+        <InputType
+          type="search"
           ref={inputRef}
           value={search}
           onChange={(event) => {

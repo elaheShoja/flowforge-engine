@@ -6,8 +6,6 @@ import CollapseDemo from "./demos/CollapseDemo";
 import CollapseGroupDemo from "./demos/CollapseGroupDemo";
 import SelectDemo from "./demos/SelectDemo";
 import CheckboxDemo from "./demos/CheckboxDemo";
-import PasswordInputDemo from "./demos/PasswordInputDemo";
-import SearchInputDemo from "./demos/SearchInputDemo";
 import ButtonDemo from "./demos/ButtonDemo";
 import SpinnerDemo from "./demos/SpinnerDemo";
 import RadioDemo from "./demos/RadioDemo";
@@ -29,8 +27,6 @@ export const playgroundRegistry: Record<
   input: InputDemo,
   "input-type": InputTypeDemo,
   textarea: TextareaDemo,
-  "search-input" : SearchInputDemo,
-  "password-input": PasswordInputDemo,
   flag: FlagDemo,
   select: SelectDemo,
   checkbox: CheckboxDemo,
