@@ -25,17 +25,6 @@ export interface SelectRemoteResult {
 
 export interface SelectAllConfig {
   enabled?: boolean;
-
-  /**
-   * Select all behavior
-   *
-   * filtered:
-   * select only currently visible options
-   *
-   * all:
-   * select entire remote dataset
-   */
-  scope?: "filtered" | "all";
 }
 
 interface SelectBaseProps {

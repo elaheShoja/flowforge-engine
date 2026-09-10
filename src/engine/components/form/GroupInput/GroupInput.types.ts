@@ -2,6 +2,10 @@ import type {
   CSSProperties,
 } from "react";
 
+import type {
+  GroupInputComponentName,
+} from "./config/groupInputRegistry";
+
 export type GroupInputDirection =
   | "horizontal"
   | "vertical";
@@ -18,7 +22,7 @@ export interface GroupInputItem {
    * Input, Select, Textarea,
    * Button, Icon, Flag
    */
-  componentName: string;
+  componentName: GroupInputComponentName;
 
   /**
    * Name of the item's value inside

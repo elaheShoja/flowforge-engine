@@ -1,5 +1,10 @@
 import clsx from "clsx";
-import { forwardRef, useId } from "react";
+import {
+  forwardRef,
+  useId,
+  useRef,
+  useState,
+} from "react";
 import { useTranslation } from "react-i18next";
 
 import {
@@ -54,19 +59,40 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
   ) {
     const { t } = useTranslation("common");
 
+    const inputRef =
+      useRef<HTMLInputElement>(null);
+
+    const isControlled =
+      inputProps.value !== undefined;
+
+    const [uncontrolledValue, setUncontrolledValue] =
+      useState(() =>
+        String(
+          isControlled
+            ? inputProps.value ?? ""
+            : inputProps.defaultValue ?? ""
+        )
+      );
+
+    const currentValue = isControlled
+      ? inputProps.value
+      : uncontrolledValue;
+
     const hasValue =
-      inputProps.value !== undefined &&
-      inputProps.value !== null &&
-      String(inputProps.value).length > 0;
+      currentValue !== undefined &&
+      currentValue !== null &&
+      String(currentValue).length > 0;
 
     const hasStartAdornment = !!startAdornment;
     const hasEndAdornment = !!endAdornment;
 
-    const isNumberInput = inputProps.type == "number";
+    const isNumberInput =
+      inputProps.type == "number";
 
     const generatedId = useId();
 
-    const inputId = inputProps.id ?? generatedId;
+    const inputId =
+      inputProps.id ?? generatedId;
 
     const helperId = helperText
       ? `${inputId}-helper`
@@ -76,20 +102,41 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
       ? `${inputId}-error`
       : undefined;
 
-    const describedBy = error
-      ? errorId
-      : helperId;
+    const describedBy = [
+      inputProps["aria-describedby"],
+      error ? errorId : helperId,
+    ]
+      .filter(Boolean)
+      .join(" ") || undefined;
+
+    const handleInputChange = (
+      event: React.ChangeEvent<HTMLInputElement>
+    ) => {
+      if (!isControlled) {
+        setUncontrolledValue(
+          event.target.value
+        );
+      }
+
+      inputProps.onChange?.(event);
+    };
 
     const handleClear = () => {
       onClear?.();
 
-      if (inputProps.onChange) {
-        inputProps.onChange({
-          target: {
-            value: "",
-          },
-        } as React.ChangeEvent<HTMLInputElement>);
+      if (!isControlled) {
+        if (inputRef.current) {
+          inputRef.current.value = "";
+        }
+
+        setUncontrolledValue("");
       }
+
+      inputProps.onChange?.({
+        target: {
+          value: "",
+        },
+      } as React.ChangeEvent<HTMLInputElement>);
     };
 
     const inputElement = (
@@ -107,7 +154,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
           hasEndAdornment &&
             "ff-input--has-end-adornment",
           isNumberInput &&
-            "ff-input--number",  
+            "ff-input--number",
           className
         )}
       >
@@ -126,7 +173,15 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
         <input
           {...inputProps}
           id={inputId}
-          ref={ref}
+          ref={(element) => {
+            inputRef.current = element;
+
+            if (typeof ref === "function") {
+              ref(element);
+            } else if (ref) {
+              ref.current = element;
+            }
+          }}
           className="ff-input__element"
           disabled={disabled || loading}
           placeholder={
@@ -136,6 +191,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
           }
           aria-invalid={error ? true : undefined}
           aria-describedby={describedBy}
+          onChange={handleInputChange}
         />
 
         {suffix && (

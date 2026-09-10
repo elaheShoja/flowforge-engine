@@ -519,7 +519,6 @@ export default function SelectDemo({
               clearable
               selectAll={{
                 enabled: true,
-                scope: "filtered",
               }}
               options={selectOptions}
               placeholder="Select technologies..."

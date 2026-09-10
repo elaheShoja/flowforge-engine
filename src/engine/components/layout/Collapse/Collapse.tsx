@@ -80,6 +80,11 @@ const Collapse = forwardRef<
       onOpenChange?.(id, nextOpen);
     };
 
+    const {
+      onClick: userOnClick,
+      ...restButtonProps
+    } = buttonProps;
+
     return (
       <div
         ref={ref}
@@ -103,8 +108,11 @@ const Collapse = forwardRef<
           aria-expanded={isOpen}
           aria-controls={contentId}
           disabled={disabled}
-          onClick={handleToggle}
-          {...buttonProps}
+          onClick={(event) => {
+            handleToggle();
+            userOnClick?.(event);
+          }}
+          {...restButtonProps}
         >
           <span className="ff-collapse__header-content">
             <span className="ff-collapse__indicator">

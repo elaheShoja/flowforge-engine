@@ -6,6 +6,8 @@
   "selectAll": "Alle auswählen",
   "loading": "Wird geladen...",
   "noResults": "Keine Ergebnisse gefunden",
+  "hidePassword": "Passwort ausblenden",
+  "showPassword": "Passwort anzeigen",
   "input": {
     "email": {
       "label": "E-Mail",

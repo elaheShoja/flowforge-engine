@@ -1,4 +1,9 @@
-import { useEffect, useId, useRef } from "react";
+import {
+  forwardRef,
+  useEffect,
+  useId,
+  useRef,
+} from "react";
 import clsx from "clsx";
 
 import { FieldWrapper } from "@/engine/components";
@@ -8,34 +13,40 @@ import { textareaVariants } from "./Textarea.styles";
 
 import "./Textarea.css";
 
-export default function Textarea({
-  label,
-  helperText,
-  error,
+const Textarea = forwardRef<
+  HTMLTextAreaElement,
+  TextareaProps
+>(function Textarea(
+  {
+    label,
+    helperText,
+    error,
 
-  fullWidth = true,
+    fullWidth = true,
 
-  noBorder = false,
+    noBorder = false,
 
-  autoResize = false,
+    autoResize = false,
 
-  resize = "vertical",
+    resize = "vertical",
 
-  className,
+    className,
 
-  required,
+    required,
 
-  disabled,
+    disabled,
 
-  withWrapper = true,
+    withWrapper = true,
 
-  rows = 3,
+    rows = 3,
 
-  minRows,
-  maxRows,
+    minRows,
+    maxRows,
 
-  ...props
-}: TextareaProps) {
+    ...props
+  },
+  ref
+) {
   const generatedId = useId();
 
   const textareaId =
@@ -142,7 +153,15 @@ export default function Textarea({
     <textarea
       {...props}
       id={textareaId}
-      ref={textareaRef}
+      ref={(element) => {
+        textareaRef.current = element;
+
+        if (typeof ref === "function") {
+          ref(element);
+        } else if (ref) {
+          ref.current = element;
+        }
+      }}
       rows={rows}
       disabled={disabled}
       className={clsx(
@@ -192,4 +211,6 @@ export default function Textarea({
       {textareaElement}
     </FieldWrapper>
   );
-}
+});
+
+export default Textarea;

@@ -6,6 +6,8 @@
   "selectAll": "Select All",
   "loading": "Loading...",
   "noResults": "No results found",
+  "hidePassword": "Hide password",
+  "showPassword": "Show password",
   "input": {
     "email": {
       "label": "Email",

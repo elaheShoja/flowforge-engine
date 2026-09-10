@@ -3,6 +3,7 @@ import clsx from "clsx";
 import {
   forwardRef,
   useId,
+  useState,
 } from "react";
 
 import FieldWrapper from "@/engine/components/form/FieldWrapper";
@@ -59,6 +60,21 @@ const Switch = forwardRef<
   const switchId =
     id ?? generatedId;
 
+  const isControlled =
+    checked !== undefined;
+
+  const [
+    uncontrolledChecked,
+    setUncontrolledChecked,
+  ] = useState(
+    defaultChecked ?? false
+  );
+
+  const currentChecked =
+    isControlled
+      ? checked
+      : uncontrolledChecked;
+
   const helperId =
     helperText
       ? `${switchId}-helper`
@@ -100,7 +116,7 @@ const Switch = forwardRef<
         required={required}
         role="switch"
         aria-checked={
-          checked
+          currentChecked
         }
         aria-invalid={
           error
@@ -111,6 +127,12 @@ const Switch = forwardRef<
           describedBy
         }
         onChange={(event) => {
+          if (!isControlled) {
+            setUncontrolledChecked(
+              event.target.checked
+            );
+          }
+
           onChange?.(
             event.target.checked
           );

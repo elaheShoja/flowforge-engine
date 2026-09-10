@@ -1,6 +1,7 @@
 import {
   useCallback,
   useEffect,
+  useId,
   useRef,
   useState,
 } from "react";
@@ -64,6 +65,18 @@ export default function Select(
     clearable = false,
     displayMode = "chips",
   } = props;
+
+  const selectId = useId();
+
+  const helperId = helperText
+    ? `${selectId}-helper`
+    : undefined;
+
+  const errorId = error
+    ? `${selectId}-error`
+    : undefined;
+
+  const describedBy = errorId ?? helperId;
 
   const {
     search,
@@ -216,6 +229,9 @@ export default function Select(
           setTotalCount(
             result.totalCount
           );
+        } catch {
+          return;
+          
         } finally {
           if (
             requestId ===
@@ -413,35 +429,46 @@ export default function Select(
       return;
     }
 
+    const selectedValues = Array.isArray(
+      selectedValue
+    )
+      ? selectedValue
+      : typeof selectedValue === "string"
+        ? [selectedValue]
+        : [];
+
     setRemoteSelectedOptions(
       (previous) => {
-        const next = [...previous];
+        const next = previous.filter(
+          (option) =>
+            selectedValues.includes(
+              option.value
+            )
+        );
+
+        let changed =
+          next.length !== previous.length;
 
         flatOptions.forEach(
           (option) => {
             if (
-              Array.isArray(
-                selectedValue
-              ) &&
-              selectedValue.includes(
+              selectedValues.includes(
                 option.value
+              ) &&
+              !next.some(
+                (item) =>
+                  item.value === option.value
               )
             ) {
-              const exists =
-                next.some(
-                  (item) =>
-                    item.value ===
-                    option.value
-                );
-
-              if (!exists) {
-                next.push(option);
-              }
+              next.push(option);
+              changed = true;
             }
           }
         );
 
-        return next;
+        return changed
+          ? next
+          : previous;
       }
     );
   }, [
@@ -674,6 +701,7 @@ export default function Select(
   const selectElement = (
     <>
       <div
+        id={selectId}
         ref={refs.setReference}
         tabIndex={
           disabled ? -1 : 0
@@ -682,6 +710,7 @@ export default function Select(
         aria-expanded={open}
         aria-haspopup="listbox"
         aria-disabled={disabled}
+        aria-describedby={describedBy}
         {...getReferenceProps({
           onKeyDown(event) {
             if (
@@ -848,7 +877,9 @@ export default function Select(
       label={label}
       required={required}
       error={error}
+      errorId={errorId}
       helperText={helperText}
+      helperId={helperId}
       fullWidth={fullWidth}
       disabled={disabled}
     >

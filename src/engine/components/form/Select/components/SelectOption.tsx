@@ -13,7 +13,7 @@ interface Props {
 
   selected: boolean;
 
-  onSelect: (
+  onSelect: ( 
     value: string
   ) => void;
 

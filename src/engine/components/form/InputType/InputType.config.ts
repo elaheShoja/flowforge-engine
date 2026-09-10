@@ -146,7 +146,7 @@ export const inputTypeConfig: Record<
   ------------------------------------------------------- */
 
   phone: {
-    inputType: "phone",
+    inputType: "tel",
 
     labelKey:
       "input.phone.label",

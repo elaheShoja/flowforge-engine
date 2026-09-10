@@ -171,87 +171,51 @@ export default function GroupInputDemo({
   ================================================== */
 
   const actionCountryOptions = [
-    {
-      value: "ir",
-      label: (
-        <span
-          style={{
-            display: "inline-flex",
-            alignItems: "center",
-            gap: "var(--space-xs)",
-          }}
-        >
-          <Flag
-            type="country"
-            code="IR"
-            size={16}
-          />
-
-          <span>Iran</span>
-        </span>
-      ),
-    },
-    {
-      value: "de",
-      label: (
-        <span
-          style={{
-            display: "inline-flex",
-            alignItems: "center",
-            gap: "var(--space-xs)",
-          }}
-        >
-          <Flag
-            type="country"
-            code="DE"
-            size={16}
-          />
-
-          <span>Germany</span>
-        </span>
-      ),
-    },
-    {
-      value: "az",
-      label: (
-        <span
-          style={{
-            display: "inline-flex",
-            alignItems: "center",
-            gap: "var(--space-xs)",
-          }}
-        >
-          <Flag
-            type="country"
-            code="AZ"
-            size={16}
-          />
-
-          <span>Azerbaijan</span>
-        </span>
-      ),
-    },
-    {
-      value: "tr",
-      label: (
-        <span
-          style={{
-            display: "inline-flex",
-            alignItems: "center",
-            gap: "var(--space-xs)",
-          }}
-        >
-          <Flag
-            type="country"
-            code="TR"
-            size={16}
-          />
-
-          <span>Turkey</span>
-        </span>
-      ),
-    },
-  ];
+  {
+    value: "ir",
+    label: "Iran",
+    icon: (
+      <Flag
+        type="country"
+        code="IR"
+        size={16}
+      />
+    ),
+  },
+  {
+    value: "de",
+    label: "Germany",
+    icon: (
+      <Flag
+        type="country"
+        code="DE"
+        size={16}
+      />
+    ),
+  },
+  {
+    value: "az",
+    label: "Azerbaijan",
+    icon: (
+      <Flag
+        type="country"
+        code="AZ"
+        size={16}
+      />
+    ),
+  },
+  {
+    value: "tr",
+    label: "Turkey",
+    icon: (
+      <Flag
+        type="country"
+        code="TR"
+        size={16}
+      />
+    ),
+  },
+];
 
   /* ==================================================
      Action Country Change

@@ -145,9 +145,7 @@ export default function GroupInput({
           index
         ) => {
           const Component =
-            groupInputRegistry[
-              item.componentName as keyof typeof groupInputRegistry
-            ] as React.ComponentType<
+            groupInputRegistry[item.componentName] as React.ComponentType<
               Record<string, unknown>
             >;
 
@@ -171,9 +169,13 @@ export default function GroupInput({
             Boolean(itemName);
 
           const itemValue =
-            hasValueName
+            hasValueName &&
+            Object.prototype.hasOwnProperty.call(
+              currentValue,
+              itemName!
+            )
               ? currentValue[itemName!]
-              : undefined;
+              : componentProps.value;
 
           /* ==================================================
              Child Props

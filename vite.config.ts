@@ -7,6 +7,10 @@ export default defineConfig({
     ? "/flowforge-engine/"
     : "/",
 
+  server: {
+    host: "127.0.0.1",
+  },
+
   plugins: [react()],
 
   resolve: {
